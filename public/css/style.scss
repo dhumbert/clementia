@@ -1,0 +1,17 @@
+body {
+  padding-top: 50px;
+}
+
+.alert {
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+.dropdown-menu {
+  &.logged-out {
+    li {
+      padding: 1em;
+    }
+  }
+}

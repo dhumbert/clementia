@@ -32,10 +32,21 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home.index');
-});
+/* Public routes */
+
+Route::get('/', array('as' => 'home', 'uses' => 'home@index'));
+
+/* End public routes */
+
+/* User routes */
+Route::get('user/(:num)', array('as' => 'user_profile', 'uses' => 'user@index'));
+Route::controller('user');
+/* End user routes */
+
+/* Session routes */
+Route::delete('logout', array('as' => 'logout', 'uses' => 'session@destroy'));
+Route::controller('session');
+/* End session routes */
 
 /*
 |--------------------------------------------------------------------------
