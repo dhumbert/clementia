@@ -36,7 +36,7 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $tester = IoC::resolve('tester');
     $result = $tester->test('element', 'http://google.com', array(
-      'element' => 'h1',
+      'tag' => 'h1',
     ));
     $this->assertFalse($result);
   }
@@ -57,7 +57,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     $tester = IoC::resolve('tester');
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
-      'element' => 'h1',
+      'tag' => 'h1',
     ));
 
     $this->assertTrue($result);
@@ -79,7 +79,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     $tester = IoC::resolve('tester');
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
-      'element' => 'invalidelement',
+      'tag' => 'invalidelement',
     ));
 
     $this->assertFalse($result);
@@ -101,7 +101,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     $tester = IoC::resolve('tester');
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
-      'element' => 'h1',
+      'tag' => 'h1',
       'text' => 'Hi!',
     ));
 
@@ -124,11 +124,33 @@ class TestTester extends PHPUnit_Framework_TestCase
     $tester = IoC::resolve('tester');
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
-      'element' => 'h1',
+      'tag' => 'h1',
       'text' => 'This is not the right text',
     ));
 
     $this->assertFalse($result);
   }
+/*
+  public function testElementMatchingWithClass() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
 
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="test">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'element' => 'h1',
+      'class' => 'test',
+    ));
+
+    $this->assertTrue($result);
+  }
+*/
 }

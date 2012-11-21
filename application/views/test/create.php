@@ -11,8 +11,8 @@
     <?php echo Form::label('type', 'Test Type'); ?>
     <?php echo Form::select('type', Config::get('tests.types')); ?>
 
-    <?php echo Form::label('options[element]', 'HTML Element'); ?>
-    <?php echo Form::select('options[element]', Config::get('tests.elements')); ?>
+    <?php echo Form::label('options[tag]', 'HTML Tag'); ?>
+    <?php echo Form::select('options[tag]', Config::get('tests.tags')); ?>
 
     <?php echo Form::label('options[text]', 'Element Inner Text'); ?>
     <?php echo Form::text('options[text]'); ?>

@@ -29,7 +29,7 @@ class Test extends Aware
 
     switch ($this->type) {
       case 'element':
-        $description = sprintf('Test for presence of element <code>%s</code>', $this->options['element']);
+        $description = sprintf('Test for presence of tag <code>%s</code>', $this->options['tag']);
         if ($this->options['text']) {
           $details[] = sprintf('With text <code>%s</code>', $this->options['text']);
         }

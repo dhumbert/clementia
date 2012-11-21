@@ -11,9 +11,9 @@ class HtmlParser
     $this->_doc = $doc;
   }
 
-  public function find($element, $innertext = NULL) 
+  public function find_by_tag($tag) 
   {
-    $elements = $this->_doc->getElementsByTagName($element);
+    $elements = $this->_doc->getElementsByTagName($tag);
     if (count($elements) > 0) {
       return $elements;
     }

@@ -4,7 +4,7 @@ return array(
   'types' => array(
     'element' => 'Test for the existence of an HTML element',
   ),
-  'elements' => array(
+  'tags' => array(
     'h1' => 'h1',
     'h2' => 'h2',
     'h3' => 'h3',
