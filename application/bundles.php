@@ -36,6 +36,7 @@
 return array(
 
 	'docs' => array('handles' => 'docs'),
+  'composer' => array('auto' => array('cli' => TRUE, 'web' => TRUE)),
   'aware' => array(
     'autoloads' => array(
       'map' => array(
