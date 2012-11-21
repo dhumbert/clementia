@@ -1,17 +1,20 @@
 <?php
 
-class Test_Controller extends Base_Controller {
+class Test_Controller extends Base_Controller 
+{
 
 	public $restful = TRUE;
 
-	public function get_list() {
+	public function get_list() 
+  {
     $tests = Auth::user()->tests;
 		$this->layout->nest('content', 'test.list', array(
       'tests' => $tests,
     ));
 	}
 
-  public function get_detail($id) {
+  public function get_detail($id) 
+  {
     $test = Test::find($id);
     if (!$test) {
       return Response::error('404');
@@ -22,15 +25,18 @@ class Test_Controller extends Base_Controller {
     }
   }
 
-  public function put_run($id) {
+  public function put_run($id) 
+  {
     echo 'sfd';
   }
 
-	public function get_create() {
+	public function get_create() 
+  {
 		$this->layout->nest('content', 'test.create');
 	}
 
-  public function post_create() {
+  public function post_create() 
+  {
     $test = new Test;
     $test->description = Input::get('description');
     $test->url = Input::get('url');

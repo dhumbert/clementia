@@ -1,6 +1,7 @@
 <?php
 
-class Test extends Aware {
+class Test extends Aware 
+{
   public static $timestamps = true;
 
   public static $rules = array(
@@ -8,7 +9,8 @@ class Test extends Aware {
     'type' => 'required',
   );
 
-  public function save_options($options) {
+  public function save_options($options) 
+  {
     switch($this->type) {
       case 'element':
         $this->options = json_encode(array(
@@ -19,7 +21,8 @@ class Test extends Aware {
     }
   }
 
-  public function user() {
+  public function user() 
+  {
     return $this->belongs_to('User');
   }
 }

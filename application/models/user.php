@@ -1,6 +1,7 @@
 <?php
 
-class User extends Aware {
+class User extends Aware 
+{
   public static $timestamps = true;
 
   public static $rules = array(
@@ -8,7 +9,8 @@ class User extends Aware {
     'password' => 'required',
   );
 
-  public function onSave() {
+  public function onSave() 
+  {
     // if there's a new password, hash it
     if($this->changed('password')) {
       $this->password = Hash::make($this->password);

@@ -1,10 +1,12 @@
 <?php
 
-class User_Controller extends Base_Controller {
+class User_Controller extends Base_Controller 
+{
 
 	public $restful = TRUE;
 
-	public function get_index($id = NULL) {
+	public function get_index($id = NULL) 
+	{
 		if (!$id && Auth::check()) $id = Auth::user()->id;
 
 		$user = User::find($id);
@@ -17,7 +19,8 @@ class User_Controller extends Base_Controller {
 		}
 	}
 
-	public function post_create() {
+	public function post_create() 
+	{
 		$user = new User;
 		$user->email = Input::get('email');
 		$user->password = Input::get('password');

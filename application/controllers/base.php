@@ -1,6 +1,7 @@
 <?php
 
-class Base_Controller extends Controller {
+class Base_Controller extends Controller 
+{
 	
 	public $layout = 'layouts.common';
 
