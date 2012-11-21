@@ -3,37 +3,55 @@
 class TestTester extends PHPUnit_Framework_TestCase 
 {
   private $_original_requests;
-  private $_mocked_requests;
+
+  public function __construct() {
+    $this->_original_requests = IoC::resolve('requests');
+    parent::__construct();
+  }
 
   public function setUp() 
   {
     Bundle::start('composer');
-
-    $this->_original_requests = IoC::resolve('requests');
-    // stub out the request class
-    $this->_mocked_requests = Mockery::mock('ClementiaRequest');
-
-    $test_result = new stdClass;
-    $test_result->status_code = 200;
-    $test_result->body = '<html><body><h1>Hi!</h1><div class="alert">ALERT</div></body></html>';
-    $this->_mocked_requests->shouldReceive('get')->andReturn($test_result);
-
-    // set the requests object to be our stub
-    IoC::instance('requests', $this->_mocked_requests);
-  }
-
-  public function tearDown() 
-  {
+    // reset IoC container for each test
     IoC::instance('requests', $this->_original_requests);
   }
 
-	public function testThatLibraryExists() 
+	public function testThatLibraryExistsAndIsAutoloaded() 
   {
 		$this->assertTrue(class_exists('Tester'));
 	}
 
+  public function testWhatHappensWhenRequestBreaks() 
+  {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 404;
+    $test_result->body = '404 error';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+    $result = $tester->element('http://google.com', 'h1');
+    $this->assertFalse($result);
+  }
+
   public function testElementMatchingWithNoText() 
   {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1></h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
     $tester = IoC::resolve('tester');
 
     $url = 'http://dhwebco.com';
@@ -45,6 +63,17 @@ class TestTester extends PHPUnit_Framework_TestCase
 
   public function testInvalidElementMatchingWithNoText() 
   {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1></h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
     $tester = IoC::resolve('tester');
 
     $url = 'http://dhwebco.com';
@@ -56,6 +85,17 @@ class TestTester extends PHPUnit_Framework_TestCase
 
   public function testElementMatchingWithText() 
   {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1>Hi!</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
     $tester = IoC::resolve('tester');
 
     $url = 'http://dhwebco.com';
@@ -68,6 +108,17 @@ class TestTester extends PHPUnit_Framework_TestCase
 
   public function testInvalidElementMatchingWithText() 
   {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1>Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
     $tester = IoC::resolve('tester');
 
     $url = 'http://dhwebco.com';
