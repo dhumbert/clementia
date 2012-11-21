@@ -64,4 +64,17 @@ class Test_Controller extends Base_Controller
     }
   }
 
+  public function delete_destroy($id) {
+    $test = Test::find($id);
+    if (!$test) {
+      return Response::error('404');
+    } else {
+      if ($test->destroy_if_user_can(Auth::user()->id)) {
+        return Redirect::to_route('test_list')->with('success', 'Test deleted.');
+      } else {
+        return Response::error('403');
+      }
+    }
+  }
+
 }

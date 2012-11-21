@@ -52,6 +52,7 @@ Route::controller('session');
 Route::group(array('before' => 'auth'), function(){
   
   /* Test routes */
+  Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
   Route::put('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
   Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
   Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));

@@ -54,6 +54,18 @@ class Test extends Aware
   }
 
   /**
+   * Destroy the record if the user is able to.
+   */
+  public function destroy_if_user_can($user_id) {
+    if ($user_id === $this->user_id) {
+      $this->delete();
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
+
+  /**
    * Relationships.
    */
   public function user() 

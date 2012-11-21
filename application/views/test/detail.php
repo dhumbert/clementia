@@ -21,9 +21,13 @@
   </ul>
 </div>
 
-  <p>
+  <p class="test-detail-actions">
     <a href="<?php echo URL::to_route('test_run', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="PUT" class="btn btn-success">
       <i class="icon-refresh icon-white"></i> Run Test
+    </a>
+
+    <a href="<?php echo URL::to_route('test_delete', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="DELETE" class="btn btn-danger">
+      <i class="icon-remove icon-white"></i> Delete Test
     </a>
   </p>
 
