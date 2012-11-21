@@ -130,14 +130,14 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $this->assertFalse($result);
   }
-/*
-  public function testElementMatchingWithClass() {
+
+  public function testInvalidElementMatchingWithID() {
     // stub out the request class
     $mock = Mockery::mock('ClementiaRequest');
 
     $test_result = new stdClass;
     $test_result->status_code = 200;
-    $test_result->body = '<html><body><h1 class="test">Some Text</h1></body></html>';
+    $test_result->body = '<html><body><h1>Some Text</h1></body></html>';
     $mock->shouldReceive('get')->andReturn($test_result);
 
     // set the requests object to be our stub
@@ -146,11 +146,165 @@ class TestTester extends PHPUnit_Framework_TestCase
     $tester = IoC::resolve('tester');
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
-      'element' => 'h1',
-      'class' => 'test',
+      'id' => 'title',
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testElementMatchingWithID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'id' => 'title',
     ));
 
     $this->assertTrue($result);
   }
-*/
+
+  public function testInvalidElementMatchingWithTagAndID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'tag' => 'h1',
+      'id' => 'wrongid',
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testElementMatchingWithTagAndID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'tag' => 'h1',
+      'id' => 'title',
+    ));
+
+    $this->assertTrue($result);
+  }
+
+  public function testInvalidElementMatchingWithTextAndID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'id' => 'title',
+      'text' => 'Wrong Text',
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testElementMatchingWithTextAndID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'id' => 'title',
+      'text' => 'Some Text',
+    ));
+
+    $this->assertTrue($result);
+  }
+
+  public function testInvalidElementMatchingWithTextTagAndID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'id' => 'title',
+      'tag' => 'h2',
+      'text' => 'Wrong Text',
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testElementMatchingWithTextTagAndID() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 id="title">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'id' => 'title',
+      'tag' => 'h1',
+      'text' => 'Some Text',
+    ));
+
+    $this->assertTrue($result);
+  }
+
 }

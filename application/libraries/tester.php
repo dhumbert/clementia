@@ -28,26 +28,40 @@ class Tester
     // load elements by tag name, if supplied
     if (isset($options['tag'])) {
       $elements = $this->_parser->find_by_tag($options['tag']);
-      if ($elements->length == 0) return FALSE;
+      if (!$elements) return FALSE;
     } 
 
     // Find the elements that have the supplied ID
     // if elements were found above, it uses those elements
     if (isset($options['id'])) {
-      //http://php.net/manual/en/domdocument.getelementbyid.php
+      if (!$elements) { // no elements found by tag
+        $element = $this->_parser->find_by_id($options['id']);
+        if (!$element) {
+          return FALSE;
+        } else {
+          $elements = array($element);
+        }
+      } else { // we found elements by tag, now see if we have one with the right ID
+        $success = FALSE;
+        foreach ($elements as $element) {
+          $id = $element->getAttribute('id');
+          $success = $id == $options['id'];
+        }
+        $failed = !$success;
+      }
     }
 
     // Find the elements that have the supplied class
-    // if elements were found above, it uses those elements
+    // we must have found elements by tag or ID
     if (isset($options['class'])) {
 
     }
 
     // Find the elements that have the supplied innertext
-    // we must have found elements by tag, id, or class
+    // we must have found elements by tag or ID
     if (isset($options['text'])) {
       $success = FALSE;
-      if ($elements->length == 0) return FALSE;
+      if (!$elements) return FALSE;
       foreach ($elements as $element) {
         $success = $element->textContent === $options['text'];
       }
