@@ -19,15 +19,24 @@ class Test_Controller extends Base_Controller
     if (!$test) {
       return Response::error('404');
     } else {
+      $logs = $test->logs()->order_by('created_at', 'desc')->get();
+
       $this->layout->nest('content', 'test.detail', array(
         'test' => $test,
+        'logs' => $logs,
       ));
     }
   }
 
   public function put_run($id) 
   {
-    echo 'sfd';
+    $test = Test::find($id);
+    if (!$test) {
+      return Response::error('404');
+    } else {
+      $test->run();
+      return Redirect::to_route('test_detail', array($id))->with('success', 'Sweet! The test was run.');
+    }
   }
 
 	public function get_create() 

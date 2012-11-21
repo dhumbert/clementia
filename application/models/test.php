@@ -25,4 +25,22 @@ class Test extends Aware
   {
     return $this->belongs_to('User');
   }
+
+  public function logs()
+  {
+    return $this->has_many('TestLog');
+  }
+
+  public function run() {
+    $tester = IoC::resolve('tester');
+    $passed = $tester->test($this->type, $this->url, (array)json_decode($this->options));
+
+    $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
+
+    TestLog::create(array(
+      'test_id' => $this->id,
+      'message' => $message,
+      'passed' => $passed,
+    ));
+  }
 }

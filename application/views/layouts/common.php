@@ -75,6 +75,23 @@
     </div>
   <?php endif; ?>
 
+  <?php if ($success = Session::get('success')): ?>
+    <div class="container" id="flash flash-success">
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <?php if (is_array($success)): ?>
+          <ul type="unstyled">
+            <?php foreach ($success as $s): ?>
+              <li><?php echo $s; ?></li>
+            <?php endforeach; ?>
+          </ul>
+        <?php else: ?>
+          <?php echo $success; ?>
+        <?php endif; ?>
+      </div>
+    </div>
+  <?php endif; ?>
+
   <div class="container" id="content">
     <?php echo Section::yield('content'); ?>
   </div>
