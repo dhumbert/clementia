@@ -35,7 +35,9 @@ class TestTester extends PHPUnit_Framework_TestCase
     IoC::instance('requests', $mock);
 
     $tester = IoC::resolve('tester');
-    $result = $tester->element('http://google.com', 'h1');
+    $result = $tester->test('element', 'http://google.com', array(
+      'element' => 'h1',
+    ));
     $this->assertFalse($result);
   }
 
@@ -54,10 +56,10 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $tester = IoC::resolve('tester');
 
-    $url = 'http://dhwebco.com';
-    $element = 'h1';
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'element' => 'h1',
+    ));
 
-    $result = $tester->element($url, $element);
     $this->assertTrue($result);
   }
 
@@ -76,10 +78,10 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $tester = IoC::resolve('tester');
 
-    $url = 'http://dhwebco.com';
-    $element = 'invalidelement';
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'element' => 'invalidelement',
+    ));
 
-    $result = $tester->element($url, $element);
     $this->assertFalse($result);
   }
 
@@ -98,11 +100,11 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $tester = IoC::resolve('tester');
 
-    $url = 'http://dhwebco.com';
-    $element = 'h1';
-    $text = 'Hi!';
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'element' => 'h1',
+      'text' => 'Hi!',
+    ));
 
-    $result = $tester->element($url, $element, $text);
     $this->assertTrue($result);
   }
 
@@ -121,11 +123,11 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $tester = IoC::resolve('tester');
 
-    $url = 'http://dhwebco.com';
-    $element = 'h1';
-    $text = 'This is not the right text.';
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'element' => 'h1',
+      'text' => 'This is not the right text',
+    ));
 
-    $result = $tester->element($url, $element, $text);
     $this->assertFalse($result);
   }
 

@@ -10,8 +10,17 @@ class Tester
     $this->_parser = IoC::resolve('htmlparser');
   }
 
-  public function element($url, $element, $text = NULL)
+  public function test($type, $url, $options = array()) {
+    if (method_exists($this, 'test_' . $type)) {
+      return call_user_func_array(array(&$this, 'test_'.$type), array($url, $options));
+    }
+  }
+
+  public function test_element($url, $options)
   {
+    $element = $options['element'];
+    $text = isset($options['text']) ? $options['text'] : NULL;
+
     $result = $this->_requests->get($url);
 
     if ($result->status_code == 200) {
