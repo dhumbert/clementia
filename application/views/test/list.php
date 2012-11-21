@@ -1,6 +1,18 @@
 <?php Section::start('content'); ?>
 
-<?php echo HTML::link('test/create', 'New Test'); ?>
+<?php if ($user_can_create_more_tests): ?>
+  <p>
+    <a class="btn btn-primary" href="<?php echo URL::to('test/create'); ?>">
+      <i class="icon-plus icon-white"></i>
+      New Test
+    </a>
+  </p>
+<?php else: ?>
+  <div class="alert alert-warning">
+    You have reached the maximum amount of tests you are allowed. If you'd like to add more, 
+    you will need to delete some of the ones below.
+  </div>
+<?php endif; ?>
 
 <table class="table table-striped">
   <tbody>

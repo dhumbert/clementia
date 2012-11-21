@@ -17,7 +17,9 @@
     <?php echo Form::label('options[text]', 'Element Inner Text'); ?>
     <?php echo Form::text('options[text]'); ?>
 
-    <?php echo Form::submit('Save Test', array('class' => 'btn btn-primary')); ?>
+    <div class="form-actions">
+        <?php echo Form::submit('Save Test', array('class' => 'btn btn-primary')); ?>
+    </div>
   
   <?php echo Form::close(); ?>
 <?php Section::stop(); ?>

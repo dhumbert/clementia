@@ -14,14 +14,16 @@ class Test extends Aware
     $this->options = json_encode($options);
   }
 
-  public function get_options() {
+  public function get_options() 
+  {
     return (array)json_decode($this->get_attribute('options'));
   }
 
   /**
    * Get some nice descriptive text about the test.
    */
-  public function generate_description_for_output() {
+  public function generate_description_for_output() 
+  {
     $description = 'Unknown Test';
     $details = array();
 
@@ -40,7 +42,8 @@ class Test extends Aware
   /**
    * Run the test and create a TestLog.
    */
-  public function run() {
+  public function run() 
+  {
     $tester = IoC::resolve('tester');
     $passed = $tester->test($this->type, $this->url, $this->options);
 
@@ -56,12 +59,27 @@ class Test extends Aware
   /**
    * Destroy the record if the user is able to.
    */
-  public function destroy_if_user_can($user_id) {
+  public function destroy_if_user_can($user_id) 
+  {
     if ($user_id === $this->user_id) {
       $this->delete();
       return TRUE;
     } else {
       return FALSE;
+    }
+  }
+
+  public function onSave() 
+  {
+    return $this->check_for_max_tests();
+  }
+
+  private function check_for_max_tests() 
+  {
+    if (Auth::user()->has_reached_his_test_limit()) {
+      throw new Max_Tests_Exceeded_Exception;
+    } else {
+      return TRUE;
     }
   }
 
@@ -78,3 +96,5 @@ class Test extends Aware
     return $this->has_many('TestLog');
   }
 }
+
+class Max_Tests_Exceeded_Exception extends Exception {}

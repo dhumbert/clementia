@@ -23,4 +23,15 @@ class User extends Aware
   {
     return $this->has_many('Test');
   }
+
+  public function has_reached_his_test_limit() {
+    $max_tests = Config::get('tests.default_max_tests');
+    $existing_tests = count($this->tests);
+
+    if ($existing_tests >= $max_tests) {
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+  }
 }

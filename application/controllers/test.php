@@ -8,8 +8,10 @@ class Test_Controller extends Base_Controller
 	public function get_list() 
   {
     $tests = Auth::user()->tests;
+    $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
 		$this->layout->nest('content', 'test.list', array(
       'tests' => $tests,
+      'user_can_create_more_tests' => $user_can_create_more_tests,
     ));
 	}
 
@@ -55,12 +57,16 @@ class Test_Controller extends Base_Controller
     $test->user_id = Auth::user()->id;
     $test->save_options(Input::get('options'));
 
-    if ($test->save()) {
-      return Redirect::to('test');
-    } else {
-      return Redirect::to('test/create')
-        ->with('error', $test->errors->all())
-        ->with_input();
+    try {
+      if ($test->save()) {
+        return Redirect::to('test');
+      } else {
+        return Redirect::to('test/create')
+          ->with('error', $test->errors->all())
+          ->with_input();
+      }
+    } catch (Max_Tests_Exceeded_Exception $e) {
+      return Redirect::to_route('test_list')->with('error', 'Sorry! You have reached the maximum amount of tests you are allowed.');
     }
   }
 
