@@ -48,6 +48,18 @@ Route::delete('logout', array('as' => 'logout', 'uses' => 'session@destroy'));
 Route::controller('session');
 /* End session routes */
 
+/* Protected routes */
+Route::group(array('before' => 'auth'), function(){
+  
+  /* Test routes */
+  Route::put('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
+  Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
+  Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
+  Route::controller('test');
+  /* End test routes */
+  
+});
+
 /*
 |--------------------------------------------------------------------------
 | Application 404 & 500 Error Handlers

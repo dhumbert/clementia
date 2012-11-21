@@ -26,6 +26,7 @@
                   <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu logged-in">
+                  <li><?php echo HTML::link('test', 'Tests'); ?></li>
                   <li><?php echo HTML::link_to_route('user_profile', 'Profile'); ?></li>
                   <li><?php echo HTML::link_to_route('logout', 'Log out', array(), array('data-method' => 'DELETE')); ?></li>
                 </ul>
@@ -61,7 +62,15 @@
     <div class="container" id="flash flash-error">
       <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <?php echo $error; ?>
+        <?php if (is_array($error)): ?>
+          <ul type="unstyled">
+            <?php foreach ($error as $e): ?>
+              <li><?php echo $e; ?></li>
+            <?php endforeach; ?>
+          </ul>
+        <?php else: ?>
+          <?php echo $error; ?>
+        <?php endif; ?>
       </div>
     </div>
   <?php endif; ?>

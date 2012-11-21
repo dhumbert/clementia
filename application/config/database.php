@@ -70,11 +70,12 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'database',
+			'database' => 'clementia',
 			'username' => 'root',
-			'password' => '',
+			'password' => 'root',
 			'charset'  => 'utf8',
 			'prefix'   => '',
+			'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock', // /tmp/mysql.sock
 		),
 
 		'pgsql' => array(

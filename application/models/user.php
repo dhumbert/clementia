@@ -16,4 +16,9 @@ class User extends Aware {
 
     return true;
   }
+
+  public function tests()
+  {
+    return $this->has_many('Test');
+  }
 }
