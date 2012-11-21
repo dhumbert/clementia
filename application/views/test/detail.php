@@ -2,13 +2,29 @@
   
   <h2><?php echo $test->description; ?></h2>
 
-  <p>
-    <a href="<?php echo $test->url; ?>" target="_blank"><?php echo $test->url; ?></a>
-    <i class="icon-share"></i>    
-  </p>
+  <div class="well well-large">
+  <ul class=" test-description">
+    <li>
+      Visit <a href="<?php echo $test->url; ?>" target="_blank"><?php echo $test->url; ?></a>
+      <i class="icon-share"></i>    
+    </li>
+    <li>
+      <?php echo $description['description']; ?>
+      <?php if (count($description['details']) > 0): ?>
+        <ul class=" test-description-details">
+          <?php foreach ($description['details'] as $detail): ?>
+            <li><?php echo $detail; ?></li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif; ?>
+    </li>
+  </ul>
+</div>
 
   <p>
-    <?php echo HTML::link_to_route('test_run', 'Run Test', array($test->id), array('data-token' => Session::token(), 'data-method' => 'PUT', 'class' => 'btn btn-success')); ?>
+    <a href="<?php echo URL::to_route('test_run', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="PUT" class="btn btn-success">
+      <i class="icon-refresh icon-white"></i> Run Test
+    </a>
   </p>
 
   <?php if (count($logs) > 0): ?>

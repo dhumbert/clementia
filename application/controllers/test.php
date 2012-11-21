@@ -20,10 +20,12 @@ class Test_Controller extends Base_Controller
       return Response::error('404');
     } else {
       $logs = $test->logs()->order_by('created_at', 'desc')->get();
+      $description = $test->generate_description_for_output();
 
       $this->layout->nest('content', 'test.detail', array(
         'test' => $test,
         'logs' => $logs,
+        'description' => $description,
       ));
     }
   }

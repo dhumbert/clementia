@@ -11,29 +11,38 @@ class Test extends Aware
 
   public function save_options($options) 
   {
-    switch($this->type) {
+    $this->options = json_encode($options);
+  }
+
+  public function get_options() {
+    return (array)json_decode($this->get_attribute('options'));
+  }
+
+  /**
+   * Get some nice descriptive text about the test.
+   */
+  public function generate_description_for_output() {
+    $description = 'Unknown Test';
+    $details = array();
+
+    switch ($this->type) {
       case 'element':
-        $this->options = json_encode(array(
-          'element' => $options['element'],
-          'text' => $options['text'],
-        ));
+        $description = sprintf('Test for presence of element <code>%s</code>', $this->options['element']);
+        if ($this->options['text']) {
+          $details[] = sprintf('With text <code>%s</code>', $this->options['text']);
+        }
         break;
     }
+
+    return array('description' => $description, 'details' => $details);
   }
 
-  public function user() 
-  {
-    return $this->belongs_to('User');
-  }
-
-  public function logs()
-  {
-    return $this->has_many('TestLog');
-  }
-
+  /**
+   * Run the test and create a TestLog.
+   */
   public function run() {
     $tester = IoC::resolve('tester');
-    $passed = $tester->test($this->type, $this->url, (array)json_decode($this->options));
+    $passed = $tester->test($this->type, $this->url, $this->options);
 
     $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
 
@@ -42,5 +51,18 @@ class Test extends Aware
       'message' => $message,
       'passed' => $passed,
     ));
+  }
+
+  /**
+   * Relationships.
+   */
+  public function user() 
+  {
+    return $this->belongs_to('User');
+  }
+
+  public function logs()
+  {
+    return $this->has_many('TestLog');
   }
 }
