@@ -10,7 +10,8 @@ class Tester
     $this->_parser = IoC::resolve('htmlparser');
   }
 
-  public function test($type, $url, $options = array()) {
+  public function test($type, $url, $options = array()) 
+  {
     if (method_exists($this, 'test_' . $type)) {
       return call_user_func_array(array(&$this, 'test_'.$type), array($url, $options));
     }
@@ -28,13 +29,13 @@ class Tester
     // load elements by tag name, if supplied
     if (isset($options['tag'])) {
       $elements = $this->_parser->find_by_tag($options['tag']);
-      if (!$elements) return FALSE;
-    } 
+      if (count($elements) == 0) return FALSE;
+    }
 
     // Find the elements that have the supplied ID
     // if elements were found above, it uses those elements
     if (isset($options['id'])) {
-      if (!$elements) { // no elements found by tag
+      if (count($elements) == 0) { // no elements found by tag
         $element = $this->_parser->find_by_id($options['id']);
         if (!$element) {
           return FALSE;
@@ -42,36 +43,40 @@ class Tester
           $elements = array($element);
         }
       } else { // we found elements by tag, now see if we have one with the right ID
-        $success = FALSE;
-        foreach ($elements as $element) {
-          $id = $element->getAttribute('id');
-          $success = $id == $options['id'];
-        }
-        $failed = !$success;
+        $elements = $this->_parser->filter_elements_by_attribute($elements, 'id', $options['id']);
       }
     }
 
+    // by this point, if we don't have any elements, FAIL
+    if (count($elements) == 0) return FALSE;
+
     // Find the elements that have the supplied class
     // we must have found elements by tag or ID
-    if (isset($options['class'])) {
+    if (isset($options['attributes']) && is_array($options['attributes']) 
+      && count($options['attributes']) > 0) {
+
+      foreach ($options['attributes'] as $attribute => $value) {
+        if (count($elements) == 0) break; // OK, we've filtered out everything
+        $elements = $this->_parser->filter_elements_by_attribute($elements, $attribute, $value);
+      }
 
     }
 
     // Find the elements that have the supplied innertext
     // we must have found elements by tag or ID
     if (isset($options['text'])) {
-      $success = FALSE;
-      if (!$elements) return FALSE;
-      foreach ($elements as $element) {
-        $success = $element->textContent === $options['text'];
+      foreach ($elements as $i => $element) {
+        if ($element->textContent !== $options['text']) {
+          unset($elements[$i]);
+        }
       }
-      $failed = !$success;
     }
 
-    return !$failed;
+    return count($elements) > 0;
   }
 
-  private function get_url($url) {
+  private function get_url($url) 
+  {
     $result = $this->_requests->get($url);
 
     if ($result->status_code == 200) {

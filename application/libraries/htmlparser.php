@@ -15,18 +15,44 @@ class HtmlParser
   {
     $elements = $this->_doc->getElementsByTagName($tag);
     if ($elements->length > 0) {
-      return $elements;
+      return $this->domlist_to_array($elements);
     }
 
-    return FALSE;
+    return array();
   }
 
-  public function find_by_id($id) {
+  public function find_by_id($id) 
+  {
     $element = $this->_doc->getElementById($id);
     if ($element) {
       return $element;
     }
 
-    return FALSE;
+    return array();
+  }
+
+  public function filter_elements_by_attribute($elements, $attribute, $value = NULL) 
+  {
+    if (!is_array($elements) || count($elements) == 0) return array();
+
+    $result = array();
+
+    foreach ($elements as $element) {
+      $attr = $element->getAttribute($attribute);
+      if (!$attr) continue;
+      if ($value && $attr !== $value) continue;
+      $result[] = $element;
+    }
+
+    return $result;
+  }
+
+  private function domlist_to_array($domlist)
+  {
+    $return = array();
+    for ($i = 0; $i < $domlist->length; ++$i) {
+        $return[] = $domlist->item($i);
+    }
+    return $return;
   }
 }
