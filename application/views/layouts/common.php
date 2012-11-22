@@ -100,8 +100,10 @@
   <script>
       var dojoConfig = {
           async: 1,
+          baseUrl: "<?php echo URL::to_asset('js/dojo'); ?>",
           packages: [
-              { name: "bootstrap", location: "<?php echo URL::to_asset('js/dojo/Dojo-Bootstrap'); ?>" }
+              { name: "bootstrap", location: "Dojo-Bootstrap" },
+              { name: "clementia", location: "clementia" }
           ]
       };
   </script>
