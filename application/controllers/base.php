@@ -11,8 +11,7 @@ class Base_Controller extends Controller
 		$this->filter('before', 'csrf')->on(array('post', 'put'));
 
 		// assets
-		Asset::container('footer')->add('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
-		Asset::container('footer')->add('bootstrap-js', 'js/bootstrap.min.js');
+		Asset::container('footer')->add('dojo', 'https://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js', array(), array('data-dojo-config' => 'async: true'));
 		Asset::container('footer')->add('application-js', 'js/application.js');
 		Asset::add('bootstrap-css', 'css/bootstrap.min.css');
 		Asset::add('style', 'css/style.css');

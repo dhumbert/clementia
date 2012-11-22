@@ -21,21 +21,22 @@
           <ul class="nav pull-right">
             <li class="dropdown">
               <?php if (Auth::check()): ?>
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-target="#logged-in-menu">
                   Account
                   <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu logged-in">
+                <ul id="logged-in-menu" class="dropdown-menu logged-in">
                   <li><?php echo HTML::link('test', 'Tests'); ?></li>
                   <li><?php echo HTML::link_to_route('user_profile', 'Profile'); ?></li>
+                  <li class="divider"></li>
                   <li><?php echo HTML::link_to_route('logout', 'Log out', array(), array('data-method' => 'DELETE')); ?></li>
                 </ul>
               <?php else: ?>
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"  data-target="#logged-out-menu">
                   Log in
                   <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu logged-out">
+                <ul id="logged-out-menu" class="dropdown-menu logged-out">
                   <li>
                     <?php echo Form::open('session/create', 'PUT'); ?>
                     <?php echo Form::token(); ?>
@@ -95,6 +96,16 @@
   <div class="container" id="content">
     <?php echo Section::yield('content'); ?>
   </div>
+
+  <script>
+      var dojoConfig = {
+          async: 1,
+          packages: [
+              { name: "bootstrap", location: "<?php echo URL::to_asset('js/dojo/Dojo-Bootstrap'); ?>" }
+          ]
+      };
+  </script>
+
   <?php echo Asset::container('footer')->scripts(); ?>
 </body>
 </html>
