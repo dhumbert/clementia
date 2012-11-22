@@ -27,14 +27,14 @@ class Tester
     $elements = array();
 
     // load elements by tag name, if supplied
-    if (isset($options['tag'])) {
+    if (isset($options['tag']) && $options['tag'] != '') {
       $elements = $this->_parser->find_by_tag($options['tag']);
       if (count($elements) == 0) return FALSE;
     }
 
     // Find the elements that have the supplied ID
     // if elements were found above, it uses those elements
-    if (isset($options['id'])) {
+    if (isset($options['id']) && $options['id'] != '') {
       if (count($elements) == 0) { // no elements found by tag
         $element = $this->_parser->find_by_id($options['id']);
         if (!$element) {
@@ -64,7 +64,7 @@ class Tester
 
     // Find the elements that have the supplied innertext
     // we must have found elements by tag or ID
-    if (isset($options['text'])) {
+    if (isset($options['text']) && $options['text'] != '') {
       foreach ($elements as $i => $element) {
         if ($element->textContent !== $options['text']) {
           unset($elements[$i]);

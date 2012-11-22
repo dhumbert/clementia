@@ -11,6 +11,7 @@ class Test extends Aware
 
   public function save_options($options) 
   {
+    $options = array_map('trim', $options);
     $this->options = json_encode($options);
   }
 
@@ -30,7 +31,11 @@ class Test extends Aware
     switch ($this->type) {
       case 'element':
         $description = sprintf('Test for presence of tag <code>%s</code>', $this->options['tag']);
-        if ($this->options['text']) {
+        if (!empty($this->options['id'])) {
+          $details[] = sprintf('With ID <code>%s</code>', $this->options['id']);
+        }
+
+        if (!empty($this->options['text'])) {
           $details[] = sprintf('With text <code>%s</code>', $this->options['text']);
         }
         break;
