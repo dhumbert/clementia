@@ -2,9 +2,10 @@
 
 return array(
   'types' => array(
-    'element' => 'Test for the existence of an HTML element',
+    'element' => 'Test for the existence of HTML elements',
   ),
   'tags' => array(
+    '' => 'Any',
     'h1' => 'h1',
     'h2' => 'h2',
     'h3' => 'h3',
