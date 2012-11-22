@@ -6,6 +6,7 @@ class HtmlParser
 
   public function load($html) 
   {
+    libxml_use_internal_errors(TRUE);
     $doc = new DOMDocument();
     $doc->loadHTML($html);
     $this->_doc = $doc;
