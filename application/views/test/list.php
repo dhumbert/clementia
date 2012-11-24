@@ -19,15 +19,15 @@
     <?php foreach ($tests as $test): ?>
       <tr>
         <td>
-          <?php echo $test->description; ?>
+          <?php echo HTML::link_to_route('test_detail', $test->description, array($test->id)); ?>
         </td>
         <td>
           <a href="<?php echo $test->url; ?>" target="_blank"><?php echo $test->url; ?></a>
           <i class="icon-share"></i>
         </td>
         <td>
-          <i class="icon-zoom-in"></i>
-          <?php echo HTML::link_to_route('test_detail', 'Details', array($test->id)); ?>
+          <a href="<?php echo URL::to_route('test_detail', array($test->id)); ?>"><i class="icon-zoom-in"></i></a>
+          <a data-method="DELETE" href="<?php echo URL::to_route('test_delete', array($test->id)); ?>"><i class="icon-remove"></i></a>
         </td>
       </tr>
     <?php endforeach; ?>
