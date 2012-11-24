@@ -40,35 +40,36 @@
             <span class="help-block">
                 Choose how to select the element(s). You must select an HTML tag, 
                 enter an ID, or both. Once the elements are selected they
-                will be filtered according to the other criteria you select.</span>
-
-            <?php echo Form::label('options[tag]', 'HTML Tag'); ?>
-            <?php echo Form::select('options[tag]', Config::get('tests.tags')); ?>
-
-            <?php echo Form::label('options[id]', 'ID'); ?>
-            <?php echo Form::text('options[id]'); ?>
+                will be filtered according to the other criteria you select.
+            </span>
         </div>
+
         <div class="span6">
             <h4>Filter the Elements</h4>
             <span class="help-block">
-                Choose how to filter the element(s).</span>
-
-            <div class="attributes">
-                <div class="row">
-                    <div class="span3">
-                        <?php echo Form::label('', 'Attribute'); ?>
-                        <?php echo Form::text('attributes[attr]'); ?>
-                    </div>
-                    <div class="span3">
-                        <?php echo Form::label('', 'Value'); ?>
-                        <?php echo Form::text('attributes[value]'); ?>
-                    </div>
-                </div>
-            </div>
-
-            <a href="javascript:void(0);" id="add-attribute" class="pull-right btn btn-secondary">Add Attribute</a>
+                Choose how to filter the element(s). After the elements are found using the HTML tag
+                or ID you entered, they will be checked for the CSS class or inner text that you specify
+                below. You can leave either or both of these blank, if you'd like.
+            </span>
+        </div>
             
-
+    </div>
+        
+    <div class="row">
+        <div class="span3">
+            <?php echo Form::label('options[tag]', 'HTML Tag'); ?>
+            <?php echo Form::select('options[tag]', Config::get('tests.tags')); ?>
+        </div>
+        <div class="span3">
+            <?php echo Form::label('options[id]', 'ID'); ?>
+            <?php echo Form::text('options[id]'); ?>
+        </div>
+        
+        <div class="span3">
+            <?php echo Form::label('options[attributes][class]', 'CSS Class'); ?>
+            <?php echo Form::text('options[attributes][class]'); ?>
+        </div>
+        <div class="span3">
             <?php echo Form::label('options[text]', 'Element Inner Text'); ?>
             <?php echo Form::text('options[text]'); ?>
         </div>
@@ -79,8 +80,4 @@
     </div>
   
   <?php echo Form::close(); ?>
-<?php Section::stop(); ?>
-
-<?php Section::start('additional_footer_content'); ?>
-<script>require(['clementia/dynamic-attributes']);</script>
 <?php Section::stop(); ?>

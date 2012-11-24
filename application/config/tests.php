@@ -15,4 +15,7 @@ return array(
     'h6' => 'h6',
   ),
   'default_max_tests' => 5,
+  'allowed_attributes' => array(
+    'class',
+  ),
 );
