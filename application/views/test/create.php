@@ -53,6 +53,20 @@
             <span class="help-block">
                 Choose how to filter the element(s).</span>
 
+            <div class="attributes">
+                <div class="row">
+                    <div class="span3">
+                        <?php echo Form::label('', 'Attribute'); ?>
+                        <?php echo Form::text('attributes[attr]'); ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo Form::label('', 'Value'); ?>
+                        <?php echo Form::text('attributes[value]'); ?>
+                    </div>
+                </div>
+            </div>
+
+            <a href="javascript:void(0);" id="add-attribute" class="pull-right btn btn-secondary">Add Attribute</a>
             
 
             <?php echo Form::label('options[text]', 'Element Inner Text'); ?>
@@ -65,4 +79,8 @@
     </div>
   
   <?php echo Form::close(); ?>
+<?php Section::stop(); ?>
+
+<?php Section::start('additional_footer_content'); ?>
+<script>require(['clementia/dynamic-attributes']);</script>
 <?php Section::stop(); ?>

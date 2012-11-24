@@ -109,5 +109,6 @@
   </script>
 
   <?php echo Asset::container('footer')->scripts(); ?>
+  <?php echo Section::yield('additional_footer_content'); ?>
 </body>
 </html>
