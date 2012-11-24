@@ -9,15 +9,15 @@ class Test extends Aware
     'type' => 'required',
   );
 
-  public function save_options($options) 
+  public function set_options($options) 
   {
-    $options = array_map('trim', $options);
-    $this->options = json_encode($options);
+    $options = array_map_deep('trim', $options);
+    $this->set_attribute('options', json_encode($options));
   }
 
   public function get_options() 
   {
-    return (array)json_decode($this->get_attribute('options'));
+    return json_decode($this->get_attribute('options'), TRUE);
   }
 
   /**
@@ -33,6 +33,12 @@ class Test extends Aware
         $description = sprintf('Test for presence of tag <code>%s</code>', $this->options['tag']);
         if (!empty($this->options['id'])) {
           $details[] = sprintf('With ID <code>%s</code>', $this->options['id']);
+        }
+
+        if (!empty($this->options['attributes'])) {
+          foreach ($this->options['attributes'] as $attr => $val) {
+            $details[] = sprintf('With attribute <code>%s</code> equal to <code>%s</code>', $attr, $val);
+          }
         }
 
         if (!empty($this->options['text'])) {

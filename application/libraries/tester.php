@@ -19,8 +19,6 @@ class Tester
 
   public function test_element($url, $options)
   {
-    $failed = FALSE;
-
     $loaded = $this->get_url($url);
     if (!$loaded) return FALSE;
 

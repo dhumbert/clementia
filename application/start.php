@@ -188,3 +188,16 @@ IoC::register('requests', function() {
 IoC::register('htmlparser', function() {
   return new HtmlParser;
 });
+
+/* utility functions */
+function array_map_deep($callback, array $array) {
+    $new = array();
+    foreach ($array as $key => $val) {
+        if (is_array($val)) {
+            $new[$key] = array_map_deep($callback, $val);
+        } else {
+            $new[$key] = call_user_func($callback, $val);
+        }
+    }
+    return $new;
+}  

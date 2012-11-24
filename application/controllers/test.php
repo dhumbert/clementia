@@ -55,7 +55,7 @@ class Test_Controller extends Base_Controller
     $test->url = Input::get('url');
     $test->type = Input::get('type');
     $test->user_id = Auth::user()->id;
-    $test->save_options(Input::get('options'));
+    $test->options = Input::get('options');
 
     try {
       if ($test->save()) {
