@@ -29,7 +29,7 @@ class HtmlParser
       return $element;
     }
 
-    return array();
+    return NULL;
   }
 
   public function filter_elements_by_attribute($elements, $attribute, $value = NULL) 
@@ -41,7 +41,14 @@ class HtmlParser
     foreach ($elements as $element) {
       $attr = $element->getAttribute($attribute);
       if (!$attr) continue;
-      if ($value && $attr !== $value) continue;
+      if ($value) {
+        if ($attribute == 'class') { // allow for multiple CSS classes separated by a space
+          $classes = explode(' ', $attr);
+          if (!in_array($value, $classes)) continue;
+        } else { // just straight string match
+          if ($attr !== $value) continue;
+        }
+      }
       $result[] = $element;
     }
 

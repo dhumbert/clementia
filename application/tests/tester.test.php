@@ -405,4 +405,52 @@ class TestTester extends PHPUnit_Framework_TestCase
     $this->assertTrue($result);
   }
 
+  public function testInvalidElementMatchingWithMultipleClasses() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="active hover">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'tag' => 'h1',
+      'attributes' => array(
+        'class' => 'wrongclass',
+      ),
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testElementMatchingWithMultipleClasses() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="active hover">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('element', 'http://dhwebco.com', array(
+      'tag' => 'h1',
+      'attributes' => array(
+        'class' => 'hover',
+      ),
+    ));
+
+    $this->assertTrue($result);
+  }
+
 }
