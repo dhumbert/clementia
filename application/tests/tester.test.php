@@ -102,7 +102,7 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
       'tag' => 'h1',
-      'text' => 'Hi!',
+      'inner_text' => 'Hi!',
     ));
 
     $this->assertTrue($result);
@@ -125,7 +125,7 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
       'tag' => 'h1',
-      'text' => 'This is not the right text',
+      'inner_text' => 'This is not the right text',
     ));
 
     $this->assertFalse($result);
@@ -233,7 +233,7 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
       'id' => 'title',
-      'text' => 'Wrong Text',
+      'inner_text' => 'Wrong Text',
     ));
 
     $this->assertFalse($result);
@@ -255,7 +255,7 @@ class TestTester extends PHPUnit_Framework_TestCase
 
     $result = $tester->test('element', 'http://dhwebco.com', array(
       'id' => 'title',
-      'text' => 'Some Text',
+      'inner_text' => 'Some Text',
     ));
 
     $this->assertTrue($result);
@@ -278,7 +278,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     $result = $tester->test('element', 'http://dhwebco.com', array(
       'id' => 'title',
       'tag' => 'h2',
-      'text' => 'Wrong Text',
+      'inner_text' => 'Wrong Text',
     ));
 
     $this->assertFalse($result);
@@ -301,7 +301,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     $result = $tester->test('element', 'http://dhwebco.com', array(
       'id' => 'title',
       'tag' => 'h1',
-      'text' => 'Some Text',
+      'inner_text' => 'Some Text',
     ));
 
     $this->assertTrue($result);

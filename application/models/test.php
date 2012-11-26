@@ -41,8 +41,16 @@ class Test extends Aware
           }
         }
 
-        if (!empty($this->options['text'])) {
-          $details[] = sprintf('With text <code>%s</code>', $this->options['text']);
+        if (!empty($this->options['inner_text'])) {
+          $details[] = sprintf('With text <code>%s</code>', $this->options['inner_text']);
+        }
+        break;
+      case 'text':
+        $description = sprintf('Test for presence of text <code>%s</code>', $this->options['text']);
+        if ((bool)$this->options['case_sensitive'] == TRUE) {
+          $details[] = 'Case sensitive';
+        } else {
+          $details[] = 'Case insensitive';
         }
         break;
     }

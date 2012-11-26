@@ -64,9 +64,9 @@ class Tester
 
     // Find the elements that have the supplied innertext
     // we must have found elements by tag or ID
-    if (isset($options['text']) && $options['text'] != '') {
+    if (isset($options['inner_text']) && $options['inner_text'] != '') {
       foreach ($elements as $i => $element) {
-        if ($element->textContent !== $options['text']) {
+        if ($element->textContent !== $options['inner_text']) {
           unset($elements[$i]);
         }
       }
@@ -77,7 +77,7 @@ class Tester
 
   public function test_text($url, $options) {
     if (!isset($options['text'])) return FALSE;
-    $case_sensitive = isset($options['case_sensitive']) ? $options['case_sensitive'] : FALSE;
+    $case_sensitive = isset($options['case_sensitive']) ? (bool)$options['case_sensitive'] : FALSE;
 
     $result = $this->_requests->get($url);
     if ($result->status_code == 200) {

@@ -2,6 +2,7 @@
 
 return array(
   'types' => array(
+    'text' => 'Test for the presence of a text string',
     'element' => 'Test for the existence of HTML elements',
   ),
   'tags' => array(
