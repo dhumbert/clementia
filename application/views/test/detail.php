@@ -36,7 +36,7 @@
       <?php foreach ($logs as $log): ?>
         <tr class="<?php echo $log->passed ? 'success' : 'error'; ?>">
           <td><?php echo $log->message; ?></td>
-          <td><?php echo DateFmt::Format('AGO[t]IF-FAR[d##my]', strtotime($log->created_at)); ?></td>
+          <td><?php echo DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($log->created_at)); ?></td>
         </tr>
       <?php endforeach; ?>
     </table>
