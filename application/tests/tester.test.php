@@ -453,4 +453,90 @@ class TestTester extends PHPUnit_Framework_TestCase
     $this->assertTrue($result);
   }
 
+  public function testInvalidTextMatchingCaseInsensitive() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="active hover">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('text', 'http://dhwebco.com', array(
+      'text' => 'Text not present',
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testTextMatchingCaseInsensitive() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="active hover">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('text', 'http://dhwebco.com', array(
+      'text' => 'SOME TEXT',
+    ));
+
+    $this->assertTrue($result);
+  }
+
+  public function testInvalidTextMatchingCaseSensitive() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="active hover">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('text', 'http://dhwebco.com', array(
+      'text' => 'SOME Text',
+      'case_sensitive' => TRUE,
+    ));
+
+    $this->assertFalse($result);
+  }
+
+  public function testTextMatchingCaseSensitive() {
+    // stub out the request class
+    $mock = Mockery::mock('ClementiaRequest');
+
+    $test_result = new stdClass;
+    $test_result->status_code = 200;
+    $test_result->body = '<html><body><h1 class="active hover">Some Text</h1></body></html>';
+    $mock->shouldReceive('get')->andReturn($test_result);
+
+    // set the requests object to be our stub
+    IoC::instance('requests', $mock);
+
+    $tester = IoC::resolve('tester');
+
+    $result = $tester->test('text', 'http://dhwebco.com', array(
+      'text' => 'Some Text',
+      'case_sensitive' => TRUE,
+    ));
+
+    $this->assertTrue($result);
+  }
+
 }

@@ -14,6 +14,8 @@ class Tester
   {
     if (method_exists($this, 'test_' . $type)) {
       return call_user_func_array(array(&$this, 'test_'.$type), array($url, $options));
+    } else {
+      return FALSE;
     }
   }
 
@@ -71,6 +73,23 @@ class Tester
     }
 
     return count($elements) > 0;
+  }
+
+  public function test_text($url, $options) {
+    if (!isset($options['text'])) return FALSE;
+    $case_sensitive = isset($options['case_sensitive']) ? $options['case_sensitive'] : FALSE;
+
+    $result = $this->_requests->get($url);
+    if ($result->status_code == 200) {
+      $func = $case_sensitive ? 'strstr' : 'stristr';
+      if ($func($result->body, $options['text'])) {
+        return TRUE;
+      } else {
+        return FALSE;
+      }
+    } else {
+      return FALSE;
+    }
   }
 
   private function get_url($url) 
