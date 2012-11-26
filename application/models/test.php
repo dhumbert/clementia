@@ -47,7 +47,7 @@ class Test extends Aware
         break;
       case 'text':
         $description = sprintf('Test for presence of text <code>%s</code>', $this->options['text']);
-        if ((bool)$this->options['case_sensitive'] == TRUE) {
+        if (!empty($this->options['case_sensitive']) && (bool)$this->options['case_sensitive'] == TRUE) {
           $details[] = 'Case sensitive';
         } else {
           $details[] = 'Case insensitive';
