@@ -59,7 +59,7 @@ class Test_Controller extends Base_Controller
 
     try {
       if ($test->save()) {
-        return Redirect::to('test');
+        return Redirect::to_route('test_detail', array($test->id));
       } else {
         return Redirect::to('test/create')
           ->with('error', $test->errors->all())
