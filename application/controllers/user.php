@@ -17,6 +17,37 @@ class User_Controller extends Base_Controller
 		}
 	}
 
+	// update the user
+	public function put_index()
+	{
+		$user = Auth::user();
+		$rules = array(
+			'email' => 'required|email|unique:users,email,' . $user->id, // force email to be unique, but do not fail on this user's email
+		);
+
+		$update_password = FALSE;
+
+		if (Input::get('password') != '') {
+			$rules['password'] = 'confirmed';
+			$update_password = TRUE;
+		}
+
+		$validation = Validator::make(Input::all(), $rules);
+
+		if ($validation->fails()) {
+	    	return Redirect::to_route('user_account')->with('error', $validation->errors->all());
+	    } else {
+	    	$user->email = Input::get('email');
+	    	if ($update_password) $user->password = Input::get('password');
+
+	    	if ($user->save()) {
+		    	return Redirect::to_route('user_account')->with('success', 'Account updated');
+		    } else {
+		    	return Redirect::to_route('user_account')->with('error', $user->errors->all());
+		    }
+	    }
+	}
+
 	public function post_create() 
 	{
 		$user = new User;

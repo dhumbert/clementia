@@ -15,7 +15,7 @@ class Session_Controller extends Base_Controller
 		$credentials = array('username' => Input::get('email'), 'password' => Input::get('password'));
 
 		if (Auth::attempt($credentials)) {
-			return Redirect::to_route('user_account');
+			return Redirect::to_route('test_list');
 		} else {
 			return Redirect::back()->with('error', 'Invalid username/password combination.');
 		}
