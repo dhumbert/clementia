@@ -38,19 +38,17 @@ Route::get('/', array('as' => 'home', 'uses' => 'home@index'));
 
 /* End public routes */
 
-/* User routes */
-Route::get('user/(:num)', array('as' => 'user_profile', 'uses' => 'user@index'));
-Route::controller('user');
-/* End user routes */
-
 /* Session routes */
+Route::get('login', array('as' => 'login', 'uses' => 'session@create'));
 Route::delete('logout', array('as' => 'logout', 'uses' => 'session@destroy'));
 Route::controller('session');
 /* End session routes */
 
 /* Protected routes */
 Route::group(array('before' => 'auth'), function(){
-  
+
+  Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));
+
   /* Test routes */
   Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
   Route::put('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
@@ -60,6 +58,11 @@ Route::group(array('before' => 'auth'), function(){
   /* End test routes */
   
 });
+
+/* User routes */
+
+Route::controller('user');
+/* End user routes */
 
 /*
 |--------------------------------------------------------------------------

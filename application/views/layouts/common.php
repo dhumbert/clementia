@@ -14,47 +14,18 @@
       <div class="container">
         <a class="brand" href="<?php echo URL::to_route('home'); ?>">clementia</a>
         <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
         </ul>
 
         
-          <ul class="nav pull-right">
-            <li class="dropdown">
-              <?php if (Auth::check()): ?>
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" data-target="#logged-in-menu">
-                  Account
-                  <b class="caret"></b>
-                </a>
-                <ul id="logged-in-menu" class="dropdown-menu logged-in">
-                  <li><?php echo HTML::link('test', 'Tests'); ?></li>
-                  <li><?php echo HTML::link_to_route('user_profile', 'Profile'); ?></li>
-                  <li class="divider"></li>
-                  <li><?php echo HTML::link_to_route('logout', 'Log out', array(), array('data-method' => 'DELETE')); ?></li>
-                </ul>
-              <?php else: ?>
-                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"  data-target="#logged-out-menu">
-                  Log in
-                  <b class="caret"></b>
-                </a>
-                <ul id="logged-out-menu" class="dropdown-menu logged-out">
-                  <li>
-                    <?php echo Form::open('session/create', 'PUT'); ?>
-                    <?php echo Form::token(); ?>
-
-                    <?php echo render('user.loginsignup'); ?>
-
-                    <div class="control-group">
-                      <div class="controls">
-                        <button type="submit" class="btn btn-primary">Log In</button>
-                      </div>
-                    </div>
-
-                  <?php echo Form::close(); ?>
-                  </li>
-                </ul>
-              <?php endif; ?>
-            </li>
-          </ul>
+        <ul class="nav pull-right">
+          <?php if (Auth::check()): ?>
+            <li><?php echo HTML::link('test', 'Tests'); ?></li>
+            <li><?php echo HTML::link_to_route('user_account', 'Account'); ?></li>
+            <li><?php echo HTML::link_to_route('logout', 'Log out', array(), array('data-method' => 'DELETE')); ?></li>
+          <?php else: ?>
+            <li><?php echo HTML::link_to_route('login', 'Log In'); ?></li>
+          <?php endif; ?>
+        </ul>
       </div>
     </div>
   </div>

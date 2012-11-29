@@ -5,15 +5,13 @@ class User_Controller extends Base_Controller
 
 	public $restful = TRUE;
 
-	public function get_index($id = NULL) 
+	public function get_index() 
 	{
-		if (!$id && Auth::check()) $id = Auth::user()->id;
-
-		$user = User::find($id);
+		$user = Auth::user();
 		if (!$user) {
 			return Response::error('404');
 		} else {
-			$this->layout->nest('content', 'user.profile', array(
+			$this->layout->nest('content', 'user.account', array(
 				'user' => $user,
 			));
 		}
@@ -27,7 +25,7 @@ class User_Controller extends Base_Controller
 
 		if ($user->save()) {
 			Auth::login($user->id);
-			return Redirect::to_route('user_profile');
+			return Redirect::to_route('user_account');
 		} else {
 			return Redirect::to_route('home')
 				->with('signup_errors', $user->errors->all())

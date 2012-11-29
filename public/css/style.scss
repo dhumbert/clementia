@@ -8,14 +8,6 @@ body {
   }
 }
 
-.dropdown-menu {
-  &.logged-out {
-    li {
-      padding: 1em;
-    }
-  }
-}
-
 .test-description {
   li {
     margin: 0 0 0.5em 0;
@@ -23,4 +15,8 @@ body {
   .test-description-details {
     margin-top: 0.5em;
   }
+}
+
+.login-form {
+  margin-top: 2em;
 }

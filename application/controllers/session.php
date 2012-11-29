@@ -5,12 +5,17 @@ class Session_Controller extends Base_Controller
 
 	public $restful = TRUE;
 
+	public function get_create()
+	{
+		$this->layout->nest('content', 'session.login');
+	}
+
 	public function put_create() 
 	{
 		$credentials = array('username' => Input::get('email'), 'password' => Input::get('password'));
 
 		if (Auth::attempt($credentials)) {
-			return Redirect::to_route('user_profile');
+			return Redirect::to_route('user_account');
 		} else {
 			return Redirect::back()->with('error', 'Invalid username/password combination.');
 		}

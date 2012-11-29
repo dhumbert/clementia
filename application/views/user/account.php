@@ -1,3 +1,3 @@
 <?php Section::start('content'); ?>
-  <?php echo $user->email; ?>
+  <h1>Your Account</h1>
 <?php Section::stop(); ?>

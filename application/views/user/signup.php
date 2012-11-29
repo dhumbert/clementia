@@ -14,7 +14,7 @@
 <?php echo Form::open('user/create', 'POST', array('class' => 'form-horizontal')); ?>
   <?php echo Form::token(); ?>
 
-  <?php echo render('user.loginsignup'); ?>
+  <?php echo render('user.form'); ?>
 
   <div class="control-group">
     <div class="controls">
