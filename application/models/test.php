@@ -68,7 +68,7 @@ class Test extends Aware
 
     $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
 
-    TestLog::create(array(
+    Test\Log::create(array(
       'test_id' => $this->id,
       'message' => $message,
       'passed' => $passed,
@@ -112,7 +112,7 @@ class Test extends Aware
 
   public function logs()
   {
-    return $this->has_many('TestLog');
+    return $this->has_many('Test\Log');
   }
 }
 

@@ -1,8 +1,10 @@
 <?php
+namespace Test;
 
-class TestLog extends Aware 
+class Log extends \Aware 
 {
   public static $timestamps = true;
+  public static $table = 'test_logs';
 
   public static $rules = array(
     'test_id' => 'required',
