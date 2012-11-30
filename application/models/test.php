@@ -12,6 +12,22 @@ class Test extends Aware
   public function set_options($options) 
   {
     $options = array_map_deep('trim', $options);
+    
+    // traverse options and remove any blank ones
+    foreach ($options as $key => $val) {
+      if (empty($val)) {
+        unset($options[$key]);
+      } else {
+        if (is_array($val)) {
+          foreach ($val as $val_key => $val_val) {
+            if (empty($val_val)) {
+              unset($options[$key]);
+            }
+          }
+        }
+      }
+    }
+
     $this->set_attribute('options', json_encode($options));
   }
 
