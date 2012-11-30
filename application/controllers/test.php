@@ -32,7 +32,7 @@ class Test_Controller extends Base_Controller
     }
   }
 
-  public function put_run($id) 
+  public function post_run($id) 
   {
     $test = Test::find($id);
     if (!$test) {
@@ -45,7 +45,10 @@ class Test_Controller extends Base_Controller
 
 	public function get_create() 
   {
-		$this->layout->nest('content', 'test.create');
+    $test = new Test;
+		$this->layout->nest('content', 'test.create', array(
+      'test' => $test,
+    ));
 	}
 
   public function post_create() 
@@ -70,7 +73,20 @@ class Test_Controller extends Base_Controller
     }
   }
 
-  public function delete_destroy($id) {
+  public function get_edit($id)
+  {
+    $test = Test::find($id);
+    if (!$test) {
+      return Response::error('404');
+    } else {
+      $this->layout->nest('content', 'test.edit', array(
+        'test' => $test,
+      ));
+    }
+  }
+
+  public function delete_destroy($id) 
+  {
     $test = Test::find($id);
     if (!$test) {
       return Response::error('404');

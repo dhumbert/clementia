@@ -1,6 +1,6 @@
 <?php Section::start('content'); ?>
     
-    <h1>Create a Test</h1>
+    <h1>Edit Test</h1>
 
     <?php echo Form::open(); ?>
         <?php echo Form::token(); ?>

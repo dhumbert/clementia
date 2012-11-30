@@ -22,8 +22,12 @@
 </div>
 
   <p class="test-detail-actions">
-    <a href="<?php echo URL::to_route('test_run', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="PUT" class="btn btn-success">
+    <a href="<?php echo URL::to_route('test_run', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="POST" class="btn btn-success">
       <i class="icon-refresh icon-white"></i> Run Test
+    </a>
+
+    <a href="<?php echo URL::to_route('test_edit', array($test->id)); ?>" class="btn btn-info">
+      <i class="icon-edit icon-white"></i> Edit Test
     </a>
 
     <a href="<?php echo URL::to_route('test_delete', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="DELETE" class="btn btn-danger">

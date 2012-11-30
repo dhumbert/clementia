@@ -51,8 +51,13 @@ Route::group(array('before' => 'auth'), function(){
 
   /* Test routes */
   Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
-  Route::put('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
+  
+  Route::post('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
   Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
+
+  Route::get('test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
+  Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@update'));
+  
   Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
   Route::controller('test');
   /* End test routes */
