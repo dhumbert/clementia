@@ -32,10 +32,10 @@
     <div class="row">
         <div class="span6">
             <?php echo Form::label('options[text]', 'Text to Search For'); ?>
-            <?php echo Form::text('options[text]', '', array('class' => 'span6')); ?>
+            <?php echo Form::text('options[text]', $test->option('text'), array('class' => 'span6')); ?>
 
             <label class="checkbox">
-                <?php echo Form::checkbox('options[case_sensitive]', TRUE); ?>
+                <?php echo Form::checkbox('options[case_sensitive]', TRUE, $test->option('case_sensitive')); ?>
                 Case Sensitive
             </label>
         </div>
@@ -66,20 +66,20 @@
     <div class="row">
         <div class="span3">
             <?php echo Form::label('options[tag]', 'HTML Tag'); ?>
-            <?php echo Form::select('options[tag]', Config::get('tests.tags')); ?>
+            <?php echo Form::select('options[tag]', Config::get('tests.tags'), $test->option('tag')); ?>
         </div>
         <div class="span3">
             <?php echo Form::label('options[id]', 'ID'); ?>
-            <?php echo Form::text('options[id]'); ?>
+            <?php echo Form::text('options[id]', $test->option('id')); ?>
         </div>
         
         <div class="span3">
             <?php echo Form::label('options[attributes][class]', 'CSS Class'); ?>
-            <?php echo Form::text('options[attributes][class]'); ?>
+            <?php echo Form::text('options[attributes][class]', $test->option('attributes')['class']); ?>
         </div>
         <div class="span3">
             <?php echo Form::label('options[inner_text]', 'Element Inner Text'); ?>
-            <?php echo Form::text('options[inner_text]'); ?>
+            <?php echo Form::text('options[inner_text]', $test->option('inner_text')); ?>
         </div>
     </div>
 </div>

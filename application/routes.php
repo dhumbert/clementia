@@ -56,7 +56,7 @@ Route::group(array('before' => 'auth'), function(){
   Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
 
   Route::get('test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
-  Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@update'));
+  Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
   
   Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
   Route::controller('test');

@@ -2,7 +2,7 @@
     
     <h1>Edit Test</h1>
 
-    <?php echo Form::open(); ?>
+    <?php echo Form::open(NULL, 'PUT'); ?>
         <?php echo Form::token(); ?>
 
     <?php echo render('test.form', array('test' => $test)); ?>

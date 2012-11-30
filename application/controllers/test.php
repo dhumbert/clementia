@@ -85,6 +85,27 @@ class Test_Controller extends Base_Controller
     }
   }
 
+  public function put_edit($id)
+  {
+    $test = Test::find($id);
+    if (!$test) {
+      return Response::error('404');
+    } else {
+      $test->description = Input::get('description');
+      $test->url = Input::get('url');
+      $test->type = Input::get('type');
+      $test->options = Input::get('options');
+
+      if ($test->save()) {
+        return Redirect::to_route('test_detail', array($test->id));
+      } else {
+        return Redirect::to('test/edit/'.$id)
+          ->with('error', $test->errors->all())
+          ->with_input();
+      }
+    }
+  }
+
   public function delete_destroy($id) 
   {
     $test = Test::find($id);

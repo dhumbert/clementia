@@ -38,6 +38,8 @@ class Test extends Aware
 
   public function option($key)
   {
+    if (!$this->options) $this->options = array();
+
     return array_key_exists($key, $this->options) ? $this->options[$key] : NULL;
   }
 
@@ -116,7 +118,7 @@ class Test extends Aware
 
   private function check_for_max_tests() 
   {
-    if (Auth::user()->has_reached_his_test_limit()) {
+    if (!$this->exists && Auth::user()->has_reached_his_test_limit()) {
       throw new Max_Tests_Exceeded_Exception;
     } else {
       return TRUE;
