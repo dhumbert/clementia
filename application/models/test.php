@@ -20,6 +20,11 @@ class Test extends Aware
     return json_decode($this->get_attribute('options'), TRUE);
   }
 
+  public function option($key)
+  {
+    return array_key_exists($key, $this->options) ? $this->options[$key] : NULL;
+  }
+
   /**
    * Get some nice descriptive text about the test.
    */
@@ -30,24 +35,24 @@ class Test extends Aware
 
     switch ($this->type) {
       case 'element':
-        $description = sprintf('Test for presence of tag <code>%s</code>', $this->options['tag']);
-        if (!empty($this->options['id'])) {
-          $details[] = sprintf('With ID <code>%s</code>', $this->options['id']);
+        $description = sprintf('Test for presence of tag <code>%s</code>', $this->option('tag'));
+        if ($this->option('id') != '') {
+          $details[] = sprintf('With ID <code>%s</code>', $this->option('id'));
         }
 
-        if (!empty($this->options['attributes'])) {
-          foreach ($this->options['attributes'] as $attr => $val) {
+        if ($this->option('attributes') != '') {
+          foreach ($this->option('attributes') as $attr => $val) {
             $details[] = sprintf('With attribute <code>%s</code> equal to <code>%s</code>', $attr, $val);
           }
         }
 
-        if (!empty($this->options['inner_text'])) {
-          $details[] = sprintf('With text <code>%s</code>', $this->options['inner_text']);
+        if ($this->option('inner_text') != '') {
+          $details[] = sprintf('With text <code>%s</code>', $this->option('inner_text'));
         }
         break;
       case 'text':
-        $description = sprintf('Test for presence of text <code>%s</code>', $this->options['text']);
-        if (!empty($this->options['case_sensitive']) && (bool)$this->options['case_sensitive'] == TRUE) {
+        $description = sprintf('Test for presence of text <code>%s</code>', $this->option('text'));
+        if ($this->option('case_sensitive') != '' && (bool)$this->option('case_sensitive') == TRUE) {
           $details[] = 'Case sensitive';
         } else {
           $details[] = 'Case insensitive';
