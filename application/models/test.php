@@ -82,11 +82,35 @@ class Test extends Aware
   }
 
   /**
-   * Enqueue the test to be run.
+   * Run the test and create a TestLog.
    */
   public function run() 
   {
-    Redis::db()->rpush('test_queue', $this->id);
+    $tester = IoC::resolve('tester');
+    $passed = $tester->test($this->type, $this->url, $this->options);
+
+    $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
+
+    Test\Log::create(array(
+      'test_id' => $this->id,
+      'message' => $message,
+      'passed' => $passed,
+    ));
+  }
+
+  /**
+   * Queue the test to be run.
+   */
+  public function queue() 
+  {
+    Redis::db()->rpush(Config::get('tests.queue.key'), $this->id);
+    Redis::db()->sadd(Config::get('tests.queue.tracking_set_key'), $this->id);
+  }
+
+  public function is_queued()
+  {
+    $is_member = Redis::db()->sismember(Config::get('tests.queue.tracking_set_key'), $this->id);
+    return $is_member;
   }
 
   /**

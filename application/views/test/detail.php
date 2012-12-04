@@ -2,6 +2,12 @@
   
   <h2><?php echo $test->description; ?></h2>
 
+  <?php if ($test->is_queued()): ?>
+    <div class="alert alert-info">
+      This test is scheduled to be run soon&hellip;
+    </div>
+  <?php endif; ?>
+
   <div class="well well-large">
   <ul class=" test-description">
     <li>

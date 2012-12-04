@@ -38,7 +38,7 @@ class Test_Controller extends Base_Controller
     if (!$test) {
       return Response::error('404');
     } else {
-      $test->run();
+      $test->queue();
       return Redirect::to_route('test_detail', array($id))->with('success', 'Sweet! The test will be run soon.');
     }
   }

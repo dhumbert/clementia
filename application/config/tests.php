@@ -19,4 +19,9 @@ return array(
   'allowed_attributes' => array(
     'class',
   ),
-);
+  'queue' => array(
+    'key' => 'test_queue',
+    'limit' => 10,
+    'tracking_set_key' => 'test_queue_tracker',
+  ),
+); 
