@@ -82,20 +82,11 @@ class Test extends Aware
   }
 
   /**
-   * Run the test and create a TestLog.
+   * Enqueue the test to be run.
    */
   public function run() 
   {
-    $tester = IoC::resolve('tester');
-    $passed = $tester->test($this->type, $this->url, $this->options);
-
-    $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
-
-    Test\Log::create(array(
-      'test_id' => $this->id,
-      'message' => $message,
-      'passed' => $passed,
-    ));
+    Redis::db()->rpush('test_queue', $this->id);
   }
 
   /**
