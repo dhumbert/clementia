@@ -185,6 +185,10 @@ IoC::register('htmlparser', function() {
   return new Clementia\HtmlParser;
 });
 
+IoC::register('queue', function() {
+  return new Clementia\Queue;
+});
+
 /* utility functions */
 function array_map_deep($callback, array $array) {
     $new = array();

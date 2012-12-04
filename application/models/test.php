@@ -124,17 +124,12 @@ class Test extends Aware
    */
   public function queue() 
   {
-    Redis::db()->rpush(Config::get('tests.queue.key'), $this->id);
-    Redis::db()->sadd(Config::get('tests.queue.tracking_set_key'), $this->id);
+    IoC::resolve('queue')->add_test($this->id);
   }
 
   public function is_queued()
   {
-    // don't incur the overhead of checking Redis for queued-ness if we're not queuing tests.
-    if (Config::get('tests.run_immediately') === TRUE) return FALSE;
-
-    $is_member = Redis::db()->sismember(Config::get('tests.queue.tracking_set_key'), $this->id);
-    return $is_member;
+    return IoC::resolve('queue')->test_is_queued($this->id);
   }
 
   /**
