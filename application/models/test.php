@@ -3,6 +3,8 @@
 class Test extends Aware 
 {
   public static $timestamps = true;
+  const TEST_QUEUED = 1;
+  const TEST_RUN = 2;
 
   public static $rules = array(
     'url' => 'required|url',
@@ -82,6 +84,20 @@ class Test extends Aware
   }
 
   /**
+   * Either run or queue the test, depending on config.
+   */
+  public function begin()
+  {
+    if (Config::get('tests.run_immediately') === TRUE) {
+      $this->run();
+      return self::TEST_RUN;
+    } else {
+      $this->queue();
+      return self::TEST_QUEUED;
+    }
+  }
+
+  /**
    * Run the test and create a TestLog.
    */
   public function run() 
@@ -109,6 +125,9 @@ class Test extends Aware
 
   public function is_queued()
   {
+    // don't incur the overhead of checking Redis for queued-ness if we're not queuing tests.
+    if (Config::get('tests.run_immediately')) return FALSE;
+
     $is_member = Redis::db()->sismember(Config::get('tests.queue.tracking_set_key'), $this->id);
     return $is_member;
   }
