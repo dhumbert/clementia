@@ -87,6 +87,7 @@ class Test extends Aware
   public function run() 
   {
     Redis::db()->rpush('test_queue', $this->id);
+    Redis::db()->publish('test_queue_add', 'Test added to queue');
   }
 
   /**

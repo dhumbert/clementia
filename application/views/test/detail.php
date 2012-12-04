@@ -49,3 +49,8 @@
   <?php endif; ?>
 
 <?php Section::stop(); ?>
+
+<?php Section::start('additional_footer_content'); ?>
+  <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+  <script>require(['clementia/test-status']);</script>
+<?php Section::stop(); ?>
