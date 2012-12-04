@@ -26,6 +26,18 @@
           <i class="icon-share"></i>
         </td>
         <td>
+          <?php 
+          $last_run = $test->last_run();
+          if ($last_run) {
+            $time = DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($last_run->created_at)); 
+            $class = $last_run->passed ? 'text-success' : 'text-error';
+            printf('<small class="%s">%s</small>', $class, $time);
+          } else {
+            echo '<small class="muted">Never run</small>';
+          }
+          ?>
+        </td>
+        <td>
           <a href="<?php echo URL::to_route('test_detail', array($test->id)); ?>"><i class="icon-zoom-in"></i></a>
           <a data-method="DELETE" href="<?php echo URL::to_route('test_delete', array($test->id)); ?>"><i class="icon-remove"></i></a>
         </td>

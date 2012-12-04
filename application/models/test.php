@@ -114,6 +114,11 @@ class Test extends Aware
     ));
   }
 
+  public function last_run()
+  {
+    return $this->logs()->order_by('created_at', 'desc')->take(1)->first();
+  }
+
   /**
    * Queue the test to be run.
    */

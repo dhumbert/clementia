@@ -19,7 +19,7 @@ return array(
   'allowed_attributes' => array(
     'class',
   ),
-  'run_immediately' => FALSE,
+  'run_immediately' => TRUE,
   'queue' => array(
     'key' => 'test_queue',
     'limit' => 10,
