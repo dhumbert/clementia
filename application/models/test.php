@@ -126,7 +126,7 @@ class Test extends Aware
   public function is_queued()
   {
     // don't incur the overhead of checking Redis for queued-ness if we're not queuing tests.
-    if (Config::get('tests.run_immediately')) return FALSE;
+    if (Config::get('tests.run_immediately') === TRUE) return FALSE;
 
     $is_member = Redis::db()->sismember(Config::get('tests.queue.tracking_set_key'), $this->id);
     return $is_member;
