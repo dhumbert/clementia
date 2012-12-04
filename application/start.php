@@ -172,21 +172,17 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 	Session::load();
 }
 
-Autoloader::map(array(
-    'simple_html_dom'    => path('app').'libraries/simple_html_dom.php',
-));
-
 /* IoC registration */
 IoC::register('tester', function() {
-  return new Tester;
+  return new Clementia\Tester;
 });
 
 IoC::register('requests', function() {
-  return new ClementiaRequest;
+  return new Clementia\Request;
 });
 
 IoC::register('htmlparser', function() {
-  return new HtmlParser;
+  return new Clementia\HtmlParser;
 });
 
 /* utility functions */

@@ -16,11 +16,6 @@ class TestTester extends PHPUnit_Framework_TestCase
     IoC::instance('requests', $this->_original_requests);
   }
 
-	public function testThatLibraryExistsAndIsAutoloaded() 
-  {
-		$this->assertTrue(class_exists('Tester'));
-	}
-
   public function testWhatHappensWhenRequestBreaks() 
   {
     // stub out the request class

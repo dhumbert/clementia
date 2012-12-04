@@ -1,13 +1,15 @@
 <?php
 
+namespace Clementia;
+
 class Tester
 {
   private $_requests = NULL;
 
   public function __construct()
   {
-    $this->_requests = IoC::resolve('requests');
-    $this->_parser = IoC::resolve('htmlparser');
+    $this->_requests = \IoC::resolve('requests');
+    $this->_parser = \IoC::resolve('htmlparser');
   }
 
   public function test($type, $url, $options = array()) 
