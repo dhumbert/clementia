@@ -11,6 +11,21 @@ class Test extends Aware
     'type' => 'required',
   );
 
+  public static function tests_for_user($user, $status = NULL)
+  {
+    $tests = NULL;
+    if (!$status) {
+      // all tests
+      $tests = $user->tests;
+    } elseif ($status == 'passing') {
+      $tests = $user->tests()->where('passing', '=', TRUE)->get();
+    } else {
+      $tests = $user->tests()->where('passing', '=', FALSE)->get();
+    }
+
+    return $tests;
+  }
+
   public function set_options($options) 
   {
     $options = array_map_deep('trim', $options);
@@ -107,16 +122,15 @@ class Test extends Aware
 
     $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
 
+    $this->passing = (int)((bool)$passed);
+    $this->last_run = date('Y-m-d H:i:s');
+    $this->save();
+
     Test\Log::create(array(
       'test_id' => $this->id,
       'message' => $message,
       'passed' => $passed,
     ));
-  }
-
-  public function last_run()
-  {
-    return $this->logs()->order_by('created_at', 'desc')->take(1)->first();
   }
 
   /**

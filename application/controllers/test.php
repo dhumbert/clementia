@@ -5,13 +5,15 @@ class Test_Controller extends Base_Controller
 
 	public $restful = TRUE;
 
-	public function get_list() 
+	public function get_list($status = NULL) 
   {
-    $tests = Auth::user()->tests;
+    $tests = Test::tests_for_user(Auth::user(), $status);
+    
     $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
 		$this->layout->nest('content', 'test.list', array(
       'tests' => $tests,
       'user_can_create_more_tests' => $user_can_create_more_tests,
+      'status' => $status,
     ));
 	}
 

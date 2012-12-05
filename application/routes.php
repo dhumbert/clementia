@@ -58,6 +58,7 @@ Route::group(array('before' => 'auth'), function(){
   Route::get('test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
   Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
   
+  Route::get('test/(passing|failing)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
   Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
   Route::controller('test');
   /* End test routes */

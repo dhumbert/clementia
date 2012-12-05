@@ -14,6 +14,12 @@
   </div>
 <?php endif; ?>
 
+<ul class="nav nav-pills">
+  <li class="<?php if (!$status) echo 'active'; ?>"><?php echo HTML::link_to_route('test_list', 'All Tests'); ?></li>
+  <li class="<?php if ($status == 'passing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Passing Tests', array('passing')); ?></li>
+  <li class="<?php if ($status == 'failing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Failing Tests', array('failing')); ?></li>
+</ul>
+
 <table class="table table-striped">
   <tbody>
     <?php foreach ($tests as $test): ?>
@@ -27,10 +33,10 @@
         </td>
         <td>
           <?php 
-          $last_run = $test->last_run();
+          $last_run = $test->last_run;
           if ($last_run) {
-            $time = DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($last_run->created_at)); 
-            $class = $last_run->passed ? 'text-success' : 'text-error';
+            $time = DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($last_run)); 
+            $class = $test->passing ? 'text-success' : 'text-error';
             printf('<small class="%s">%s</small>', $class, $time);
           } else {
             echo '<small class="muted">Never run</small>';
@@ -38,8 +44,7 @@
           ?>
         </td>
         <td>
-          <a href="<?php echo URL::to_route('test_detail', array($test->id)); ?>"><i class="icon-zoom-in"></i></a>
-          <a data-method="DELETE" href="<?php echo URL::to_route('test_delete', array($test->id)); ?>"><i class="icon-remove"></i></a>
+          <a title="Delete this test" data-method="DELETE" href="<?php echo URL::to_route('test_delete', array($test->id)); ?>"><i class="icon-remove"></i></a>
         </td>
       </tr>
     <?php endforeach; ?>
