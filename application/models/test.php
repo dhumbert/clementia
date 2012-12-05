@@ -11,19 +11,22 @@ class Test extends Aware
     'type' => 'required',
   );
 
-  public static function tests_for_user($user, $status = NULL)
+  public static function tests_for_user($user, $status = NULL, $sort = NULL, $dir = NULL)
   {
     $tests = NULL;
-    if (!$status) {
+    $sort = $sort ?: 'description';
+    $dir = $dir ?: 'asc';
+
+    if (!$status || $status == 'all') {
       // all tests
-      $tests = $user->tests;
+      $tests = $user->tests();
     } elseif ($status == 'passing') {
-      $tests = $user->tests()->where('passing', '=', TRUE)->get();
+      $tests = $user->tests()->where('passing', '=', TRUE);
     } else {
-      $tests = $user->tests()->where('passing', '=', FALSE)->get();
+      $tests = $user->tests()->where('passing', '=', FALSE);
     }
 
-    return $tests;
+    return $tests->order_by($sort, $dir)->get();
   }
 
   public function set_options($options) 

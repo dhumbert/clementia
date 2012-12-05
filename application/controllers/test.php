@@ -7,7 +7,7 @@ class Test_Controller extends Base_Controller
 
 	public function get_list($status = NULL) 
   {
-    $tests = Test::tests_for_user(Auth::user(), $status);
+    $tests = Test::tests_for_user(Auth::user(), $status, Input::get('sort'), Input::get('dir'));
     
     $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
 		$this->layout->nest('content', 'test.list', array(

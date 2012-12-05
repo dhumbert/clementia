@@ -15,12 +15,26 @@
 <?php endif; ?>
 
 <ul class="nav nav-pills">
-  <li class="<?php if (!$status) echo 'active'; ?>"><?php echo HTML::link_to_route('test_list', 'All Tests'); ?></li>
+  <li class="<?php if (!$status || $status == 'all') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'All Tests', array('all')); ?></li>
   <li class="<?php if ($status == 'passing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Passing Tests', array('passing')); ?></li>
   <li class="<?php if ($status == 'failing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Failing Tests', array('failing')); ?></li>
 </ul>
 
 <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>
+        <a href="<?php echo sort_link(URL::to_route('test_list_status_filter', array($status)), 'description', Input::get('sort'), Input::get('dir')); ?>">Description</a>
+      </th>
+      <th>
+        <a href="<?php echo sort_link(URL::to_route('test_list_status_filter', array($status)), 'url', Input::get('sort'), Input::get('dir')); ?>">URL</a>
+      </th>
+      <th>
+        <a href="<?php echo sort_link(URL::to_route('test_list_status_filter', array($status)), 'last_run', Input::get('sort'), Input::get('dir')); ?>">Last Run</a>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
   <tbody>
     <?php foreach ($tests as $test): ?>
       <tr>

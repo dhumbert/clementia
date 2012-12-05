@@ -201,3 +201,30 @@ function array_map_deep($callback, array $array) {
     }
     return $new;
 }
+
+function sort_link($base_url, $to_sort, $sort, $dir)
+{
+  $current_query_string = parse_url($base_url, PHP_URL_QUERY);
+  $url = $base_url;
+
+  if (strstr($url, '?')) {
+    $url = explode('?', $url)[0];
+  }
+
+  if (substr($url, -1) != '/') {
+    $url .= '/';
+  }
+
+  if ($sort == $to_sort) {
+    $dir = $dir == 'asc' ? 'desc' : 'asc';
+  } else {
+    $dir = 'asc';
+  }
+
+  $url .= '?' . $current_query_string;
+  $url .= $current_query_string ? '&' : '';
+  $url .= 'sort=' . $to_sort;
+  $url .= '&dir=' . $dir;
+
+  return $url;
+}
