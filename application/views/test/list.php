@@ -20,16 +20,20 @@
   <li class="<?php if ($status == 'failing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Failing Tests', array('failing')); ?></li>
 </ul>
 
+<?php $sort_icon_class = Input::get('dir', 'asc') == 'asc' ? 'icon-chevron-up' : 'icon-chevron-down'; ?>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>
+        <?php if (Input::get('sort', 'description') == 'description') printf('<i class="%s"></i>', $sort_icon_class); ?>
         <a href="<?php echo sort_link(URL::to_route('test_list_status_filter', array($status)), 'description', Input::get('sort'), Input::get('dir')); ?>">Description</a>
       </th>
       <th>
+        <?php if (Input::get('sort') == 'url') printf('<i class="%s"></i>', $sort_icon_class); ?>
         <a href="<?php echo sort_link(URL::to_route('test_list_status_filter', array($status)), 'url', Input::get('sort'), Input::get('dir')); ?>">URL</a>
       </th>
       <th>
+        <?php if (Input::get('sort') == 'last_run') printf('<i class="%s"></i>', $sort_icon_class); ?>
         <a href="<?php echo sort_link(URL::to_route('test_list_status_filter', array($status)), 'last_run', Input::get('sort'), Input::get('dir')); ?>">Last Run</a>
       </th>
       <th></th>
