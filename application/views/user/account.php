@@ -27,7 +27,7 @@
               <span class="help-block">Leave the password fields blank to keep your current password.</span>
             </div>
 
-            <button type="submit" class="btn btn-primary">Log In</button>
+            <button type="submit" class="btn btn-primary">Save</button>
         <?php echo Form::close(); ?>
     </div>
 </div>
