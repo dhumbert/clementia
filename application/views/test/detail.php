@@ -44,8 +44,11 @@
   <?php if (count($logs) > 0): ?>
     <table class="table table-striped">
       <?php foreach ($logs as $log): ?>
-        <tr class="<?php echo $log->passed ? 'success' : 'error'; ?>">
-          <td><?php echo $log->message; ?></td>
+        <tr>
+          <td>
+            <i class="<?php echo $log->passed ? 'icon-ok' : 'icon-remove'; ?>"></i>
+            <span class="success"><?php echo $log->message; ?></span>
+          </td>
           <td><?php echo DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($log->created_at)); ?></td>
         </tr>
       <?php endforeach; ?>
