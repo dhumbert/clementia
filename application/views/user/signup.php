@@ -14,7 +14,7 @@
 <?php echo Form::open('user/create', 'POST', array('class' => 'form-inline')); ?>
   <?php echo Form::token(); ?>
 
-    <?php echo Form::text('email', Input::old('email'), array('class' => 'span4', 'placeholder' => 'Email Address')); ?>
+    <?php echo Form::email('email', Input::old('email'), array('class' => 'span4', 'placeholder' => 'Email Address')); ?>
     <?php echo Form::password('password', array('class' => 'span4', 'placeholder' => 'Password')); ?>
 
     <button type="submit" class="btn btn-primary">Sign Up</button>

@@ -10,7 +10,7 @@
             <div class="control-group">
               <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>
               <div class="controls">
-                <?php echo Form::text('email', Input::old('email', Auth::user()->email), array('class' => 'span4')); ?>
+                <?php echo Form::email('email', Input::old('email', Auth::user()->email), array('class' => 'span4')); ?>
               </div>
             </div>
 

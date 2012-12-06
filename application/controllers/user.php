@@ -74,4 +74,32 @@ class User_Controller extends Base_Controller
 		));
 	}
 
+	public function get_forgot_password()
+	{
+		$this->layout->nest('content', 'user.forgot_password');
+	}
+
+	public function post_forgot_password()
+	{
+		$user = User::where_email(Input::get('email'))->first();
+		if ($user) {
+			$user->send_password_reset();
+			return Redirect::to_route('user_forgot_password')->with('success', 'Alright! Check your email for a password reset link.');
+		} else {
+			return Redirect::to_route('user_forgot_password')->with('error', 'Email address not found');
+		}
+	}
+
+	public function get_reset_password()
+	{
+		$user = User::where_token(Input::get('token'))->first();
+		if ($user) $expired = strtotime($user->token_generated) < strtotime("now - " . Config::get('auth.reset_token_expires_in_hours') . " hours");
+		
+		if ($user && !$expired) {
+			$this->layout->nest('content', 'user.forgot_password_reset');
+		} else {
+			return Redirect::to_route('user_forgot_password')->with('error', 'Invalid or expired password reset request. Please start a new reset password request.');
+		}
+	}
+
 }

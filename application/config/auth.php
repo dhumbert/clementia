@@ -2,7 +2,7 @@
 
 return array(
 	'home_route' => 'test_list',
-	
+	'reset_token_expires_in_hours' => 24,
 	/*
 	|--------------------------------------------------------------------------
 	| Default Authentication Driver

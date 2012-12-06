@@ -34,7 +34,7 @@
 */
 
 return array(
-
+  'messages',
 	'docs' => array('handles' => 'docs'),
   'composer' => array('auto' => array('cli' => TRUE, 'web' => TRUE)),
   'aware' => array(

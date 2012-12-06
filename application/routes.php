@@ -70,7 +70,9 @@ Route::group(array('before' => 'admin'), function(){
 });
 
 /* User routes */
-
+Route::get('user/reset-password', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
+Route::post('user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));
+Route::get('user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));
 Route::controller('user');
 /* End user routes */
 
