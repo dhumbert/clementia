@@ -34,7 +34,7 @@ class User extends Aware
     $max_tests = $this->role->allowed_tests;
     $existing_tests = count($this->tests);
 
-    if ($existing_tests >= $max_tests) {
+    if ($max_tests && $existing_tests >= $max_tests) {
       return TRUE;
     } else {
       return FALSE;

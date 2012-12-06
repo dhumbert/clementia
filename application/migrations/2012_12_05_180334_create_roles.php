@@ -15,13 +15,19 @@ class Create_Roles {
 			$table->integer('allowed_tests')->unsigned()->nullable();
 		});
 
-		DB::table('roles')->insert(array('name' => 'Administrator'));
+		$admin_role_id = DB::table('roles')->insert_get_id(array('name' => 'Administrator'));
 		DB::table('roles')->insert(array('name' => 'Free', 'allowed_tests' => 5));
 
 		Schema::table('users', function($table){
 			$table->integer('role_id')->unsigned();
 			$table->foreign('role_id')->references('id')->on('roles');
 		});
+
+		DB::table('users')->insert(array(
+			'email' => 'test@example.com',
+			'password' => '$2a$08$2P3h9/IVdkPoZvjfQHdRme/OfjFfTd1Su7EI/Rs2Sv/sp0w9mzA2S',
+			'role_id' => $admin_role_id,
+		));
 	}
 
 	/**
