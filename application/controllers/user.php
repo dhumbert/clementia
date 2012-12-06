@@ -57,7 +57,7 @@ class User_Controller extends Base_Controller
 
 		if ($user->save()) {
 			Auth::login($user->id);
-			return Redirect::to_route('test_list')->with('success', 'Thanks for signing up!');
+			return Redirect::to_route(Config::get('auth.home_route'))->with('success', 'Thanks for signing up!');
 		} else {
 			return Redirect::to_route('home')
 				->with('signup_errors', $user->errors->all())

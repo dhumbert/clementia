@@ -11,27 +11,12 @@
   </div>
 <?php endif; ?>
 
-<?php echo Form::open('user/create', 'POST', array('class' => 'form-horizontal')); ?>
+<?php echo Form::open('user/create', 'POST', array('class' => 'form-inline')); ?>
   <?php echo Form::token(); ?>
 
-  <div class="control-group">
-    <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>
-    <div class="controls">
-      <?php echo Form::text('email', Input::old('email'), array('class' => 'span4')); ?>
-    </div>
-  </div>
+    <?php echo Form::text('email', Input::old('email'), array('class' => 'span4', 'placeholder' => 'Email Address')); ?>
+    <?php echo Form::password('password', array('class' => 'span4', 'placeholder' => 'Password')); ?>
 
-  <div class="control-group">
-    <?php echo Form::label('password', 'Password', array('class' => 'control-label')); ?>
-    <div class="controls">
-      <?php echo Form::password('password', array('class' => 'span4')); ?>
-    </div>
-  </div>
-
-  <div class="control-group">
-    <div class="controls">
-      <button type="submit" class="btn btn-primary">Sign Up</button>
-    </div>
-  </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
 
 <?php echo Form::close(); ?>

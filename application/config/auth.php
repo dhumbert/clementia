@@ -1,7 +1,8 @@
 <?php
 
 return array(
-
+	'home_route' => 'test_list',
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Default Authentication Driver
