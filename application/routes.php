@@ -65,6 +65,10 @@ Route::group(array('before' => 'auth'), function(){
   
 });
 
+Route::group(array('before' => 'admin'), function(){
+  Route::get('user/list', array('as' => 'user_list', 'uses' => 'user@list'));
+});
+
 /* User routes */
 
 Route::controller('user');
@@ -141,4 +145,9 @@ Route::filter('csrf', function()
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::to('login');
+});
+
+Route::filter('admin', function()
+{
+  if (!Auth::check('Administrator')) return Response::error('403');
 });

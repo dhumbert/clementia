@@ -65,4 +65,13 @@ class User_Controller extends Base_Controller
 		}
 	}
 
+	public function get_list()
+	{
+		$users = User::all();
+
+		$this->layout->nest('content', 'user.list', array(
+			'users' => $users,
+		));
+	}
+
 }

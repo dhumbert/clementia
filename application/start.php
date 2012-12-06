@@ -189,6 +189,11 @@ IoC::register('queue', function() {
   return new Clementia\Queue;
 });
 
+Auth::extend('clementia_auth', function()
+{
+    return new Clementia\Auth;
+});
+
 /* utility functions */
 function array_map_deep($callback, array $array) {
     $new = array();
