@@ -11,7 +11,7 @@ class Denormalize_Test_Table_To_Track_Passing_Status {
 	{
 		Schema::table('tests', function($table){
 			$table->boolean('passing');
-			$table->timestamp('last_run');
+			$table->date('last_run')->nullable();
 		});
 	}
 

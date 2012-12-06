@@ -5,6 +5,8 @@
         <?php echo Form::open('user/index', 'PUT'); ?>
             <?php echo Form::token(); ?>
 
+            <p>Account type: <strong><?php echo $user->role->name; ?></strong></p>
+
             <div class="control-group">
               <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>
               <div class="controls">

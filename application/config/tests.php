@@ -15,7 +15,6 @@ return array(
     'h5' => 'h5',
     'h6' => 'h6',
   ),
-  'default_max_tests' => 5,
   'allowed_attributes' => array(
     'class',
   ),
@@ -24,5 +23,8 @@ return array(
     'key' => 'test_queue',
     'limit' => 10,
     'tracking_set_key' => 'test_queue_tracker',
+  ),
+  'roles' => array(
+    'level_0' => 'Free',
   ),
 ); 

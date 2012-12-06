@@ -53,10 +53,11 @@ class User_Controller extends Base_Controller
 		$user = new User;
 		$user->email = Input::get('email');
 		$user->password = Input::get('password');
+		$user->role_id = Role::where_name(Config::get('tests.roles.level_0'))->first()->id;
 
 		if ($user->save()) {
 			Auth::login($user->id);
-			return Redirect::to_route('user_account');
+			return Redirect::to_route('test_list')->with('success', 'Thanks for signing up!');
 		} else {
 			return Redirect::to_route('home')
 				->with('signup_errors', $user->errors->all())
