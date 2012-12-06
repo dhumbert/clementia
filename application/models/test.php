@@ -22,8 +22,10 @@ class Test extends Aware
       $tests = $user->tests();
     } elseif ($status == 'passing') {
       $tests = $user->tests()->where('passing', '=', TRUE);
-    } else {
-      $tests = $user->tests()->where('passing', '=', FALSE);
+    } elseif ($status == 'failing') {
+      $tests = $user->tests()->where('passing', '=', FALSE)->where_not_null('last_run');
+    } elseif ($status == 'never-run') {
+      $tests = $user->tests()->where_null('last_run');
     }
 
     return $tests->order_by($sort, $dir)->get();

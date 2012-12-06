@@ -17,10 +17,11 @@
     </div>
   <?php endif; ?>
 
-  <ul class="nav nav-pills span4 pull-right">
+  <ul class="nav nav-pills test-filter-pills pull-right">
     <li class="<?php if (!$status || $status == 'all') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'All Tests', array('all')); ?></li>
     <li class="<?php if ($status == 'passing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Passing Tests', array('passing')); ?></li>
     <li class="<?php if ($status == 'failing') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Failing Tests', array('failing')); ?></li>
+    <li class="<?php if ($status == 'never-run') echo 'active'; ?>"><?php echo HTML::link_to_route('test_list_status_filter', 'Never Run', array('never-run')); ?></li>
   </ul>
 </div>
 
@@ -62,7 +63,7 @@
               $class = $test->passing ? 'text-success' : 'text-error';
               printf('<small class="%s">%s</small>', $class, $time);
             } else {
-              echo '<small class="muted">Never run</small>';
+              echo '<small class="muted">Never</small>';
             }
             ?>
           </td>
