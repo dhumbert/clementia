@@ -202,10 +202,12 @@ function array_map_deep($callback, array $array) {
     return $new;
 }
 
-function sort_link($base_url, $to_sort, $sort, $dir)
+function sort_link($base_url, $to_sort, $sort, $dir, $default_sort = NULL)
 {
   $current_query_string = parse_url($base_url, PHP_URL_QUERY);
   $url = $base_url;
+  $dir = $dir ?: 'asc';
+  $sort = $sort ?: $default_sort;
 
   if (strstr($url, '?')) {
     $url = explode('?', $url)[0];
