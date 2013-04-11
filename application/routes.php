@@ -11,24 +11,24 @@
 |
 | Let's respond to a simple GET request to http://example.com/hello:
 |
-|		Route::get('hello', function()
-|		{
-|			return 'Hello World!';
-|		});
+|       Route::get('hello', function()
+|       {
+|           return 'Hello World!';
+|       });
 |
 | You can even respond to more than one URI:
 |
-|		Route::post(array('hello', 'world'), function()
-|		{
-|			return 'Hello World!';
-|		});
+|       Route::post(array('hello', 'world'), function()
+|       {
+|           return 'Hello World!';
+|       });
 |
 | It's easy to allow URI wildcards using (:num) or (:any):
 |
-|		Route::put('hello/(:any)', function($name)
-|		{
-|			return "Welcome, $name.";
-|		});
+|       Route::put('hello/(:any)', function($name)
+|       {
+|           return "Welcome, $name.";
+|       });
 |
 */
 
@@ -47,26 +47,26 @@ Route::controller('session');
 /* Protected routes */
 Route::group(array('before' => 'auth'), function(){
 
-  Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));
+    Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));
 
-  /* Test routes */
-  Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
-  
-  Route::post('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
-  Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
+    /* Test routes */
+    Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
 
-  Route::get('test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
-  Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
-  
-  Route::get('test/(all|passing|failing|never-run)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
-  Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
-  Route::controller('test');
-  /* End test routes */
+    Route::post('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
+    Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
+
+    Route::get('test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
+    Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
+
+    Route::get('test/(all|passing|failing|never-run)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
+    Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
+    Route::controller('test');
+    /* End test routes */
   
 });
 
 Route::group(array('before' => 'admin'), function(){
-  Route::get('user/list', array('as' => 'user_list', 'uses' => 'user@list'));
+    Route::get('user/list', array('as' => 'user_list', 'uses' => 'user@list'));
 });
 
 /* User routes */
@@ -93,12 +93,12 @@ Route::controller('user');
 
 Event::listen('404', function()
 {
-	return Response::error('404');
+    return Response::error('404');
 });
 
 Event::listen('500', function()
 {
-	return Response::error('500');
+    return Response::error('500');
 });
 
 /*
@@ -115,41 +115,41 @@ Event::listen('500', function()
 |
 | First, define a filter:
 |
-|		Route::filter('filter', function()
-|		{
-|			return 'Filtered!';
-|		});
+|       Route::filter('filter', function()
+|       {
+|           return 'Filtered!';
+|       });
 |
 | Next, attach the filter to a route:
 |
-|		Router::register('GET /', array('before' => 'filter', function()
-|		{
-|			return 'Hello World!';
-|		}));
+|       Router::register('GET /', array('before' => 'filter', function()
+|       {
+|           return 'Hello World!';
+|       }));
 |
 */
 
 Route::filter('before', function()
 {
-	// Do stuff before every request to your application...
+    // Do stuff before every request to your application...
 });
 
 Route::filter('after', function($response)
 {
-	// Do stuff after every request to your application...
+    // Do stuff after every request to your application...
 });
 
 Route::filter('csrf', function()
 {
-	if (Request::forged()) return Response::error('500');
+    if (Request::forged()) return Response::error('500');
 });
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::to('login');
+    if (Auth::guest()) return Redirect::to('login');
 });
 
 Route::filter('admin', function()
 {
-  if (!Auth::check('Administrator')) return Response::error('403');
+    if (!Auth::check('Administrator')) return Response::error('403');
 });

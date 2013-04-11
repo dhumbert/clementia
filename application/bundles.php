@@ -34,20 +34,19 @@
 */
 
 return array(
-  'messages',
-	'docs' => array('handles' => 'docs'),
-  'composer' => array('auto' => array('cli' => TRUE, 'web' => TRUE)),
-  'aware' => array(
-    'autoloads' => array(
-      'map' => array(
-        'Aware' => '(:bundle)/model.php'
-      ),
-    )
-  ),
-  'datefmt' => array(
-    'autoloads' => array(
-      'map' => array('DateFmt' => '(:bundle)/datefmt.php')
-    )
-  ),
-
+    'messages',
+    'docs' => array('handles' => 'docs'),
+    'composer' => array('auto' => array('cli' => TRUE, 'web' => TRUE)),
+    'aware' => array(
+        'autoloads' => array(
+            'map' => array(
+                'Aware' => '(:bundle)/model.php'
+            ),
+        )
+    ),
+    'datefmt' => array(
+        'autoloads' => array(
+            'map' => array('DateFmt' => '(:bundle)/datefmt.php')
+        )
+    ),
 );

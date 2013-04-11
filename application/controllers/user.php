@@ -3,103 +3,103 @@
 class User_Controller extends Base_Controller 
 {
 
-	public $restful = TRUE;
+    public $restful = TRUE;
 
-	public function get_index() 
-	{
-		$user = Auth::user();
-		if (!$user) {
-			return Response::error('404');
-		} else {
-			$this->layout->nest('content', 'user.account', array(
-				'user' => $user,
-			));
-		}
-	}
+    public function get_index() 
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return Response::error('404');
+        } else {
+            $this->layout->nest('content', 'user.account', array(
+                'user' => $user,
+            ));
+        }
+    }
 
-	// update the user
-	public function put_index()
-	{
-		$user = Auth::user();
-		$rules = array(
-			'email' => 'required|email|unique:users,email,' . $user->id, // force email to be unique, but do not fail on this user's email
-		);
+    // update the user
+    public function put_index()
+    {
+        $user = Auth::user();
+        $rules = array(
+            'email' => 'required|email|unique:users,email,' . $user->id, // force email to be unique, but do not fail on this user's email
+        );
 
-		$update_password = FALSE;
+        $update_password = FALSE;
 
-		if (Input::get('password') != '') {
-			$rules['password'] = 'confirmed';
-			$update_password = TRUE;
-		}
+        if (Input::get('password') != '') {
+            $rules['password'] = 'confirmed';
+            $update_password = TRUE;
+        }
 
-		$validation = Validator::make(Input::all(), $rules);
+        $validation = Validator::make(Input::all(), $rules);
 
-		if ($validation->fails()) {
-	    	return Redirect::to_route('user_account')->with('error', $validation->errors->all());
-	    } else {
-	    	$user->email = Input::get('email');
-	    	if ($update_password) $user->password = Input::get('password');
+        if ($validation->fails()) {
+            return Redirect::to_route('user_account')->with('error', $validation->errors->all());
+        } else {
+            $user->email = Input::get('email');
+            if ($update_password) $user->password = Input::get('password');
 
-	    	if ($user->save()) {
-		    	return Redirect::to_route('user_account')->with('success', 'Account updated');
-		    } else {
-		    	return Redirect::to_route('user_account')->with('error', $user->errors->all());
-		    }
-	    }
-	}
+            if ($user->save()) {
+                return Redirect::to_route('user_account')->with('success', 'Account updated');
+            } else {
+                return Redirect::to_route('user_account')->with('error', $user->errors->all());
+            }
+        }
+    }
 
-	public function post_create() 
-	{
-		$user = new User;
-		$user->email = Input::get('email');
-		$user->password = Input::get('password');
-		$user->role_id = Role::where_name(Config::get('tests.roles.level_0'))->first()->id;
+    public function post_create() 
+    {
+        $user = new User;
+        $user->email = Input::get('email');
+        $user->password = Input::get('password');
+        $user->role_id = Role::where_name(Config::get('tests.roles.level_0'))->first()->id;
 
-		if ($user->save()) {
-			Auth::login($user->id);
-			return Redirect::to_route(Config::get('auth.home_route'))->with('success', 'Thanks for signing up!');
-		} else {
-			return Redirect::to_route('home')
-				->with('signup_errors', $user->errors->all())
-				->with_input('only', array('email'));
-		}
-	}
+        if ($user->save()) {
+            Auth::login($user->id);
+            return Redirect::to_route(Config::get('auth.home_route'))->with('success', 'Thanks for signing up!');
+        } else {
+            return Redirect::to_route('home')
+                ->with('signup_errors', $user->errors->all())
+                ->with_input('only', array('email'));
+        }
+    }
 
-	public function get_list()
-	{
-		$users = User::all();
+    public function get_list()
+    {
+        $users = User::all();
 
-		$this->layout->nest('content', 'user.list', array(
-			'users' => $users,
-		));
-	}
+        $this->layout->nest('content', 'user.list', array(
+            'users' => $users,
+        ));
+    }
 
-	public function get_forgot_password()
-	{
-		$this->layout->nest('content', 'user.forgot_password');
-	}
+    public function get_forgot_password()
+    {
+        $this->layout->nest('content', 'user.forgot_password');
+    }
 
-	public function post_forgot_password()
-	{
-		$user = User::where_email(Input::get('email'))->first();
-		if ($user) {
-			$user->send_password_reset();
-			return Redirect::to_route('user_forgot_password')->with('success', 'Alright! Check your email for a password reset link.');
-		} else {
-			return Redirect::to_route('user_forgot_password')->with('error', 'Email address not found');
-		}
-	}
+    public function post_forgot_password()
+    {
+        $user = User::where_email(Input::get('email'))->first();
+        if ($user) {
+            $user->send_password_reset();
+            return Redirect::to_route('user_forgot_password')->with('success', 'Alright! Check your email for a password reset link.');
+        } else {
+            return Redirect::to_route('user_forgot_password')->with('error', 'Email address not found');
+        }
+    }
 
-	public function get_reset_password()
-	{
-		$user = User::where_token(Input::get('token'))->first();
-		if ($user) $expired = strtotime($user->token_generated) < strtotime("now - " . Config::get('auth.reset_token_expires_in_hours') . " hours");
-		
-		if ($user && !$expired) {
-			$this->layout->nest('content', 'user.forgot_password_reset');
-		} else {
-			return Redirect::to_route('user_forgot_password')->with('error', 'Invalid or expired password reset request. Please start a new reset password request.');
-		}
-	}
+    public function get_reset_password()
+    {
+        $user = User::where_token(Input::get('token'))->first();
+        if ($user) $expired = strtotime($user->token_generated) < strtotime("now - " . Config::get('auth.reset_token_expires_in_hours') . " hours");
+        
+        if ($user && !$expired) {
+            $this->layout->nest('content', 'user.forgot_password_reset');
+        } else {
+            return Redirect::to_route('user_forgot_password')->with('error', 'Invalid or expired password reset request. Please start a new reset password request.');
+        }
+    }
 
 }

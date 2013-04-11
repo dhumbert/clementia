@@ -3,124 +3,124 @@
 class Test_Controller extends Base_Controller 
 {
 
-	public $restful = TRUE;
+    public $restful = TRUE;
 
-	public function get_list($status = NULL) 
-  {
-    $tests = Test::tests_for_user(Auth::user(), $status, Input::get('sort'), Input::get('dir'));
-    
-    $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
-		$this->layout->nest('content', 'test.list', array(
-      'tests' => $tests,
-      'user_can_create_more_tests' => $user_can_create_more_tests,
-      'status' => $status,
-    ));
-	}
+    public function get_list($status = NULL) 
+    {
+        $tests = Test::tests_for_user(Auth::user(), $status, Input::get('sort'), Input::get('dir'));
 
-  public function get_detail($id) 
-  {
-    $test = Test::find($id);
-    if (!$test) {
-      return Response::error('404');
-    } else {
-      $logs = $test->logs()->order_by('created_at', 'desc')->get();
-      $description = $test->generate_description_for_output();
-
-      $this->layout->nest('content', 'test.detail', array(
-        'test' => $test,
-        'logs' => $logs,
-        'description' => $description,
-      ));
+        $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
+        $this->layout->nest('content', 'test.list', array(
+            'tests' => $tests,
+            'user_can_create_more_tests' => $user_can_create_more_tests,
+            'status' => $status,
+        ));
     }
-  }
 
-  public function post_run($id) 
-  {
-    $test = Test::find($id);
-    if (!$test) {
-      return Response::error('404');
-    } else {
-      $result = $test->begin();
-      $message = $result == Test::TEST_RUN ? 'Sweet! The test was run.' : 'Sweet! The test will be run soon.';
-      return Redirect::to_route('test_detail', array($id))->with('success', $message);
+    public function get_detail($id) 
+    {
+        $test = Test::find($id);
+        if (!$test) {
+            return Response::error('404');
+        } else {
+            $logs = $test->logs()->order_by('created_at', 'desc')->get();
+            $description = $test->generate_description_for_output();
+
+            $this->layout->nest('content', 'test.detail', array(
+                'test' => $test,
+                'logs' => $logs,
+                'description' => $description,
+            ));
+        }
     }
-  }
 
-	public function get_create() 
-  {
-    $test = new Test;
-		$this->layout->nest('content', 'test.create', array(
-      'test' => $test,
-    ));
-	}
-
-  public function post_create() 
-  {
-    $test = new Test;
-    $test->description = Input::get('description');
-    $test->url = Input::get('url');
-    $test->type = Input::get('type');
-    $test->user_id = Auth::user()->id;
-    $test->options = Input::get('options');
-
-    try {
-      if ($test->save()) {
-        return Redirect::to_route('test_detail', array($test->id));
-      } else {
-        return Redirect::to('test/create')
-          ->with('error', $test->errors->all())
-          ->with_input();
-      }
-    } catch (Max_Tests_Exceeded_Exception $e) {
-      return Redirect::to_route('test_list')->with('error', 'Sorry! You have reached the maximum amount of tests you are allowed.');
+    public function post_run($id) 
+    {
+        $test = Test::find($id);
+        if (!$test) {
+            return Response::error('404');
+        } else {
+            $result = $test->begin();
+            $message = $result == Test::TEST_RUN ? 'Sweet! The test was run.' : 'Sweet! The test will be run soon.';
+            return Redirect::to_route('test_detail', array($id))->with('success', $message);
+        }
     }
-  }
 
-  public function get_edit($id)
-  {
-    $test = Test::find($id);
-    if (!$test) {
-      return Response::error('404');
-    } else {
-      $this->layout->nest('content', 'test.edit', array(
-        'test' => $test,
-      ));
+    public function get_create() 
+    {
+        $test = new Test;
+        $this->layout->nest('content', 'test.create', array(
+            'test' => $test,
+        ));
     }
-  }
 
-  public function put_edit($id)
-  {
-    $test = Test::find($id);
-    if (!$test) {
-      return Response::error('404');
-    } else {
-      $test->description = Input::get('description');
-      $test->url = Input::get('url');
-      $test->type = Input::get('type');
-      $test->options = Input::get('options');
+    public function post_create() 
+    {
+        $test = new Test;
+        $test->description = Input::get('description');
+        $test->url = Input::get('url');
+        $test->type = Input::get('type');
+        $test->user_id = Auth::user()->id;
+        $test->options = Input::get('options');
 
-      if ($test->save()) {
-        return Redirect::to_route('test_detail', array($test->id));
-      } else {
-        return Redirect::to('test/edit/'.$id)
-          ->with('error', $test->errors->all())
-          ->with_input();
-      }
+        try {
+            if ($test->save()) {
+                return Redirect::to_route('test_detail', array($test->id));
+            } else {
+                return Redirect::to('test/create')
+                ->with('error', $test->errors->all())
+                ->with_input();
+            }
+        } catch (Max_Tests_Exceeded_Exception $e) {
+            return Redirect::to_route('test_list')->with('error', 'Sorry! You have reached the maximum amount of tests you are allowed.');
+        }
     }
-  }
 
-  public function delete_destroy($id) 
-  {
-    $test = Test::find($id);
-    if (!$test) {
-      return Response::error('404');
-    } else {
-      if ($test->destroy_if_user_can(Auth::user()->id)) {
-        return Redirect::to_route('test_list')->with('success', 'Test deleted.');
-      } else {
-        return Response::error('403');
-      }
+    public function get_edit($id)
+    {
+        $test = Test::find($id);
+        if (!$test) {
+            return Response::error('404');
+        } else {
+            $this->layout->nest('content', 'test.edit', array(
+                'test' => $test,
+            ));
+        }
     }
-  }
+
+    public function put_edit($id)
+    {
+        $test = Test::find($id);
+        if (!$test) {
+            return Response::error('404');
+        } else {
+            $test->description = Input::get('description');
+            $test->url = Input::get('url');
+            $test->type = Input::get('type');
+            $test->options = Input::get('options');
+
+            if ($test->save()) {
+                return Redirect::to_route('test_detail', array($test->id));
+            } else {
+                return Redirect::to('test/edit/'.$id)
+                ->with('error', $test->errors->all())
+                ->with_input();
+            }
+        }
+    }
+
+    public function delete_destroy($id) 
+    {
+        $test = Test::find($id);
+        if (!$test) {
+            return Response::error('404');
+        } else {
+            if ($test->destroy_if_user_can(Auth::user()->id)) {
+                return Redirect::to_route('test_list')->with('success', 'Test deleted.');
+            } else {
+                return Response::error('403');
+            }
+        }
+    }
 
 }

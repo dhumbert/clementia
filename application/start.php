@@ -28,7 +28,7 @@ ini_set('display_errors', 'On');
 
 Laravel\Event::listen(Laravel\Config::loader, function($bundle, $file)
 {
-	return Laravel\Config::file($bundle, $file);
+    return Laravel\Config::file($bundle, $file);
 });
 
 /*
@@ -59,7 +59,7 @@ Laravel\Autoloader::$aliases = $aliases;
 */
 
 Autoloader::map(array(
-	'Base_Controller' => path('app').'controllers/base.php',
+    'Base_Controller' => path('app').'controllers/base.php',
 ));
 
 /*
@@ -74,8 +74,8 @@ Autoloader::map(array(
 */
 
 Autoloader::directories(array(
-	path('app').'models',
-	path('app').'libraries',
+    path('app').'models',
+    path('app').'libraries',
 ));
 
 /*
@@ -92,7 +92,7 @@ Autoloader::directories(array(
 
 Event::listen(View::loader, function($bundle, $view)
 {
-	return View::file($bundle, $view, Bundle::path($bundle).'views');
+    return View::file($bundle, $view, Bundle::path($bundle).'views');
 });
 
 /*
@@ -109,7 +109,7 @@ Event::listen(View::loader, function($bundle, $view)
 
 Event::listen(Lang::loader, function($bundle, $language, $file)
 {
-	return Lang::file($bundle, $language, $file);
+    return Lang::file($bundle, $language, $file);
 });
 
 /*
@@ -125,7 +125,7 @@ Event::listen(Lang::loader, function($bundle, $language, $file)
 
 if (Config::get('application.profiler'))
 {
-	Profiler::attach();
+    Profiler::attach();
 }
 
 /*
@@ -169,24 +169,24 @@ date_default_timezone_set(Config::get('application.timezone'));
 
 if ( ! Request::cli() and Config::get('session.driver') !== '')
 {
-	Session::load();
+    Session::load();
 }
 
 /* IoC registration */
 IoC::register('tester', function() {
-  return new Clementia\Tester;
+    return new Clementia\Tester;
 });
 
 IoC::register('requests', function() {
-  return new Clementia\Request;
+    return new Clementia\Request;
 });
 
 IoC::register('htmlparser', function() {
-  return new Clementia\HtmlParser;
+    return new Clementia\HtmlParser;
 });
 
 IoC::register('queue', function() {
-  return new Clementia\Queue;
+    return new Clementia\Queue;
 });
 
 Auth::extend('clementia_auth', function()
@@ -195,7 +195,8 @@ Auth::extend('clementia_auth', function()
 });
 
 /* utility functions */
-function array_map_deep($callback, array $array) {
+function array_map_deep($callback, array $array)
+{
     $new = array();
     foreach ($array as $key => $val) {
         if (is_array($val)) {
@@ -209,29 +210,29 @@ function array_map_deep($callback, array $array) {
 
 function sort_link($base_url, $to_sort, $sort, $dir, $default_sort = NULL)
 {
-  $current_query_string = parse_url($base_url, PHP_URL_QUERY);
-  $url = $base_url;
-  $dir = $dir ?: 'asc';
-  $sort = $sort ?: $default_sort;
+    $current_query_string = parse_url($base_url, PHP_URL_QUERY);
+    $url = $base_url;
+    $dir = $dir ?: 'asc';
+    $sort = $sort ?: $default_sort;
 
-  if (strstr($url, '?')) {
-    $url = explode('?', $url)[0];
-  }
+    if (strstr($url, '?')) {
+        $url = explode('?', $url)[0];
+    }
 
-  if (substr($url, -1) != '/') {
-    $url .= '/';
-  }
+    if (substr($url, -1) != '/') {
+        $url .= '/';
+    }
 
-  if ($sort == $to_sort) {
-    $dir = $dir == 'asc' ? 'desc' : 'asc';
-  } else {
-    $dir = 'asc';
-  }
+    if ($sort == $to_sort) {
+        $dir = $dir == 'asc' ? 'desc' : 'asc';
+    } else {
+        $dir = 'asc';
+    }
 
-  $url .= '?' . $current_query_string;
-  $url .= $current_query_string ? '&' : '';
-  $url .= 'sort=' . $to_sort;
-  $url .= '&dir=' . $dir;
+    $url .= '?' . $current_query_string;
+    $url .= $current_query_string ? '&' : '';
+    $url .= 'sort=' . $to_sort;
+    $url .= '&dir=' . $dir;
 
-  return $url;
+    return $url;
 }
