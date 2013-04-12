@@ -57,6 +57,13 @@ class User extends Aware
         ->body(render('email.password_reset', array('token' => $token)))
         ->html(true)
         ->send();
+    }
 
+    public function reset_password($new_password)
+    {
+        $this->password = $new_password;
+        $this->token = NULL;
+        $this->token_generated = NULL;
+        $this->save();
     }
 }

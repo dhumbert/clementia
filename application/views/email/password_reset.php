@@ -1,4 +1,4 @@
-<?php $url = URL::to_route('user_forgot_password_reset') . '?token=' . $token; ?>
+<?php $url = URL::to_route('user_forgot_password_reset', array($token)); ?>
 
 <p>
     Hi! We received a password reset request for your account at Clementia. If you didn't initiate

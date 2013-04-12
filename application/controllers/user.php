@@ -90,15 +90,39 @@ class User_Controller extends Base_Controller
         }
     }
 
-    public function get_reset_password()
+    public function get_reset_password($token)
     {
-        $user = User::where_token(Input::get('token'))->first();
+        $user = User::where_token($token)->first();
         if ($user) $expired = strtotime($user->token_generated) < strtotime("now - " . Config::get('auth.reset_token_expires_in_hours') . " hours");
         
         if ($user && !$expired) {
             $this->layout->nest('content', 'user.forgot_password_reset');
         } else {
             return Redirect::to_route('user_forgot_password')->with('error', 'Invalid or expired password reset request. Please start a new reset password request.');
+        }
+    }
+
+    public function post_reset_password($token)
+    {
+        $user = User::where_token($token)->first();
+
+        if (!$user) {
+            return Response::error('404');
+        } else {
+            $rules = array(
+                'password' => 'required|confirmed',
+            );
+
+            $validation = Validator::make(Input::all(), $rules);
+
+            if ($validation->fails()) {
+                return Redirect::to_route('user_forgot_password_reset', array($token))
+                ->with('error', $validation->errors->all());
+            } else {
+                $user->reset_password(Input::get('password'));
+
+                return Redirect::to_route('home')->with('success', 'Your password has been reset. Log in below.');
+            }
         }
     }
 
