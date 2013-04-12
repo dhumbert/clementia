@@ -105,11 +105,17 @@ class Test_Controller extends Base_Controller
             $test->type = Input::get('type');
             $test->options = Input::get('options');
 
-            if ($test->save()) {
-                return Redirect::to_route('test_detail', array($test->id));
-            } else {
-                return Redirect::to('test/edit/'.$id)
-                ->with('error', $test->errors->all())
+            try {
+                if ($test->save()) {
+                    return Redirect::to_route('test_detail', array($test->id));
+                } else {
+                    return Redirect::to('test/edit/'.$id)
+                    ->with('error', $test->errors->all())
+                    ->with_input();
+                }
+            } catch (Invalid_Options_Exception $e) {
+                return Redirect::to('test/create')
+                ->with('error', $e->getMessage())
                 ->with_input();
             }
         }
