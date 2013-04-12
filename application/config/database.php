@@ -75,7 +75,7 @@ return array(
             'password' => 'root',
             'charset'  => 'utf8',
             'prefix'   => '',
-            'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock', // /tmp/mysql.sock
+            //'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock', // /tmp/mysql.sock
         ),
 
         'pgsql' => array(
