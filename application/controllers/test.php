@@ -74,6 +74,10 @@ class Test_Controller extends Base_Controller
             }
         } catch (Max_Tests_Exceeded_Exception $e) {
             return Redirect::to_route('test_list')->with('error', 'Sorry! You have reached the maximum amount of tests you are allowed.');
+        } catch (Invalid_Options_Exception $e) {
+            return Redirect::to('test/create')
+            ->with('error', $e->getMessage())
+            ->with_input();
         }
     }
 

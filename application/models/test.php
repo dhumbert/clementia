@@ -167,15 +167,32 @@ class Test extends Aware
 
     public function onSave() 
     {
-        return $this->check_for_max_tests();
+        // verify that the appropriate options are set for each test type
+        switch ($this->type) {
+            case Clementia\Tester::TYPE_TEXT:
+                if (!array_key_exists('text', $this->options) || trim($this->options['text']) === '') {
+                    throw new Invalid_Options_Exception("You must set the text to be searched for");
+                }
+                break;
+            case Clementia\Tester::TYPE_ELEMENT:
+                if (
+                    (!array_key_exists('tag', $this->options) || trim($this->options['tag']) === '')
+                    && (!array_key_exists('id', $this->options) || trim($this->options['id']) === '')
+                ) {
+                    throw new Invalid_Options_Exception("You must select either a tag or ID to search for");
+                }
+                break;
+        }
+
+        $this->check_for_max_tests();
+
+        return TRUE;
     }
 
     private function check_for_max_tests() 
     {
         if (!$this->exists && Auth::user()->has_reached_his_test_limit()) {
             throw new Max_Tests_Exceeded_Exception;
-        } else {
-            return TRUE;
         }
     }
 
@@ -194,3 +211,4 @@ class Test extends Aware
 }
 
 class Max_Tests_Exceeded_Exception extends Exception {}
+class Invalid_Options_Exception extends Exception {}
