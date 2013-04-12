@@ -52,7 +52,7 @@
             <?php echo HTML::link_to_route('test_detail', $test->description, array($test->id)); ?>
           </td>
           <td>
-            <a href="<?php echo $test->url; ?>" target="_blank"><?php echo $test->url; ?></a>
+            <a href="<?php echo $test->url; ?>" target="_blank"><?php echo truncate_text($test->url, 50); ?></a>
             <i class="icon-share"></i>
           </td>
           <td>

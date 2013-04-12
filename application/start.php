@@ -236,3 +236,12 @@ function sort_link($base_url, $to_sort, $sort, $dir, $default_sort = NULL)
 
     return $url;
 }
+
+function truncate_text($text, $max_length, $ellipsis = '...')
+{
+    if (strlen($text) > $max_length) {
+        $text = substr($text, 0, $max_length - strlen($ellipsis)) . $ellipsis;
+    }
+
+    return $text;
+}
