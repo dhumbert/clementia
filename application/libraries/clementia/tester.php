@@ -4,12 +4,23 @@ namespace Clementia;
 
 class Tester
 {
+    const TYPE_TEXT = 'text';
+    const TYPE_ELEMENT = 'element';
+
     private $_requests = NULL;
 
     public function __construct()
     {
         $this->_requests = \IoC::resolve('requests');
         $this->_parser = \IoC::resolve('htmlparser');
+    }
+
+    public function getTypes()
+    {
+        return array(
+            self::TYPE_TEXT => 'Test for the presence of a text string',
+            self::TYPE_ELEMENT => 'Test for the existence of HTML elements',
+        );
     }
 
     public function test($type, $url, $options = array()) 

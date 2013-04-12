@@ -13,7 +13,6 @@
     <div class="span6">
         <?php echo Form::label('type', 'Test Type'); ?>
         <?php
-            $types = Config::get('tests.types');
             if (count($types) > 1) {
                 $types = array('' => 'Select a test type...') + $types;
                 echo Form::select('type', $types, Input::old('type', $test->type), array('class' => 'span6'));

@@ -7,6 +7,7 @@ class Test extends Aware
     const TEST_RUN = 2;
 
     public static $rules = array(
+        'description' => 'required',
         'url' => 'required|url',
         'type' => 'required',
     );
@@ -74,7 +75,7 @@ class Test extends Aware
         $details = array();
 
         switch ($this->type) {
-            case 'element':
+            case Clementia\Tester::TYPE_ELEMENT:
                 $description = sprintf('Test for presence of tag <code>%s</code>', $this->option('tag'));
                 if ($this->option('id') != '') {
                     $details[] = sprintf('With ID <code>%s</code>', $this->option('id'));
@@ -90,7 +91,7 @@ class Test extends Aware
                     $details[] = sprintf('With text <code>%s</code>', $this->option('inner_text'));
                 }
                 break;
-            case 'text':
+            case Clementia\Tester::TYPE_TEXT:
                 $description = sprintf('Test for presence of text <code>%s</code>', $this->option('text'));
                 if ($this->option('case_sensitive') != '' && (bool)$this->option('case_sensitive') == TRUE) {
                     $details[] = 'Case sensitive';

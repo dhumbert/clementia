@@ -51,6 +51,7 @@ class Test_Controller extends Base_Controller
         $test = new Test;
         $this->layout->nest('content', 'test.create', array(
             'test' => $test,
+            'types' => IoC::resolve('tester')->getTypes(),
         ));
     }
 
@@ -84,6 +85,7 @@ class Test_Controller extends Base_Controller
         } else {
             $this->layout->nest('content', 'test.edit', array(
                 'test' => $test,
+                'types' => IoC::resolve('tester')->getTypes(),
             ));
         }
     }
