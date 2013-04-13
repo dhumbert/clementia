@@ -13,7 +13,6 @@ class Base_Controller extends Controller
         // assets
         Asset::container('footer')->add('dojo', 'https://ajax.googleapis.com/ajax/libs/dojo/1.8.1/dojo/dojo.js', array(), array('data-dojo-config' => 'async: true'));
         Asset::container('footer')->add('application-js', 'js/application.js');
-        Asset::add('bootstrap-css', 'css/bootstrap.min.css');
         Asset::add('style', 'css/style.css');
         parent::__construct();
     }

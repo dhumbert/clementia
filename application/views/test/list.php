@@ -3,7 +3,7 @@
 <div class="row">
   <?php if ($user_can_create_more_tests): ?>
     <div class="span3 pull-left">
-      <a class="btn btn-primary" href="<?php echo URL::to('test/create'); ?>">
+      <a class="btn btn-info" href="<?php echo URL::to('test/create'); ?>">
         <i class="icon-plus icon-white"></i>
         New Test
       </a>
@@ -27,7 +27,7 @@
 
 <?php if (count($tests) > 0): ?>
   <?php $sort_icon_class = Input::get('dir', 'asc') == 'asc' ? 'icon-chevron-up' : 'icon-chevron-down'; ?>
-  <table class="table table-striped">
+  <table class="table table-striped table-hover test-list-table">
     <thead>
       <tr>
         <th>
@@ -47,13 +47,12 @@
     </thead>
     <tbody>
       <?php foreach ($tests as $test): ?>
-        <tr>
+        <tr class="clickable-element" data-link="<?php echo URL::to_route('test_detail', array($test->id)); ?>">
           <td>
-            <?php echo HTML::link_to_route('test_detail', $test->description, array($test->id)); ?>
+            <?php echo $test->description; ?>
           </td>
           <td>
-            <a href="<?php echo $test->url; ?>" target="_blank"><?php echo truncate_text($test->url, 50); ?></a>
-            <i class="icon-share"></i>
+            <?php echo truncate_text($test->url, 50); ?>
           </td>
           <td>
             <?php 
@@ -66,9 +65,6 @@
               echo '<small class="muted">Never</small>';
             }
             ?>
-          </td>
-          <td>
-            <a title="Delete this test" data-method="DELETE" href="<?php echo URL::to_route('test_delete', array($test->id)); ?>"><i class="icon-remove"></i></a>
           </td>
         </tr>
       <?php endforeach; ?>

@@ -1,26 +1,87 @@
-body {
-  padding-top: 50px;
+// by importing bootstrap css as scss files, scss will merge them,
+// thus requiring only one css file instead of 3. this helps performance by
+// reducing the number of HTTP requests
+@import "bootstrap.min.scss";
+@import "bootstrap-responsive.min.scss";
+
+@mixin carbonfiber {
+    background:
+        radial-gradient(black 15%, transparent 16%) 0 0,
+        radial-gradient(black 15%, transparent 16%) 8px 8px,
+        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+        radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+    background-color:#282828;
+    background-size:16px 16px;
 }
 
 .alert {
-  ul {
-    margin-bottom: 0;
-  }
+    ul {
+        margin-bottom: 0;
+    }
+}
+
+.navbar {
+    .navbar-inner {
+        @include carbonfiber;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
+
+        .brand {
+            padding-top: 0.75em;
+        }
+        .nav {
+            li {
+                a {   
+                    padding-top: 1em;
+                    padding-bottom: 1em;
+                }
+            }
+        }
+    }
 }
 
 .test-description {
-  li {
-    margin: 0 0 0.5em 0;
-  }
-  .test-description-details {
-    margin-top: 0.5em;
-  }
+    li {
+        margin: 0 0 0.5em 0;
+    }
+    .test-description-details {
+        margin-top: 0.5em;
+    }
 }
 
 .login-form {
-  margin-top: 2em;
+    margin-top: 2em;
 }
 
 .test-filter-pills {
-  width: 395px;
+    width: 395px;
+}
+
+.table-hover tbody {
+    tr:hover {
+        & > td, & >th {
+            @extend .btn-info;
+            small {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.test-list-table {
+    tr {
+        cursor: pointer;
+
+        td {
+            a {
+                color: #666;
+            }
+        }
+    }
+}
+
+.form-actions {
+    padding-left: 0;
+    padding-right: 0;
 }

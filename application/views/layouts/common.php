@@ -9,7 +9,7 @@
   <?php echo Asset::container('header')->scripts(); ?>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
         <a class="brand" href="<?php echo URL::to_route('home'); ?>">clementia</a>
@@ -34,10 +34,19 @@
     </div>
   </div>
 
+  <noscript>
+    <div class="container">
+      <div class="alert">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oops.</strong> Looks like you have Javascript disabled. Please enable it to use the site. Thanks!
+      </div>
+    </div>
+  </noscript>
+
   <?php if ($error = Session::get('error')): ?>
     <div class="container" id="flash flash-error">
       <div class="alert alert-error">
-        <button type="button" class="close" data-dismiss="alert">×</button>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
         <?php if (is_array($error)): ?>
           <ul type="unstyled">
             <?php foreach ($error as $e): ?>
@@ -54,7 +63,7 @@
   <?php if ($success = Session::get('success')): ?>
     <div class="container" id="flash flash-success">
       <div class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">×</button>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
         <?php if (is_array($success)): ?>
           <ul type="unstyled">
             <?php foreach ($success as $s): ?>
