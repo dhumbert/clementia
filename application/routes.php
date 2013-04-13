@@ -34,7 +34,7 @@
 
 /* Public routes */
 
-Route::get('/', array('as' => 'home', 'uses' => 'home@index'));
+Route::get('/', array('as' => 'home', 'uses' => 'home@index', 'before' => 'front_redirect_if_authenticated'));
 
 /* End public routes */
 
@@ -153,4 +153,9 @@ Route::filter('auth', function()
 Route::filter('admin', function()
 {
     if (!Auth::check('Administrator')) return Response::error('403');
+});
+
+Route::filter('front_redirect_if_authenticated', function()
+{
+    if (Auth::check()) return Redirect::to_route('test_list');
 });
