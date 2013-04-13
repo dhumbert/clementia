@@ -15,7 +15,7 @@ class Test extends Aware
     public static function tests_for_user($user, $status = NULL, $sort = NULL, $dir = NULL)
     {
         $tests = NULL;
-        $sort = $sort ?: 'description';
+        $sort = $sort ?: 'created_at';
         $dir = $dir ?: 'asc';
 
         if (!$status || $status == 'all') {
@@ -64,6 +64,34 @@ class Test extends Aware
         if (!$this->options) $this->options = array();
 
         return array_key_exists($key, $this->options) ? $this->options[$key] : NULL;
+    }
+
+    public function status()
+    {
+        if ($this->passing) {
+            return 'passing';
+        } else if ($this->last_run) {
+            return 'failing';
+        } else {
+            return 'never-run';
+        }
+    }
+
+    public function last_run_info()
+    {
+        $info = array(
+            'class' => 'muted',
+            'text' => 'Never Run',
+            'time' => '',
+        );
+
+        if ($this->last_run) {
+            $info['time'] = DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($this->last_run)); 
+            $info['class'] = $this->passing ? 'success' : 'error';
+            $info['text'] = $this->passing ? 'Passed' : 'Failed';
+        }
+
+        return $info;
     }
 
     /**

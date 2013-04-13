@@ -27,6 +27,7 @@
 
 <?php if (count($tests) > 0): ?>
   <?php $sort_icon_class = Input::get('dir', 'asc') == 'asc' ? 'icon-chevron-up' : 'icon-chevron-down'; ?>
+  <!--
   <table class="table table-striped table-hover test-list-table">
     <thead>
       <tr>
@@ -45,34 +46,38 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
-      <?php foreach ($tests as $test): ?>
-        <tr class="clickable-element" data-link="<?php echo URL::to_route('test_detail', array($test->id)); ?>">
-          <td>
-            <?php echo $test->description; ?>
-          </td>
-          <td>
-            <?php echo truncate_text($test->url, 50); ?>
-          </td>
-          <td>
-            <?php 
-            $last_run = $test->last_run;
-            if ($last_run) {
-              $time = DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($last_run)); 
-              $class = $test->passing ? 'text-success' : 'text-error';
-              printf('<small class="%s">%s</small>', $class, $time);
-            } else {
-              echo '<small class="muted">Never</small>';
-            }
-            ?>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+  -->
+    <div class="test-list">
+        <div class="row">
+            <?php $i = 1; foreach ($tests as $test): ?>
+                <?php if ($i++ % 4 === 0): ?></div><div class="row"><?php endif; ?>
+
+                <div class="span4 test-list-item test-<?php echo $test->status(); ?> clickable-element" data-link="<?php echo URL::to_route('test_detail', array($test->id)); ?>">
+                    <div class="test-list-item-inner">
+                        <h4><?php echo $test->description; ?></h4>
+                        
+                        <div class="last-run">
+                        <?php
+                            $last_run = $test->last_run_info();
+                            printf('<small class="%s">%s %s</small>', $last_run['class'], $last_run['text'], $last_run['time']);
+                        ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 
 <?php else: ?>
   <p>No <?php echo (!$status || $status == 'all') ? '' : $status; ?> tests found.</p>
 <?php endif; ?>
 
+<?php Section::stop(); ?>
+
+<?php Section::start('additional_footer_content'); ?>
+    <script>
+    require(["clementia/equal-heights"], function(eqHeight){
+        eqHeight.makeEqual('.test-list .row', true);
+    });
+    </script>
 <?php Section::stop(); ?>

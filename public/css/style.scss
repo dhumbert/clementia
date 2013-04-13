@@ -14,6 +14,17 @@
     background-size:16px 16px;
 }
 
+@mixin button-background {
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */
+}
+
 .alert {
     ul {
         margin-bottom: 0;
@@ -21,6 +32,8 @@
 }
 
 .navbar {
+    margin-bottom: 1em;
+
     .navbar-inner {
         @include carbonfiber;
         -webkit-border-radius: 0;
@@ -58,30 +71,54 @@
     width: 395px;
 }
 
-.table-hover tbody {
-    tr:hover {
-        & > td, & >th {
-            @extend .btn-info;
-            small {
-                color: #fff;
-            }
-        }
-    }
-}
-
-.test-list-table {
-    tr {
-        cursor: pointer;
-
-        td {
-            a {
-                color: #666;
-            }
-        }
-    }
+.clickable-element {
+    cursor: pointer;
 }
 
 .form-actions {
     padding-left: 0;
     padding-right: 0;
+}
+
+.test-list {
+    .test-list-item {
+        margin-bottom: 1.5em;
+
+        &.test-failing {
+            .test-list-item-inner {
+                @extend .btn-danger;
+            }
+        }
+
+        &.test-passing {
+            .test-list-item-inner {
+                @extend .btn-success;
+            }
+        }
+
+        .test-list-item-inner {
+            @extend .btn;
+            display: block;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 1em 2.5em;
+            border-radius: 0.5em;
+
+            h4 {
+                margin: 0;
+            }
+
+            .last-run {
+                margin-top: 1em;
+            }
+
+            &:hover {
+               background-position: 0 -150px;
+              -webkit-transition: background-position 0.5s linear;
+                 -moz-transition: background-position 0.5s linear;
+                   -o-transition: background-position 0.5s linear;
+                      transition: background-position 0.5s linear;
+            }
+        }
+    }
 }
