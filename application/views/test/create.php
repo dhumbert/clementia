@@ -2,7 +2,7 @@
     
     <h1>Create a Test</h1>
 
-    <?php echo Form::open(); ?>
+    <?php echo Form::open(null, 'POST', array('id' => 'test-form')); ?>
         <?php echo Form::token(); ?>
 
     <?php echo render('test.form', array('test' => $test, 'types' => $types)); ?>

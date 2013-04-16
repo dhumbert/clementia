@@ -1,11 +1,17 @@
 <div class="row">
+    <div id="validation-errors" class="span12 alert alert-error">
+
+    </div>
+</div>
+
+<div class="row">
     <div class="span6">
         <?php echo Form::label('description', 'Description'); ?>
         <?php echo Form::text('description', Input::old('description', $test->description), array('class' => 'span6')); ?>
     </div>
     <div class="span6">
         <?php echo Form::label('url', 'URL'); ?>
-        <?php echo Form::text('url', Input::old('url', $test->url), array('class' => 'span6')); ?>
+        <?php echo Form::text('url', Input::old('url', $test->url ?: 'http://'), array('class' => 'span6')); ?>
     </div>
 </div>
 
@@ -85,4 +91,44 @@
 
 <?php Section::start('additional_footer_content'); ?>
     <script>require(['clementia/test-types']);</script>
+
+    <script>
+        require([
+            "dojo/dom-style"
+            ], function (domStyle){
+                /* validate this form */
+                // todo abstract this into function
+                // todo validate different test types
+                var errorDiv = byId('validation-errors');
+
+                domStyle.set(errorDiv, 'display', 'none');
+
+                var validator = new FormValidator('test-form', [{
+                        name: 'description',
+                        rules: 'required'
+                    }, 
+                    {
+                        name: 'url',
+                        rules: 'required|valid_url'
+                    },
+                    {
+                        name: 'type',
+                        rules: 'required'
+                    }
+                ], function (errors, event){
+                    if (errors.length > 0) {
+                        var error_string = "";
+                        for (var i in errors) {
+                            error_string += errors[i].message + '<br />';
+                        }
+
+                        errorDiv.innerHTML = error_string;
+                        domStyle.set(errorDiv, 'display', 'block');
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+            });
+    </script>
 <?php Section::stop(); ?>

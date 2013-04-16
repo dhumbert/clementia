@@ -48,6 +48,8 @@ class Test_Controller extends Base_Controller
 
     public function get_create() 
     {
+        Asset::container('footer')->add('validate-js', 'js/validate.min.js');
+
         $test = new Test;
         $this->layout->nest('content', 'test.create', array(
             'test' => $test,

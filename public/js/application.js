@@ -1,3 +1,8 @@
+function byId(id) 
+{
+    return document.getElementById(id);
+}
+
 // set up Dojo Bootstrap JS
 require(["bootstrap/Alert", "bootstrap/Dropdown"]);
 
