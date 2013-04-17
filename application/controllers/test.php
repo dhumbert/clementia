@@ -48,7 +48,7 @@ class Test_Controller extends Base_Controller
 
     public function get_create() 
     {
-        Asset::container('footer')->add('validate-js', 'js/validate.min.js');
+        $this->add_js_validation();
 
         $test = new Test;
         $this->layout->nest('content', 'test.create', array(
@@ -85,6 +85,8 @@ class Test_Controller extends Base_Controller
 
     public function get_edit($id)
     {
+        $this->add_js_validation();
+        
         $test = Test::find($id);
         if (!$test) {
             return Response::error('404');

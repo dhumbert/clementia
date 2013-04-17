@@ -17,6 +17,11 @@ class Base_Controller extends Controller
         parent::__construct();
     }
 
+    public function add_js_validation()
+    {
+        Asset::container('footer')->add('validate-js', 'js/validate.min.js');
+    }
+
     /**
      * Catch-all method for requests that can't be matched.
      *
