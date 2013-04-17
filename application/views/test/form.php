@@ -84,56 +84,23 @@
 </div>
 
 <?php Section::start('additional_footer_content'); ?>
-    <script>require(['clementia/test-types']);</script>
-
-    <script>
-        require([
-            "dojo/dom-style",
-            "dojo/dom-attr",
-            "dojo/dom-construct"
-            ], function (domStyle, domAttr, domConstruct){
-                /* validate this form */
-                // todo abstract this into function
-                // todo validate different test types
-
-                var formId = 'test-form';
-
-                var validator = new FormValidator(formId, [{
-                        name: 'description',
-                        rules: 'required'
-                    }, 
-                    {
-                        name: 'url',
-                        rules: 'required|valid_url'
-                    },
-                    {
-                        name: 'type',
-                        rules: 'required'
-                    }
-                ], function (errors, event){
-                    if (errors.length > 0) {
-                        if (document.getElementById('validation-errors')) {
-                            domConstruct.destroy('validation-errors');
-                        }
-
-                        var errorMsgNode = domConstruct.create("div");
-                        domAttr.set(errorMsgNode, 'id', 'validation-errors');
-                        domAttr.set(errorMsgNode, 'class', 'alert alert-error');
-                        domStyle.set(errorMsgNode, 'display', 'none');
-
-                        var error_string = "";
-                        for (var i in errors) {
-                            error_string += errors[i].message + '<br />';
-                        }
-
-                        errorMsgNode.innerHTML = error_string;
-                        domStyle.set(errorMsgNode, 'display', 'block');
-                        domConstruct.place(errorMsgNode, formId, 'first');
-                        return false;
-                    } else {
-                        return true;
-                    }
-                });
-            });
+    <script>require([
+        'clementia/validation', 
+        'clementia/test-types'],
+        function(validation){
+            validation.validate('test-form', [{
+                    name: 'description',
+                    rules: 'required'
+                }, 
+                {
+                    name: 'url',
+                    rules: 'required|valid_url'
+                },
+                {
+                    name: 'type',
+                    rules: 'required'
+                }
+            ])
+        });
     </script>
 <?php Section::stop(); ?>
