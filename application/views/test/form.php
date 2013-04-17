@@ -1,10 +1,4 @@
 <div class="row">
-    <div id="validation-errors" class="span12 alert alert-error">
-
-    </div>
-</div>
-
-<div class="row">
     <div class="span6">
         <?php echo Form::label('description', 'Description'); ?>
         <?php echo Form::text('description', Input::old('description', $test->description), array('class' => 'span6')); ?>
@@ -94,16 +88,17 @@
 
     <script>
         require([
-            "dojo/dom-style"
-            ], function (domStyle){
+            "dojo/dom-style",
+            "dojo/dom-attr",
+            "dojo/dom-construct"
+            ], function (domStyle, domAttr, domConstruct){
                 /* validate this form */
                 // todo abstract this into function
                 // todo validate different test types
-                var errorDiv = byId('validation-errors');
 
-                domStyle.set(errorDiv, 'display', 'none');
+                var formId = 'test-form';
 
-                var validator = new FormValidator('test-form', [{
+                var validator = new FormValidator(formId, [{
                         name: 'description',
                         rules: 'required'
                     }, 
@@ -117,13 +112,19 @@
                     }
                 ], function (errors, event){
                     if (errors.length > 0) {
+                        var errorMsgNode = domConstruct.create("div");
+                        domAttr.set(errorMsgNode, 'id', 'validation-errors');
+                        domAttr.set(errorMsgNode, 'class', 'alert alert-error');
+                        domStyle.set(errorMsgNode, 'display', 'none');
+
                         var error_string = "";
                         for (var i in errors) {
                             error_string += errors[i].message + '<br />';
                         }
 
-                        errorDiv.innerHTML = error_string;
-                        domStyle.set(errorDiv, 'display', 'block');
+                        errorMsgNode.innerHTML = error_string;
+                        domStyle.set(errorMsgNode, 'display', 'block');
+                        domConstruct.place(errorMsgNode, formId, 'first');
                         return false;
                     } else {
                         return true;
