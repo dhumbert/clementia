@@ -112,6 +112,10 @@
                     }
                 ], function (errors, event){
                     if (errors.length > 0) {
+                        if (document.getElementById('validation-errors')) {
+                            domConstruct.destroy('validation-errors');
+                        }
+
                         var errorMsgNode = domConstruct.create("div");
                         domAttr.set(errorMsgNode, 'id', 'validation-errors');
                         domAttr.set(errorMsgNode, 'class', 'alert alert-error');
