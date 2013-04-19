@@ -49,6 +49,7 @@ class Test_Controller extends Base_Controller
     public function get_create() 
     {
         $test = new Test;
+        $test->autorun = TRUE; // default
         $this->layout->nest('content', 'test.create', array(
             'test' => $test,
             'types' => IoC::resolve('tester')->getTypes(),
@@ -63,6 +64,7 @@ class Test_Controller extends Base_Controller
         $test->type = Input::get('type');
         $test->user_id = Auth::user()->id;
         $test->options = Input::get('options');
+        $test->autorun = Input::get('autorun') ?: false;
 
         try {
             if ($test->save()) {
@@ -104,6 +106,7 @@ class Test_Controller extends Base_Controller
             $test->url = Input::get('url');
             $test->type = Input::get('type');
             $test->options = Input::get('options');
+            $test->autorun = Input::get('autorun') ?: false;
 
             try {
                 if ($test->save()) {

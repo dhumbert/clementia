@@ -15,8 +15,8 @@ class Test extends Aware
     public static function tests_for_user($user, $status = NULL, $sort = NULL, $dir = NULL)
     {
         $tests = NULL;
-        $sort = $sort ?: 'created_at';
-        $dir = $dir ?: 'asc';
+        $sort = $sort ?: 'last_run';
+        $dir = $dir ?: 'desc';
 
         if (!$status || $status == 'all') {
         // all tests
@@ -30,6 +30,11 @@ class Test extends Aware
         }
 
         return $tests->order_by($sort, $dir)->get();
+    }
+
+    public static function get_scheduled_tests()
+    {
+        return Test::where('autorun', '=', TRUE)->get();
     }
 
     public function set_options($options) 

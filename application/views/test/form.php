@@ -25,6 +25,12 @@
         ?>
         <?php  ?>
     </div>
+    <div id="autorun-field" class="span6">
+        <label class="checkbox">
+            <?php echo Form::checkbox('autorun', TRUE, Input::old('autorun', $test->autorun)); ?>
+            Run automatically every day
+        </label>
+    </div>
 </div>
 
 <div id="test-type-text" class="test-type" style="display:none;">

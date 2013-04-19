@@ -17,11 +17,18 @@
     <li>
       <?php echo $description['description']; ?>
       <?php if (count($description['details']) > 0): ?>
-        <ul class=" test-description-details">
+        <ul class="test-description-details">
           <?php foreach ($description['details'] as $detail): ?>
             <li><?php echo $detail; ?></li>
           <?php endforeach; ?>
         </ul>
+      <?php endif; ?>
+    </li>
+    <li>
+      <?php if ($test->autorun): ?>
+        Run automatically
+      <?php else: ?>
+        Run manually
       <?php endif; ?>
     </li>
   </ul>
