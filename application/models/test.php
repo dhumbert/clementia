@@ -6,12 +6,24 @@ class Test extends Aware
     const TEST_QUEUED = 1;
     const TEST_RUN = 2;
 
+    /**
+     * Simple validation rules for the model.
+     * @var array
+     */
     public static $rules = array(
         'description' => 'required',
         'url' => 'required|url',
         'type' => 'required',
     );
 
+    /**
+     * Get tests for a user.
+     * @param User $user The user
+     * @param string $status Filter by status: passing|failing|never-run
+     * @param string $sort Column to sort by
+     * @param string $dir Sort direction: asc|desc
+     * @return array An array of Test objects
+     */
     public static function tests_for_user($user, $status = NULL, $sort = NULL, $dir = NULL)
     {
         $tests = NULL;
@@ -32,11 +44,19 @@ class Test extends Aware
         return $tests->order_by($sort, $dir)->get();
     }
 
+    /**
+     * Get all tests that are set to run automatically.
+     * @return array Array of Test models
+     */
     public static function get_scheduled_tests()
     {
         return Test::where('autorun', '=', TRUE)->get();
     }
 
+    /**
+     * Set test options.
+     * @param array $options Associative array of options
+     */
     public function set_options($options) 
     {
         $options = array_map_deep('trim', $options);
@@ -59,11 +79,20 @@ class Test extends Aware
         $this->set_attribute('options', json_encode($options));
     }
 
+    /**
+     * Get an array of test options.
+     * @return array The test options
+     */
     public function get_options() 
     {
         return json_decode($this->get_attribute('options'), TRUE);
     }
 
+    /**
+     * Check whether a given test option is set.
+     * @param string $key The name of the option
+     * @return boolean
+     */
     public function option($key)
     {
         if (!$this->options) $this->options = array();
@@ -71,6 +100,10 @@ class Test extends Aware
         return array_key_exists($key, $this->options) ? $this->options[$key] : NULL;
     }
 
+    /**
+     * Get the current status of the test.
+     * @return string passing|failing|never-run
+     */
     public function status()
     {
         if ($this->passing) {
@@ -82,6 +115,10 @@ class Test extends Aware
         }
     }
 
+    /**
+     * Get last run info for the tests
+     * @return array An array with indices time, class, text
+     */
     public function last_run_info()
     {
         $info = array(
@@ -101,6 +138,7 @@ class Test extends Aware
 
     /**
     * Get some nice descriptive text about the test.
+    * @return array An array with keys description and details
     */
     public function generate_description_for_output() 
     {
@@ -139,6 +177,7 @@ class Test extends Aware
 
     /**
     * Either run or queue the test, depending on config.
+    * @return const Whether the test was run or queued
     */
     public function begin()
     {
@@ -153,6 +192,7 @@ class Test extends Aware
 
     /**
     * Run the test and create a TestLog.
+    * @return void
     */
     public function run() 
     {
@@ -174,12 +214,17 @@ class Test extends Aware
 
     /**
     * Queue the test to be run.
+    * @return void
     */
     public function queue() 
     {
         IoC::resolve('queue')->add_test($this->id);
     }
 
+    /**
+     * Check whether a test is queueud
+     * @return boolean
+     */
     public function is_queued()
     {
         return IoC::resolve('queue')->test_is_queued($this->id);
@@ -187,6 +232,8 @@ class Test extends Aware
 
     /**
     * Destroy the record if the user is able to.
+    * @param integer $user_id The ID of the user
+    * @return boolean
     */
     public function destroy_if_user_can($user_id) 
     {
@@ -198,6 +245,12 @@ class Test extends Aware
         }
     }
 
+    /**
+     * Hook into onSave event and do a couple of more complex validations.
+     * @throws Invalid_Options_Exception if options are not valid
+     * @throws Max_Tests_Exceeded_Exception if user has exceed max tests
+     * @return boolean
+     */
     public function onSave() 
     {
         // verify that the appropriate options are set for each test type
@@ -217,16 +270,11 @@ class Test extends Aware
                 break;
         }
 
-        $this->check_for_max_tests();
-
-        return TRUE;
-    }
-
-    private function check_for_max_tests() 
-    {
         if (!$this->exists && Auth::user()->has_reached_his_test_limit()) {
             throw new Max_Tests_Exceeded_Exception;
         }
+
+        return TRUE;
     }
 
     /**
