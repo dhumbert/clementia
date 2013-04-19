@@ -87,7 +87,8 @@
           baseUrl: "<?php echo URL::to_asset('js/dojo'); ?>",
           packages: [
               { name: "bootstrap", location: "Dojo-Bootstrap" },
-              { name: "clementia", location: "clementia" }
+              { name: "clementia", location: "clementia" },
+              { name: "validatejs", location: "validatejs" },
           ]
       };
   </script>

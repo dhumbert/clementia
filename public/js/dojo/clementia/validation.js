@@ -1,11 +1,11 @@
 define([
     "dojo/dom-style",
     "dojo/dom-attr",
-    "dojo/dom-construct"
+    "dojo/dom-construct",
+    "validatejs/validate"
     ], function (domStyle, domAttr, domConstruct){
         /* validate this form */
         // todo validate different test types
-        // todo make validatejs a module loadable via AMD
 
         return {
             validate: function(formId, rules) {
@@ -34,6 +34,6 @@ define([
                     }
                 });
             }
-        }
+        };
     }
 );

@@ -48,8 +48,6 @@ class Test_Controller extends Base_Controller
 
     public function get_create() 
     {
-        $this->add_js_validation();
-
         $test = new Test;
         $this->layout->nest('content', 'test.create', array(
             'test' => $test,
@@ -85,8 +83,6 @@ class Test_Controller extends Base_Controller
 
     public function get_edit($id)
     {
-        $this->add_js_validation();
-        
         $test = Test::find($id);
         if (!$test) {
             return Response::error('404');
