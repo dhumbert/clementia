@@ -14,7 +14,6 @@ class RunTests_Task
             if ($test) {
                 $test = Test::find($test);
                 $test->run();
-                IoC::resolve('queue')->test_complete($test->id);
             }
         }
     }    

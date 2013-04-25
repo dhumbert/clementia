@@ -18,7 +18,6 @@ return array(
     'queue' => array(
         'key' => 'test_queue',
         'limit' => 10,
-        'tracking_set_key' => 'test_queue_tracker',
     ),
     'roles' => array(
         'level_0' => 'Free',
