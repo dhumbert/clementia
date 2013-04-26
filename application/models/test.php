@@ -2,7 +2,8 @@
 
 class Test extends Aware 
 {
-    public static $timestamps = true;
+    public static $timestamps = TRUE;
+    public $skip_limit_check = FALSE;
     const TEST_QUEUED = 1;
     const TEST_RUN = 2;
 
@@ -270,7 +271,7 @@ class Test extends Aware
                 break;
         }
 
-        if (!$this->exists && Auth::user()->has_reached_his_test_limit()) {
+        if (!$this->skip_limit_check && !$this->exists && Auth::user()->has_reached_his_test_limit()) {
             throw new Max_Tests_Exceeded_Exception;
         }
 

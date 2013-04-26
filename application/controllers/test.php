@@ -52,7 +52,7 @@ class Test_Controller extends Base_Controller
         $test->autorun = TRUE; // default
         $this->layout->nest('content', 'test.create', array(
             'test' => $test,
-            'types' => IoC::resolve('tester')->getTypes(),
+            'types' => IoC::resolve('tester')->get_types(),
         ));
     }
 
@@ -91,7 +91,7 @@ class Test_Controller extends Base_Controller
         } else {
             $this->layout->nest('content', 'test.edit', array(
                 'test' => $test,
-                'types' => IoC::resolve('tester')->getTypes(),
+                'types' => IoC::resolve('tester')->get_types(),
             ));
         }
     }

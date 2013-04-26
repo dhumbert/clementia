@@ -15,7 +15,7 @@ class Tester
         $this->_parser = \IoC::resolve('htmlparser');
     }
 
-    public function getTypes()
+    public function get_types()
     {
         return array(
             self::TYPE_TEXT => 'Test for the presence of a text string',
