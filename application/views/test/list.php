@@ -49,8 +49,8 @@
   -->
     <div class="test-list">
         <div class="row">
-            <?php $i = 1; foreach ($tests as $test): ?>
-                <?php if ($i++ % 4 === 0): ?></div><div class="row"><?php endif; ?>
+            <?php $i = 0; foreach ($tests as $test): ?>
+                <?php if ($i++ % 3 === 0): ?></div><div class="row"><?php endif; ?>
 
                 <div class="span4 test-list-item test-<?php echo $test->status(); ?> clickable-element" data-link="<?php echo URL::to_route('test_detail', array($test->id)); ?>">
                     <div class="test-list-item-inner">
