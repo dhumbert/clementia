@@ -1,10 +1,2 @@
-function byId(id) 
-{
-    return document.getElementById(id);
-}
-
-// set up Dojo Bootstrap JS
-require(["bootstrap/Alert", "bootstrap/Dropdown"]);
-
-// allow faking of request method and clickable elements
-require(["clementia/fake-http-method", "clementia/clickable-element"]);
+// set up Dojo Bootstrap JS, faking HTTP method, and clickable elements
+require(["bootstrap/Alert", "bootstrap/Dropdown", "clementia/fake-http-method", "clementia/clickable-element"]);
