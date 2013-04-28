@@ -34,7 +34,7 @@
 
 /* Public routes */
 
-Route::get('/', array('as' => 'home', 'uses' => 'home@index', 'before' => 'front_redirect_if_authenticated'));
+Route::get('/welcome', array('as' => 'home', 'uses' => 'home@index', 'before' => 'front_redirect_if_authenticated'));
 
 /* End public routes */
 
@@ -60,7 +60,7 @@ Route::group(array('before' => 'auth'), function(){
 
     Route::get('test/(all|passing|failing|never-run)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
     Route::get('test/list', array('as' => 'ajax_test_list', 'uses' => 'test@ajax_list'));
-    Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
+    Route::get('/', array('as' => 'test_list', 'uses' => 'test@list'));
     Route::controller('test');
     /* End test routes */
   
@@ -148,7 +148,7 @@ Route::filter('csrf', function()
 
 Route::filter('auth', function()
 {
-    if (Auth::guest()) return Redirect::to('login');
+    if (Auth::guest()) return Redirect::to_route('home');
 });
 
 Route::filter('admin', function()
