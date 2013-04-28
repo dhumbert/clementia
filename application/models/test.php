@@ -246,6 +246,12 @@ class Test extends Aware
         ));
     }
 
+    public function notify()
+    {
+        $queue = IoC::resolve('queue');
+        $queue->add_test_notification($this);
+    }
+
     /**
     * Queue the test to be run.
     * @return void

@@ -19,6 +19,10 @@ return array(
     'queue' => array(
         'key' => 'test_queue',
         'limit' => 10,
+        'notifications' => array(
+            'key' => 'notification_queue',
+            'limit' => 10,
+        ),
     ),
     'roles' => array(
         'level_0' => 'Free',

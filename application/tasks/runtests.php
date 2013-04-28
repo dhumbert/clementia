@@ -14,6 +14,7 @@ class RunTests_Task
             if ($test_id) {
                 $test = Test::find($test_id);
                 $test->run();
+                $test->notify();
             }
         }
     }    
