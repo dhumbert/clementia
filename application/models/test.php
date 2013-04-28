@@ -3,7 +3,6 @@
 class Test extends Aware 
 {
     public static $timestamps = TRUE;
-    public static $per_page = 10;
     public $skip_limit_check = FALSE;
     const TEST_QUEUED = 1;
     const TEST_RUN = 2;
