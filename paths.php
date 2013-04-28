@@ -23,7 +23,7 @@
 
 $environments = array(
 
-	'local' => array('http://localhost*', '*.dev', 'Devins-MacBook-Pro.local'),
+	'local' => array('http://localhost*', '*.dev', '*.local'),
 
 );
 
