@@ -1,16 +1,21 @@
 define([
     "dojo/query",
-    "dojo/on",
+    "dojo/behavior",
     "dojo/dom-attr",
     "dojo/domReady!"
-    ], 
-    function(query, on, domAttr){
+    ],
+    function(query, behavior, domAttr){
+        var clickableBehavior = {
+            ".clickable-element": {
+                onclick: function(e){
+                    var element = query(e.target).closest('.clickable-element')[0];
+                    var url = domAttr.get(element, 'data-link');
+                    window.location.href = url;
+                }
+            }
+        };
 
-        query('.clickable-element').forEach(function(node) {
-            on(node, 'click', function(e){
-                var url = domAttr.get(node, 'data-link');
-                window.location.href = url;
-            });
-        });
+        behavior.add(clickableBehavior);
+        behavior.apply();
     }
 );

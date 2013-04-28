@@ -59,6 +59,7 @@ Route::group(array('before' => 'auth'), function(){
     Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
 
     Route::get('test/(all|passing|failing|never-run)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
+    Route::get('test/list', array('as' => 'ajax_test_list', 'uses' => 'test@ajax_list'));
     Route::get('test', array('as' => 'test_list', 'uses' => 'test@list'));
     Route::controller('test');
     /* End test routes */

@@ -2,7 +2,6 @@
 
 use Closure;
 use Laravel\Database;
-use Laravel\Paginator;
 use Laravel\Database\Query\Grammars\Postgres;
 use Laravel\Database\Query\Grammars\SQLServer;
 
@@ -769,7 +768,7 @@ class Query {
 
 		$total = $this->count(reset($columns));
 
-		$page = Paginator::page($total, $per_page);
+		$page = \Paginator::page($total, $per_page);
 
 		$this->orderings = $orderings;
 
@@ -778,7 +777,7 @@ class Query {
 		// a convenient way to set the paging limit and offset.
 		$results = $this->for_page($page, $per_page)->get($columns);
 
-		return Paginator::make($results, $total, $per_page);
+		return \Paginator::make($results, $total, $per_page);
 	}
 
 	/**

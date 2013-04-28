@@ -3,6 +3,7 @@
 class Test extends Aware 
 {
     public static $timestamps = TRUE;
+    public static $per_page = 10;
     public $skip_limit_check = FALSE;
     const TEST_QUEUED = 1;
     const TEST_RUN = 2;
@@ -32,7 +33,7 @@ class Test extends Aware
         $dir = $dir ?: 'desc';
 
         if (!$status || $status == 'all') {
-        // all tests
+            // all tests
             $tests = $user->tests();
         } elseif ($status == 'passing') {
             $tests = $user->tests()->where('passing', '=', TRUE);
@@ -42,7 +43,40 @@ class Test extends Aware
             $tests = $user->tests()->where_null('last_run');
         }
 
-        return $tests->order_by($sort, $dir)->get();
+        $limit = Config::get('tests.per_page', 9); #todo user preference
+        return $tests->order_by($sort, $dir)->paginate($limit);
+    }
+
+    /**
+     * Get tests for user and add some information for the AJAX test list view.
+     */
+    public static function tests_for_ajax($user, $status = NULL, $sort = NULL, $dir = NULL)
+    {
+        $tests = Test::tests_for_user($user, $status, $sort, $dir);
+        $final_tests = array();
+        $response = new stdClass;
+        
+        $i = 1;
+        foreach ($tests->results as $test) {
+            $test->status = $test->status();
+
+            $last_run = $test->last_run_info();
+            $test->lastrunclass = $last_run['class'];
+            $test->lastruntext = $last_run['text'];
+            $test->lastruntime = $last_run['time'];
+
+            $test->link = URL::to_route('test_detail', array($test->id));
+
+            $test->new_row = $i % 3 === 0 || $i === count($tests->results);
+            $i++;
+
+            $final_tests[] = $test->to_array();
+        }
+
+        $response->tests = $final_tests;
+        $response->pagination = $tests->appends(array($status))->links();
+
+        return $response;
     }
 
     /**

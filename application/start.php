@@ -194,6 +194,10 @@ Auth::extend('clementia_auth', function()
     return new Clementia\Auth;
 });
 
+Autoloader::map(array(
+    'Clementia\\Paginator' => path('app').'libraries/clementia/paginator.php',
+));
+
 /* utility functions */
 function array_map_deep($callback, array $array)
 {

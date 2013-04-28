@@ -5,16 +5,20 @@ class Test_Controller extends Base_Controller
 
     public $restful = TRUE;
 
-    public function get_list($status = NULL) 
+    public function get_list() 
     {
-        $tests = Test::tests_for_user(Auth::user(), $status, Input::get('sort'), Input::get('dir'));
-
         $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
         $this->layout->nest('content', 'test.list', array(
-            'tests' => $tests,
             'user_can_create_more_tests' => $user_can_create_more_tests,
-            'status' => $status,
         ));
+    }
+
+    public function get_ajax_list()
+    {
+        $this->layout = NULL;
+
+        $tests = Test::tests_for_ajax(Auth::user(), Input::get('status'), Input::get('sort'), Input::get('dir'));
+        echo json_encode($tests);
     }
 
     public function get_detail($id) 

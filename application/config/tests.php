@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'per_page' => 9,
     'tags' => array(
         '' => 'Any',
         'div' => 'div',

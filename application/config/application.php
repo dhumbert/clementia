@@ -176,7 +176,7 @@ return array(
         'Lang'          => 'Laravel\\Lang',
         'Log'           => 'Laravel\\Log',
         'Memcached'     => 'Laravel\\Memcached',
-        'Paginator'     => 'Laravel\\Paginator',
+        'Paginator'     => 'Clementia\\Paginator',
         'Profiler'      => 'Laravel\\Profiling\\Profiler',
         'URL'           => 'Laravel\\URL',
         'Redirect'      => 'Laravel\\Redirect',

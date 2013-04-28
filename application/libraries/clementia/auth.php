@@ -2,7 +2,8 @@
 
 namespace Clementia;
 
-class Auth extends \Laravel\Auth\Drivers\Eloquent {
+class Auth extends \Laravel\Auth\Drivers\Eloquent
+{
     /* extend the check method to optionally check for a role */
     public function check($role = NULL)
     {

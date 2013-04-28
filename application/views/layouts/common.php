@@ -89,6 +89,7 @@
               { name: "bootstrap", location: "Dojo-Bootstrap" },
               { name: "clementia", location: "clementia" },
               { name: "validatejs", location: "validatejs" },
+              { name: "mustache", location: "mustache" },
           ]
       };
   </script>
