@@ -11,7 +11,7 @@ class ScheduleTests_Task
     {
         $tests = Test::get_scheduled_tests();
         foreach ($tests as $test) {
-            $test->queue();
+            IoC::resolve('queue')->push_scheduled_test($test->id);
         }
     }    
 }

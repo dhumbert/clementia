@@ -4,11 +4,6 @@ namespace Clementia;
 
 class Queue
 {
-    public function add_test($id)
-    {
-        \Redis::db()->sadd(\Config::get('tests.queue.key'), $id);
-    }
-
     public function test_is_queued($id)
     {
         // don't incur the overhead of checking Redis for queued-ness if we're not queuing tests.
@@ -18,12 +13,33 @@ class Queue
         return $is_member;
     }
 
+    public function push_test($id)
+    {
+        \Redis::db()->sadd(\Config::get('tests.queue.key'), $id);
+    }
+
     public function pop_test()
     {
         return \Redis::db()->spop(\Config::get('tests.queue.key'));
     }
 
-    public function add_test_notification(\Test $test)
+    public function there_are_scheduled_tests()
+    {
+        $count = (int)\Redis::db()->scard(\Config::get('tests.queue.scheduled.key'));
+        return $count > 0;
+    }
+
+    public function push_scheduled_test($id)
+    {
+        \Redis::db()->sadd(\Config::get('tests.queue.scheduled.key'), $id);
+    }
+
+    public function pop_scheduled_test()
+    {
+        return \Redis::db()->spop(\Config::get('tests.queue.scheduled.key'));
+    }
+
+    public function push_notification(\Test $test)
     {
         $key = \Config::get('tests.queue.notifications.key');
         $existing_notifications = (array)json_decode(\Redis::db()->hget($key, $test->user->id));

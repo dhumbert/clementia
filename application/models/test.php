@@ -248,8 +248,7 @@ class Test extends Aware
 
     public function notify()
     {
-        $queue = IoC::resolve('queue');
-        $queue->add_test_notification($this);
+        IoC::resolve('queue')->push_notification($this);
     }
 
     /**
@@ -258,7 +257,7 @@ class Test extends Aware
     */
     public function queue() 
     {
-        IoC::resolve('queue')->add_test($this->id);
+        IoC::resolve('queue')->push_test($this->id);
     }
 
     /**
