@@ -30,10 +30,25 @@ class User extends Aware
         return $this->belongs_to('Role');
     }
 
+    public function count_tests()
+    {
+        return count($this->tests);
+    }
+
+    public function allowed_tests()
+    {
+        return $this->role->allowed_tests;
+    }
+
+    public function signup_date()
+    {
+        return date("Y-m-d", strtotime($this->created_at));
+    }
+
     public function has_reached_his_test_limit() 
     {
-        $max_tests = $this->role->allowed_tests;
-        $existing_tests = count($this->tests);
+        $max_tests = $this->allowed_tests();
+        $existing_tests = $this->count_tests();
 
         if ($max_tests && $existing_tests >= $max_tests) {
             return TRUE;

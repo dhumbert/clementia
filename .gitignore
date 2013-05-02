@@ -1,3 +1,4 @@
 vendor/*
 .sass-cache/*
 public/css/*.css
+.idea/*
