@@ -47,6 +47,9 @@ Route::controller('session');
 /* Protected routes */
 Route::group(array('before' => 'auth'), function(){
 
+    /* Site routes */
+    Route::controller('site');
+
     Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));
 
     /* Test routes */

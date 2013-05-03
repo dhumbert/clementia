@@ -52,12 +52,17 @@ class Test_Controller extends Base_Controller
 
     public function get_create() 
     {
-        $test = new Test;
-        $test->autorun = TRUE; // default
-        $this->layout->nest('content', 'test.create', array(
-            'test' => $test,
-            'types' => IoC::resolve('tester')->get_types(),
-        ));
+        if (Auth::user()->has_sites()) {
+            $test = new Test;
+            $test->autorun = TRUE; // default
+            $this->layout->nest('content', 'test.create', array(
+                'test' => $test,
+                'types' => IoC::resolve('tester')->get_types(),
+                'sites' => Auth::user()->sites_dropdown_options(),
+            ));
+        } else {
+            return Redirect::to('site/create')->with('error', 'You must create a site before you can create a test');
+        }
     }
 
     public function post_create() 
@@ -66,7 +71,7 @@ class Test_Controller extends Base_Controller
         $test->description = Input::get('description');
         $test->url = Input::get('url');
         $test->type = Input::get('type');
-        $test->user_id = Auth::user()->id;
+        $test->site_id = Input::get('site');
         $test->options = Input::get('options');
         $test->autorun = Input::get('autorun') ?: false;
 

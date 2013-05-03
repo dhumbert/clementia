@@ -11,7 +11,7 @@
   <div class="well well-large">
   <ul class=" test-description">
     <li>
-      Visit <a href="<?php echo $test->url; ?>" target="_blank"><?php echo $test->url; ?></a>
+      Visit <a href="<?php echo $test->full_url(); ?>" target="_blank"><?php echo $test->full_url(); ?></a>
       <i class="icon-share"></i>    
     </li>
     <li>

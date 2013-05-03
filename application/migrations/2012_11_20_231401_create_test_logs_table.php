@@ -28,6 +28,11 @@ class Create_Test_Logs_Table {
 	 */
 	public function down()
 	{
+        Schema::table('testlogs', function($table)
+        {
+            $table->drop_foreign('testlogs_test_id_foreign');
+        });
+
 		Schema::drop('testlogs');
 	}
 

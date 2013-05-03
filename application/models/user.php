@@ -20,9 +20,9 @@ class User extends Aware
         return true;
     }
 
-    public function tests()
+    public function sites()
     {
-        return $this->has_many('Test');
+        return $this->has_many('Site');
     }
 
     public function role()
@@ -45,7 +45,7 @@ class User extends Aware
         return date("Y-m-d", strtotime($this->created_at));
     }
 
-    public function has_reached_his_test_limit() 
+    public function has_reached_his_test_limit()
     {
         $max_tests = $this->allowed_tests();
         $existing_tests = $this->count_tests();
@@ -55,6 +55,21 @@ class User extends Aware
         } else {
             return FALSE;
         }
+    }
+
+    public function has_sites()
+    {
+        return count($this->sites) > 0;
+    }
+
+    public function sites_dropdown_options()
+    {
+        $options = array();
+        foreach ($this->sites as $site) {
+            $options[$site->id] = $site->domain . '/';
+        }
+
+        return $options;
     }
 
     public function send_password_reset()

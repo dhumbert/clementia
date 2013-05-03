@@ -20,7 +20,7 @@ class Create_Roles {
 
 		Schema::table('users', function($table){
 			$table->integer('role_id')->unsigned();
-			$table->foreign('role_id')->references('id')->on('roles');
+			$table->foreign('role_id')->references('id')->on('roles')->on_delete('cascade');
 		});
 
 		DB::table('users')->insert(array(

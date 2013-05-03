@@ -5,7 +5,8 @@
     </div>
     <div class="span6">
         <?php echo Form::label('url', 'URL'); ?>
-        <?php echo Form::text('url', Input::old('url', $test->url ?: 'http://'), array('class' => 'span6')); ?>
+        <?php echo Form::select('site', $sites, Input::old('site', $test->site_id), array('class' => 'span3')); ?>
+        <?php echo Form::text('url', Input::old('url', $test->url), array('class' => 'span3')); ?>
     </div>
 </div>
 
@@ -97,10 +98,6 @@
             validation.validate('test-form', [{
                     name: 'description',
                     rules: 'required'
-                }, 
-                {
-                    name: 'url',
-                    rules: 'required|valid_url'
                 },
                 {
                     name: 'type',

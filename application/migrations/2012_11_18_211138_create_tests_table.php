@@ -30,6 +30,11 @@ class Create_Tests_Table {
 	 */
 	public function down()
 	{
+        Schema::table('tests', function($table)
+        {
+            $table->drop_foreign('tests_user_id_foreign');
+        });
+
 		Schema::drop('tests');
 	}
 

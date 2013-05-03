@@ -5,7 +5,7 @@
     <?php echo Form::open(NULL, 'PUT', array('id' => 'test-form')); ?>
         <?php echo Form::token(); ?>
 
-    <?php echo render('test.form', array('test' => $test, 'types' => $types)); ?>
+    <?php echo render('test.form', array('test' => $test, 'types' => $types, 'sites' => $sites)); ?>
 
     <div class="form-actions">
         <?php echo Form::submit('Save Test', array('class' => 'btn btn-primary')); ?>

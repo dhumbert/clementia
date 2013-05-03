@@ -13,7 +13,6 @@ class Test extends Aware
      */
     public static $rules = array(
         'description' => 'required',
-        'url' => 'required|url',
         'type' => 'required',
     );
 
@@ -170,6 +169,11 @@ class Test extends Aware
         return $info;
     }
 
+    public function full_url()
+    {
+        return $this->site->domain . '/' . $this->url;
+    }
+
     /**
     * Get some nice descriptive text about the test.
     * @return array An array with keys description and details
@@ -231,7 +235,7 @@ class Test extends Aware
     public function run() 
     {
         $tester = IoC::resolve('tester');
-        $passed = $tester->test($this->type, $this->url, $this->options);
+        $passed = $tester->test($this->type, $this->full_url(), $this->options);
 
         $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
 
@@ -319,9 +323,9 @@ class Test extends Aware
     /**
     * Relationships.
     */
-    public function user() 
+    public function site()
     {
-        return $this->belongs_to('User');
+        return $this->belongs_to('Site');
     }
 
     public function logs()
