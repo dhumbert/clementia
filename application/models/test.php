@@ -24,44 +24,50 @@ class Test extends Aware
      * @param string $dir Sort direction: asc|desc
      * @return array An array of Test objects
      */
-    public static function tests_for_user($user, $status = NULL, $sort = NULL, $dir = NULL)
+    public static function tests_for_user($user, $site = NULL, $status = NULL, $sort = NULL, $dir = NULL)
     {
         $tests = NULL;
         $sort = $sort ?: 'last_run';
         $dir = $dir ?: 'desc';
 
-        if (!$status || $status == 'all') {
-            // all tests
-            $tests = $user->tests();
-        } elseif ($status == 'passing') {
-            $tests = $user->tests()->where('passing', '=', TRUE);
+        $tests = DB::table('tests')
+            ->join('sites', 'tests.site_id', '=', 'sites.id')
+            ->where('sites.user_id', '=', $user->id);
+
+        if ($site !== 'all' && $site !== NULL) {
+            $tests->where('sites.domain', '=', $site);
+        }
+
+        if ($status == 'passing') {
+            $tests->where('tests.passing', '=', TRUE);
         } elseif ($status == 'failing') {
-            $tests = $user->tests()->where('passing', '=', FALSE)->where_not_null('last_run');
+            $tests->where('tests.passing', '=', FALSE)->where_not_null('tests.last_run');
         } elseif ($status == 'never-run') {
-            $tests = $user->tests()->where_null('last_run');
+            $tests->where_null('last_run');
         }
 
         $limit = Config::get('tests.per_page', 9); #todo user preference
-        return $tests->order_by($sort, $dir)->paginate($limit);
+        return $tests->order_by($sort, $dir)->paginate($limit, array('tests.id'));
     }
 
     /**
      * Get tests for user and add some information for the AJAX test list view.
      */
-    public static function tests_for_ajax($user, $status = NULL, $sort = NULL, $dir = NULL)
+    public static function tests_for_ajax($user, $site, $status = NULL, $sort = NULL, $dir = NULL)
     {
-        $tests = Test::tests_for_user($user, $status, $sort, $dir);
+        $tests = Test::tests_for_user($user, $site, $status, $sort, $dir);
         $final_tests = array();
         $response = new stdClass;
-        
+
         $i = 1;
         foreach ($tests->results as $test) {
+            $test = Test::find($test->id);
             $test->status = $test->status();
 
             $last_run = $test->last_run_info();
-            $test->lastrunclass = $last_run['class'];
             $test->lastruntext = $last_run['text'];
             $test->lastruntime = $last_run['time'];
+            $test->site_domain = $test->site->domain;
 
             $test->link = URL::to_route('test_detail', array($test->id));
 
@@ -155,14 +161,12 @@ class Test extends Aware
     public function last_run_info()
     {
         $info = array(
-            'class' => 'muted',
             'text' => 'Never Run',
             'time' => '',
         );
 
         if ($this->last_run) {
             $info['time'] = DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($this->last_run)); 
-            $info['class'] = $this->passing ? 'success' : 'error';
             $info['text'] = $this->passing ? 'Passed' : 'Failed';
         }
 
@@ -171,7 +175,7 @@ class Test extends Aware
 
     public function full_url()
     {
-        return $this->site->domain . '/' . $this->url;
+        return $this->site->get_url($this->url);
     }
 
     /**

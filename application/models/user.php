@@ -57,6 +57,28 @@ class User extends Aware
         }
     }
 
+    public function count_sites()
+    {
+        return count($this->sites);
+    }
+
+    public function allowed_sites()
+    {
+        return $this->role->allowed_sites;
+    }
+
+    public function has_reached_site_limit()
+    {
+        $max_sites = $this->allowed_sites();
+        $existing_sites = $this->count_sites();
+
+        if ($max_sites && $existing_sites >= $max_sites) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     public function has_sites()
     {
         return count($this->sites) > 0;
@@ -66,7 +88,7 @@ class User extends Aware
     {
         $options = array();
         foreach ($this->sites as $site) {
-            $options[$site->id] = $site->domain . '/';
+            $options[$site->id] = $site->get_url('/');
         }
 
         return $options;

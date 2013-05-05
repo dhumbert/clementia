@@ -15,6 +15,7 @@ class Create_Sites {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->on_delete('cascade');
+            $table->string('protocol', 5);
             $table->string('domain')->unique();
             $table->timestamps();
         });

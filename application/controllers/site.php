@@ -10,6 +10,7 @@ class Site_Controller extends Base_Controller
         $sites = Auth::user()->sites()->get();
 
         $this->layout->nest('content', 'site.list', array(
+            'user_can_create_more_sites' => !Auth::user()->has_reached_site_limit(),
             'sites' => $sites,
         ));
     }
@@ -25,7 +26,7 @@ class Site_Controller extends Base_Controller
     public function post_create()
     {
         $site = new Site;
-        $site->domain = Input::get('domain');
+        $site->parse_url(Input::get('domain'));
         $site->user_id = Auth::user()->id;
 
         if ($site->save()) {

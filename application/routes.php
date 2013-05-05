@@ -48,6 +48,7 @@ Route::controller('session');
 Route::group(array('before' => 'auth'), function(){
 
     /* Site routes */
+    Route::get('site', array('as' => 'site_list', 'uses' => 'site@index'));
     Route::controller('site');
 
     Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));

@@ -23,6 +23,7 @@
               <li><?php echo HTML::link_to_route('user_list', 'Users'); ?></li>
             <?php endif; ?>
 
+            <li><?php echo HTML::link_to_route('site_list', 'Sites'); ?></li>
             <li><?php echo HTML::link_to_route('test_list', 'Tests'); ?></li>
             <li><?php echo HTML::link_to_route('user_account', 'Account'); ?></li>
             <li><?php echo HTML::link_to_route('logout', 'Log out', array(), array('data-method' => 'DELETE')); ?></li>

@@ -16,10 +16,21 @@
         <?php endif; ?>
 
         <ul class="nav nav-pills test-filter-pills pull-right">
-            <li class="all"><a href="#/all">All Tests</a></li>
-            <li class="passing"><a href="#/passing">Passing Tests</a></li>
-            <li class="failing"><a href="#/failing">Failing Tests</a></li>
-            <li class="never-run"><a href="#/never-run">Never Run</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span id="active-site">All Sites</span> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#/all/all">All Sites</a></li>
+                    <?php foreach (Auth::user()->sites as $site): ?>
+                        <li><a href="#/<?php echo $site->domain; ?>/all"><?php echo $site->domain; ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+            <li class="all"><a id="link-all" href="#/all/all">All Tests</a></li>
+            <li class="passing"><a id="link-passing" href="#/all/passing">Passing Tests</a></li>
+            <li class="failing"><a id="link-failing" href="#/all/failing">Failing Tests</a></li>
+            <li class="never-run"><a id="link-never-run" href="#/all/never-run">Never Run</a></li>
         </ul>
     </div>
 

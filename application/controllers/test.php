@@ -17,7 +17,7 @@ class Test_Controller extends Base_Controller
     {
         $this->layout = NULL;
 
-        $tests = Test::tests_for_ajax(Auth::user(), Input::get('status'), Input::get('sort'), Input::get('dir'));
+        $tests = Test::tests_for_ajax(Auth::user(), Input::get('site'), Input::get('status'), Input::get('sort'), Input::get('dir'));
         echo json_encode($tests);
     }
 
@@ -101,6 +101,7 @@ class Test_Controller extends Base_Controller
             $this->layout->nest('content', 'test.edit', array(
                 'test' => $test,
                 'types' => IoC::resolve('tester')->get_types(),
+                'sites' => Auth::user()->sites_dropdown_options(),
             ));
         }
     }
