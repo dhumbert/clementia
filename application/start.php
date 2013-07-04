@@ -139,7 +139,10 @@ if (Config::get('application.profiler'))
 |
 */
 
-//Blade::sharpen();
+// currently only the larevel docs use blade, so only sharpen if local
+if (Request::is_env('local')) {
+    Blade::sharpen();
+}
 
 /*
 |--------------------------------------------------------------------------

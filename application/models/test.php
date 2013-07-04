@@ -284,7 +284,7 @@ class Test extends Aware
     */
     public function destroy_if_user_can($user_id) 
     {
-        if ($user_id === $this->user_id) {
+        if ($user_id === $this->site->user->id) {
             $this->delete();
             return TRUE;
         } else {
