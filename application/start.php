@@ -215,35 +215,6 @@ function array_map_deep($callback, array $array)
     return $new;
 }
 
-function sort_link($base_url, $to_sort, $sort, $dir, $default_sort = NULL)
-{
-    $current_query_string = parse_url($base_url, PHP_URL_QUERY);
-    $url = $base_url;
-    $dir = $dir ?: 'asc';
-    $sort = $sort ?: $default_sort;
-
-    if (strstr($url, '?')) {
-        $url = explode('?', $url)[0];
-    }
-
-    if (substr($url, -1) != '/') {
-        $url .= '/';
-    }
-
-    if ($sort == $to_sort) {
-        $dir = $dir == 'asc' ? 'desc' : 'asc';
-    } else {
-        $dir = 'asc';
-    }
-
-    $url .= '?' . $current_query_string;
-    $url .= $current_query_string ? '&' : '';
-    $url .= 'sort=' . $to_sort;
-    $url .= '&dir=' . $dir;
-
-    return $url;
-}
-
 function truncate_text($text, $max_length, $ellipsis = '...')
 {
     if (strlen($text) > $max_length) {

@@ -6,7 +6,7 @@ class User extends Aware
 
     public static $rules = array(
         'email' => 'required|email|unique:users',
-        'password' => 'required',
+        'password' => 'required|confirmed',
         'role_id' => 'required',
     );
 
@@ -15,6 +15,10 @@ class User extends Aware
         // if there's a new password, hash it
         if($this->changed('password')) {
             $this->password = Hash::make($this->password);
+        }
+
+        if (isset($this->attributes['password_confirmation'])) {
+            unset($this->attributes['password_confirmation']);
         }
 
         return true;

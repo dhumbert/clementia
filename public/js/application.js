@@ -1,2 +1,8 @@
-// set up Dojo Bootstrap JS, faking HTTP method, and clickable elements
-require(["bootstrap/Alert", "bootstrap/Dropdown", "clementia/fake-http-method", "clementia/clickable-element"]);
+// set up JS that we need application-wide
+require([
+    "bootstrap/Alert",
+    "bootstrap/Dropdown",
+    "bootstrap/Modal",
+    "clementia/fake-http-method",
+    "clementia/clickable-element"
+]);

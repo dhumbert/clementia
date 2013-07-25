@@ -75,6 +75,8 @@ Route::group(array('before' => 'admin'), function(){
 });
 
 /* User routes */
+Route::get('signup', array('as' => 'signup', 'uses' => 'user@signup'));
+Route::post('signup', array('as' => 'signup', 'uses' => 'user@signup'));
 Route::post('user/reset-password/(:any)', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
 Route::get('user/reset-password/(:any)', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
 Route::post('user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));

@@ -137,3 +137,22 @@ d
 .pagination {
     text-align: center;
 }
+
+#signupModal {
+  width: 400px;
+  margin-left: -200px;
+}
+
+#signupForm {
+  margin-bottom: 0px;
+
+  .form-actions {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .signup-cancel {
+    text-align: right;
+    padding-top: 1.5em;
+  }
+}

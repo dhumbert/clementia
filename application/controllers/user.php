@@ -5,7 +5,7 @@ class User_Controller extends Base_Controller
 
     public $restful = TRUE;
 
-    public function get_index() 
+    public function get_index()
     {
         $user = Auth::user();
         if (!$user) {
@@ -48,18 +48,26 @@ class User_Controller extends Base_Controller
         }
     }
 
-    public function post_create() 
+    public function get_signup()
+    {
+        $this->layout->nest('content', 'user.signup', array(
+
+        ));
+    }
+
+    public function post_signup()
     {
         $user = new User;
         $user->email = Input::get('email');
         $user->password = Input::get('password');
+        $user->password_confirmation = Input::get('password_confirmation');
         $user->role_id = Role::where_name(Config::get('tests.roles.level_0'))->first()->id;
 
         if ($user->save()) {
             Auth::login($user->id);
             return Redirect::to_route(Config::get('auth.home_route'))->with('success', 'Thanks for signing up!');
         } else {
-            return Redirect::to_route('home')
+            return Redirect::to_route('signup')
                 ->with('signup_errors', $user->errors->all())
                 ->with_input('only', array('email'));
         }

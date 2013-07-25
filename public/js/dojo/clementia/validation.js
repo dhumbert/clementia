@@ -9,7 +9,7 @@ define([
 
         return {
             validate: function(formId, rules) {
-                var validator = new FormValidator(formId, rules, function (errors, event){
+                var validator = new FormValidator(formId, rules, function (errors, event){console.log(errors);
                     if (errors.length > 0) {
                         if (document.getElementById('validation-errors')) {
                             domConstruct.destroy('validation-errors');

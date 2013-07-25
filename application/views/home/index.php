@@ -12,7 +12,17 @@
 
     <div class="row">
         <div class="span12 home-signup">
-            <?php echo render('user.signup'); ?>
+            <button class="btn" data-toggle="modal" data-target="#signupModal">Sign Up</button>
+        </div>
+    </div>
+
+    <div class="modal hide fade" id="signupModal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Sign Up</h3>
+        </div>
+        <div class="modal-body">
+            <?php echo render('user.signup_form', array('in_lightbox' => true)); ?>
         </div>
     </div>
 <?php Section::stop(); ?>
