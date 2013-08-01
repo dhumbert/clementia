@@ -23,6 +23,7 @@ class Site_Controller extends Base_Controller
         $site = new Site;
         $this->layout->nest('content', 'site.create', array(
             'site' => $site,
+            'domain' => '',
         ));
     }
 
@@ -37,6 +38,39 @@ class Site_Controller extends Base_Controller
         } else {
             return Redirect::to('site/create')
                 ->with('error', $site->errors->all())
+                ->with_input();
+        }
+    }
+
+    public function get_edit($id)
+    {
+        $site = Site::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->first();
+        if (!$site) {
+            return Response::error(404);
+        }
+
+        $domain = $site->protocol . '://' . $site->domain;
+
+        $this->layout->nest('content', 'site.edit', array(
+            'site' => $site,
+            'domain' => $domain,
+        ));
+    }
+
+    public function post_edit($id)
+    {
+        $site = Site::where('id', '=', $id)->where('user_id', '=', Auth::user()->id)->first();
+        if (!$site) {
+            return Response::error(404);
+        }
+
+        $site->parse_url(Input::get('domain'));
+
+        try {
+            $site->save();
+            return Redirect::to('site')->with('success', 'Site saved');
+        } catch (Exception $e) {
+            return Redirect::to('site/edit/'.$id)->with('error', $site->errors->all())
                 ->with_input();
         }
     }

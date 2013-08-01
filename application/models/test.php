@@ -241,7 +241,11 @@ class Test extends Aware
     public function run() 
     {
         $tester = IoC::resolve('tester');
-        $passed = $tester->test($this->type, $this->full_url(), $this->options);
+        try {
+            $passed = $tester->test($this->type, $this->full_url(), $this->options);
+        } catch (Exception $e) {
+            $passed = false;
+        }
 
         $message = $passed ? 'Test Passed' : 'Test Failed'; #todo: more descriptive messages
 

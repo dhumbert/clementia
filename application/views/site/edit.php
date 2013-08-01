@@ -1,6 +1,6 @@
 <?php Section::start('content'); ?>
 
-    <h1>Create Site</h1>
+    <h1>Edit Site</h1>
 
     <?php echo Form::open(null, 'POST', array('id' => 'site-form')); ?>
         <?php echo Form::token(); ?>
