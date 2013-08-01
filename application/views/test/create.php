@@ -8,7 +8,7 @@
     <?php echo render('test.form', array('test' => $test, 'types' => $types, 'sites' => $sites)); ?>
 
     <div class="form-actions">
-        <?php echo Form::submit('Save Test', array('class' => 'btn btn-primary')); ?>
+        <?php echo Form::submit('Save Test', array('class' => 'btn btn-primary', 'id' => 'submit')); ?>
     </div>
   
   <?php echo Form::close(); ?>

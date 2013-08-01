@@ -4,4 +4,4 @@ A web app based on the Laravel MVC framework, to enable easy creation and runnin
 
 ## TODO
 - Capture screenshot during test with PhantomJS
-- Make sure user owns site (like Google does having them upload file?) to prevent DOS? Maybe a better way to prevent DOS...
+- WP plugin for seeing test status? or other WP integration

@@ -19,6 +19,11 @@ class Site extends Aware
 
     public function parse_url($url)
     {
+        // if user didn't enter http(s), add http
+        if (substr($url, 0, 4) !== 'http') {
+            $url = 'http://' . $url;
+        }
+
         $matches = array();
         if (preg_match("@^(https?)://(.+)@", $url, $matches)) {
             $this->protocol = $matches[1];

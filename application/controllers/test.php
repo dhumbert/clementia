@@ -7,10 +7,7 @@ class Test_Controller extends Base_Controller
 
     public function get_list() 
     {
-        $user_can_create_more_tests = !Auth::user()->has_reached_his_test_limit();
-        $this->layout->nest('content', 'test.list', array(
-            'user_can_create_more_tests' => $user_can_create_more_tests,
-        ));
+        $this->layout->nest('content', 'test.list');
     }
 
     public function get_ajax_list()
@@ -84,7 +81,9 @@ class Test_Controller extends Base_Controller
                 ->with_input();
             }
         } catch (Max_Tests_Exceeded_Exception $e) {
-            return Redirect::to_route('test_list')->with('error', 'Sorry! You have reached the maximum amount of tests you are allowed.');
+            return Redirect::to_route('test_list')->with('error',
+                "Sorry! You have reached the maximum amount of tests you are allowed for this site. If you'd like to add more,
+                    you will need to delete some of the ones below, or upgrade. <!-- todo: upgrade link -->");
         } catch (Invalid_Options_Exception $e) {
             return Redirect::to('test/create')
             ->with('error', $e->getMessage())

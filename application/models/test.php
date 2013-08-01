@@ -14,11 +14,13 @@ class Test extends Aware
     public static $rules = array(
         'description' => 'required',
         'type' => 'required',
+        'site_id' => 'required',
     );
 
     /**
      * Get tests for a user.
      * @param User $user The user
+     * @param string $site The site to load tests for
      * @param string $status Filter by status: passing|failing|never-run
      * @param string $sort Column to sort by
      * @param string $dir Sort direction: asc|desc
@@ -317,7 +319,7 @@ class Test extends Aware
                 break;
         }
 
-        if (!$this->skip_limit_check && !$this->exists && Auth::user()->has_reached_his_test_limit()) {
+        if (!$this->skip_limit_check && !$this->exists && Auth::user()->has_reached_his_test_limit($this->site_id)) {
             throw new Max_Tests_Exceeded_Exception;
         }
 

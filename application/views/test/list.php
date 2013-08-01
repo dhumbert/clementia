@@ -1,19 +1,10 @@
 <?php Section::start('content'); ?>
 
     <div class="row">
-        <?php if ($user_can_create_more_tests): ?>
-            <div class="span3 pull-left">
-                <a class="btn btn-info" href="<?php echo URL::to('test/create'); ?>">
-                <i class="icon-plus icon-white"></i> New Test</a>
-            </div>
-        <?php else: ?>
-            <div class="span12">
-                <div class="alert alert-warning">
-                    You have reached the maximum amount of tests you are allowed. If you'd like to add more, 
-                    you will need to delete some of the ones below.
-                </div>
-            </div>
-        <?php endif; ?>
+        <div class="span3 pull-left">
+            <a class="btn btn-info" href="<?php echo URL::to('test/create'); ?>">
+            <i class="icon-plus icon-white"></i> New Test</a>
+        </div>
 
         <ul class="nav nav-pills test-filter-pills pull-right">
             <li class="dropdown">

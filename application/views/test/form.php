@@ -1,3 +1,8 @@
+<div id="maxed-out-site-error" class="alert alert-error" style="display:none">
+    Sorry! You have reached the maximum amount of tests you are allowed for this site. If you'd like to add more,
+    you will need to delete some existing tests, or upgrade. <!-- todo: upgrade link -->
+</div>
+
 <div class="row">
     <div class="span6">
         <?php echo Form::label('description', 'Description'); ?>
@@ -5,7 +10,7 @@
     </div>
     <div class="span6">
         <?php echo Form::label('url', 'URL'); ?>
-        <?php echo Form::select('site', $sites, Input::old('site', $test->site_id), array('class' => 'span3')); ?>
+        <?php echo Form::select('site', $sites, Input::old('site', $test->site_id), array('class' => 'span3', 'id' => 'site')); ?>
         <?php echo Form::text('url', Input::old('url', $test->url), array('class' => 'span3')); ?>
     </div>
 </div>
@@ -102,8 +107,39 @@
                 {
                     name: 'type',
                     rules: 'required'
+                },
+                {
+                    name: 'site',
+                    rules: 'required'
                 }
             ])
+        });
+
+        require([
+            "dojo/on",
+            "dojo/request",
+            "dojo/dom-style",
+            "dojo/dom-attr"
+        ], function(on, request, domStyle, domAttr) {
+            on(document.getElementById('site'), 'change', function(evt){
+                domStyle.set('maxed-out-site-error', 'display', 'none');
+                domAttr.set('submit', 'disabled', 'disabled');
+
+                if (evt.target.value) {
+                    request("/site/check-max-tests", {
+                        query: {
+                            site: evt.target.value
+                        },
+                        handleAs: "json"
+                    }).then(function(results){
+                        if (results == true) {
+                            domStyle.set('maxed-out-site-error', 'display', 'block');
+                        } else {
+                            domAttr.remove('submit', 'disabled');
+                        }
+                    });
+                }
+            });
         });
     </script>
 <?php Section::stop(); ?>

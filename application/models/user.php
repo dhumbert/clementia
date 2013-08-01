@@ -34,14 +34,9 @@ class User extends Aware
         return $this->belongs_to('Role');
     }
 
-    public function count_tests()
-    {
-        return count($this->tests);
-    }
-
     public function allowed_tests()
     {
-        return $this->role->allowed_tests;
+        return $this->role->tests_per_site;
     }
 
     public function signup_date()
@@ -49,10 +44,11 @@ class User extends Aware
         return date("Y-m-d", strtotime($this->created_at));
     }
 
-    public function has_reached_his_test_limit()
+    public function has_reached_his_test_limit($site_id)
     {
+        $site = Site::find($site_id);
         $max_tests = $this->allowed_tests();
-        $existing_tests = $this->count_tests();
+        $existing_tests = count($site->tests);
 
         if ($max_tests && $existing_tests >= $max_tests) {
             return TRUE;
@@ -76,6 +72,7 @@ class User extends Aware
         $max_sites = $this->allowed_sites();
         $existing_sites = $this->count_sites();
 
+        // if max sites is null, user can have unlim. sites
         if ($max_sites && $existing_sites >= $max_sites) {
             return TRUE;
         } else {
@@ -90,7 +87,7 @@ class User extends Aware
 
     public function sites_dropdown_options()
     {
-        $options = array();
+        $options = array('' => 'Select a site...');
         foreach ($this->sites as $site) {
             $options[$site->id] = $site->get_url('/');
         }

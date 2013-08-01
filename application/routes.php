@@ -49,6 +49,7 @@ Route::group(array('before' => 'auth'), function(){
 
     /* Site routes */
     Route::get('site', array('as' => 'site_list', 'uses' => 'site@index'));
+    Route::get('site/check-max-tests', array('as' => 'site_check_max_tests', 'uses' => 'site@check_max_tests'));
     Route::controller('site');
 
     Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));
