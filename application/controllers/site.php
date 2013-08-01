@@ -103,7 +103,7 @@ class Site_Controller extends Base_Controller
         $max_tests = Auth::user()->role->tests_per_site;
 
         $maxedOut = true;
-        if ($tests < $max_tests) {
+        if (!$max_tests || $tests < $max_tests) {
             $maxedOut = false;
         }
 
