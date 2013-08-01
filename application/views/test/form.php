@@ -1,4 +1,4 @@
-<div id="maxed-out-site-error" class="alert alert-error" style="display:none">
+<div id="maxed-out-site-error" class="alert alert" style="display:none">
     Sorry! You have reached the maximum amount of tests you are allowed for this site. If you'd like to add more,
     you will need to delete some existing tests, or upgrade. <!-- todo: upgrade link -->
 </div>

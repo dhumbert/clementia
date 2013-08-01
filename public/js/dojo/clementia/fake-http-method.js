@@ -28,7 +28,15 @@ define([
         domAttr.set(node, 'href', '#');
 
         on(node, 'click', function(e){
-            query('form', node)[0].submit();
+            // if the node has a data-confirm, confirm before submitting form
+            var confirmation = domAttr.get(node, "data-confirm");
+            if (confirmation) {
+                if (confirm(confirmation)) {
+                    query('form', node)[0].submit();
+                }
+            } else {
+                query('form', node)[0].submit();
+            }
         });
     });
 });

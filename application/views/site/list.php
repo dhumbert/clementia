@@ -35,7 +35,7 @@
                                 / <?php echo $allowed_tests; ?>
                             </td>
                             <td>
-                                <?php echo HTML::link('site/delete/'.$site->id, 'Delete', array('class' => 'btn btn-danger', 'data-method' => 'DELETE')); ?>
+                                <?php echo HTML::link('site/delete/'.$site->id, 'Delete', array('class' => 'btn btn-danger', 'data-method' => 'DELETE', 'data-confirm' => 'Are you sure you to delete this site? This will also delete all tests associated with the site.')); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
