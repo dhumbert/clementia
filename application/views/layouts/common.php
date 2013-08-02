@@ -20,7 +20,7 @@
         <ul class="nav pull-right">
           <?php if (Auth::check()): ?>
             <?php if (Auth::check('Administrator')): ?>
-              <li><?php echo HTML::link_to_route('user_list', 'Users'); ?></li>
+              <li><?php echo HTML::link_to_route('admin', 'Admin'); ?></li>
             <?php endif; ?>
 
             <li><?php echo HTML::link_to_route('site_list', 'Sites'); ?></li>

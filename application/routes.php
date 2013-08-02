@@ -72,7 +72,7 @@ Route::group(array('before' => 'auth'), function(){
 });
 
 Route::group(array('before' => 'admin'), function(){
-    Route::get('user/list', array('as' => 'user_list', 'uses' => 'user@list'));
+    Route::get('admin', array('as' => 'admin', 'uses' => 'admin@index'));
 });
 
 /* User routes */
