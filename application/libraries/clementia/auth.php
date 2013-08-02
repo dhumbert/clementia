@@ -8,7 +8,9 @@ class Auth extends \Laravel\Auth\Drivers\Eloquent
     public function check($role = NULL)
     {
         $logged_in = parent::check();
-        
+
+        if (!$logged_in) return FALSE;
+
         if ($role) {
             $logged_in = FALSE;
             if ($this->user()->role_id == \Role::where_name($role)->first()->id) {
