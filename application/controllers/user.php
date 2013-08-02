@@ -125,4 +125,16 @@ class User_Controller extends Base_Controller
         }
     }
 
+    public function delete_delete($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return Response::error(404);
+        }
+
+        $user->delete();
+
+        return Redirect::to('admin')->with('success', 'User deleted');
+    }
+
 }

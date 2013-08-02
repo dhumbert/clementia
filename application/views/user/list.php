@@ -13,6 +13,11 @@
             <td><?php echo $user->role; ?></td>
             <td><?php echo $user->count_sites(); ?> / <?php echo $user->allowed_sites() ?: "&infin;"; ?></td>
             <td><?php echo $user->signup_date(); ?></td>
+            <td>
+                <?php if ($user->id != Auth::user()->id): ?>
+                    <?php echo HTML::link_to_route('delete_user', 'Delete', array($user->id), array('class' => 'btn btn-danger', 'data-method' => 'DELETE', 'data-confirm' => 'This action is irreversible. Continue?')); ?>
+                <?php endif; ?>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>

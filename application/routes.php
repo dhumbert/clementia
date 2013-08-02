@@ -73,6 +73,7 @@ Route::group(array('before' => 'auth'), function(){
 
 Route::group(array('before' => 'admin'), function(){
     Route::get('admin', array('as' => 'admin', 'uses' => 'admin@index'));
+    Route::delete('user/delete/(:num)', array('as' => 'delete_user', 'uses' => 'user@delete'));
 });
 
 /* User routes */
