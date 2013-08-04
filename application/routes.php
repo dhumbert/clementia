@@ -74,6 +74,9 @@ Route::group(array('before' => 'auth'), function(){
 Route::group(array('before' => 'admin'), function(){
     Route::get('admin', array('as' => 'admin', 'uses' => 'admin@index'));
     Route::delete('user/delete/(:num)', array('as' => 'delete_user', 'uses' => 'user@delete'));
+
+    Route::get('role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
+    Route::post('role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
 });
 
 /* User routes */

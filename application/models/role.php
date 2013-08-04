@@ -2,6 +2,8 @@
 
 class Role extends Aware 
 {
+    public static $timestamps = false;
+
     public function users()
     {
         return $this->has_many('User');
