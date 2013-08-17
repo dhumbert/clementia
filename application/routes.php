@@ -77,6 +77,8 @@ Route::group(array('before' => 'admin'), function(){
 
     Route::get('role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
     Route::post('role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
+    Route::get('role/create', array('as' => 'create_role', 'uses' => 'role@create'));
+    Route::post('role/create', array('as' => 'create_role', 'uses' => 'role@create'));
 });
 
 /* User routes */

@@ -1,3 +1,8 @@
+<a href="<?php echo URL::to_route('create_role'); ?>" class="btn btn-info">
+    <i class="icon-plus icon-white"></i>
+    New Role
+</a>
+
 <table class="table table-striped">
     <thead>
     <tr>

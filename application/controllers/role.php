@@ -33,4 +33,30 @@ class Role_Controller extends Base_Controller
             return Redirect::to_route('edit_role', array($id))->with('error', $role->errors->all());
         }
     }
+
+    public function get_create()
+    {
+        $role = new Role;
+
+        $this->layout->nest('content', 'role.create', array(
+           'role' => $role,
+        ));
+    }
+
+    public function post_create()
+    {
+        $role = new Role;
+        $role->name = Input::get('name');
+        $role->allowed_sites = Input::get('allowed_sites');
+        $role->tests_per_site = Input::get('tests_per_site');
+
+        if ($role->save()) {
+            return Redirect::to_route('admin')
+                ->with('success', 'Role created');
+        } else {
+            return Redirect::to_route('create_role')
+                ->with_input()
+                ->with('error', $role->errors->all());
+        }
+    }
 }
