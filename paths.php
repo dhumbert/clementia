@@ -27,6 +27,10 @@ $environments = array(
 
 );
 
+$paths['tasks'] = 'application/tasks';
+
+$paths['screenshots'] = 'public/user/screenshots';
+
 // --------------------------------------------------------------
 // The path to the application directory.
 // --------------------------------------------------------------
@@ -79,6 +83,7 @@ $GLOBALS['laravel_paths']['base'] = __DIR__.DS;
 // --------------------------------------------------------------
 foreach ($paths as $name => $path)
 {
+
 	if ( ! isset($GLOBALS['laravel_paths'][$name]))
 	{
 		$GLOBALS['laravel_paths'][$name] = realpath($path).DS;

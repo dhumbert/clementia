@@ -57,6 +57,14 @@
             <span class="success"><?php echo $log->message; ?></span>
           </td>
           <td><?php echo DateFmt::Format('AGO[t]IF-FAR[M__ d##, y##]', strtotime($log->created_at)); ?></td>
+          <td>
+              <?php if ($log->screenshot): ?>
+                  <i class="icon-camera"></i>
+                  <a href="<?php echo URL::to_asset('user/screenshots/' . $log->screenshot); ?>">
+                      Screenshot
+                  </a>
+              <?php endif; ?>
+          </td>
         </tr>
       <?php endforeach; ?>
     </table>

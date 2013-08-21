@@ -192,6 +192,10 @@ IoC::register('queue', function() {
     return new Clementia\Queue;
 });
 
+IoC::register('screenshot', function($url){
+    return new Clementia\Screenshot($url);
+});
+
 Auth::extend('clementia_auth', function()
 {
     return new Clementia\Auth;

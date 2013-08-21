@@ -253,11 +253,25 @@ class Test extends Aware
         $this->last_run = date('Y-m-d H:i:s');
         $this->save();
 
+        $screenshot = $this->screenshot();
+
         Test\Log::create(array(
             'test_id' => $this->id,
             'message' => $message,
             'passed' => $passed,
+            'screenshot' => $screenshot,
         ));
+    }
+
+    public function screenshot()
+    {
+        $screenshot = IoC::resolve('screenshot', array($this->full_url()));
+        try {
+            $filename = $screenshot->capture();
+            return $filename;
+        } catch (Exception $e) {
+            // todo: something useful?
+        }
     }
 
     public function notify()

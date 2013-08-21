@@ -31,4 +31,7 @@ return array(
     'roles' => array(
         'level_0' => 'Free',
     ),
-); 
+    'screenshot' => array(
+        'command' => '/usr/local/bin/phantomjs ' . path('tasks') . 'scripts' . DS . 'phantomjs' . DS . 'screenshot.js %s %s',
+    )
+);
