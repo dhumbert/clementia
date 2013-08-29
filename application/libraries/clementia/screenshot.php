@@ -15,7 +15,7 @@ class Screenshot
     {
         $cmd = \Config::get('tests.screenshot.command');
 
-        $filename = sha1($this->url.microtime()) . '.png';
+        $filename = sha1($this->url.microtime()) . '.jpg';
         $fullPath = path('screenshots') . $filename;
 
         $cmd = sprintf($cmd, escapeshellarg($this->url), escapeshellarg($fullPath));
