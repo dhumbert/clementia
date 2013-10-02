@@ -52,7 +52,7 @@ Route::group(array('before' => 'auth'), function(){
     Route::get('site/check-max-tests', array('as' => 'site_check_max_tests', 'uses' => 'site@check_max_tests'));
     Route::controller('site');
 
-    Route::get('user', array('as' => 'user_account', 'uses' => 'user@index'));
+    Route::get('account', array('as' => 'user_account', 'uses' => 'user@index'));
 
     /* Test routes */
     Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
