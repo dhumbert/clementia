@@ -9,6 +9,7 @@
         <th>Role</th>
         <th>Allowed Sites</th>
         <th>Tests Per Site</th>
+        <th>Monthly Price</th>
         <th></th>
     </tr>
     </thead>
@@ -18,6 +19,7 @@
             <td><?php echo $role->name; ?></td>
             <td><?php echo $role->allowed_sites ?: '&infin;'; ?></td>
             <td><?php echo $role->tests_per_site ?: '&infin;'; ?></td>
+            <td>$<?php echo $role->price; ?></td>
             <td>
                 <?php echo HTML::link_to_route('edit_role', 'Edit', array($role->id), array('class' => 'btn')); ?>
             </td>

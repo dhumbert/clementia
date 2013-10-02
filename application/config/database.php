@@ -76,7 +76,7 @@ return array(
             'charset'  => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'   => '',
-            //'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock', // /tmp/mysql.sock
+            'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock', // /tmp/mysql.sock
         ),
 
         'pgsql' => array(

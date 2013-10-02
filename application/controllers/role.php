@@ -26,6 +26,7 @@ class Role_Controller extends Base_Controller
 
         $role->allowed_sites = Input::get('allowed_sites');
         $role->tests_per_site = Input::get('tests_per_site');
+        $role->price = number_format(Input::get('price'), 2, '.', '');
 
         if ($role->save()) {
             return Redirect::to_route('admin')->with('success', 'Role saved');
@@ -49,6 +50,7 @@ class Role_Controller extends Base_Controller
         $role->name = Input::get('name');
         $role->allowed_sites = Input::get('allowed_sites');
         $role->tests_per_site = Input::get('tests_per_site');
+        $role->price = number_format(Input::get('price'), 2, '.', '');
 
         if ($role->save()) {
             return Redirect::to_route('admin')
