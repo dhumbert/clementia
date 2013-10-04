@@ -7,6 +7,8 @@
 
             <p>Account type: <strong><?php echo $user->role->name; ?></strong></p>
 
+            <?php echo HTML::link_to_route('subscription', 'Change Subscription'); ?>
+
             <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>
             <?php echo Form::email('email', Input::old('email', Auth::user()->email), array('class' => 'span4')); ?>
             <?php echo Form::label('password', 'Password', array('class' => 'control-label')); ?>

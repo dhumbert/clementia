@@ -11,21 +11,21 @@
 |
 | Let's respond to a simple GET request to http://example.com/hello:
 |
-|       Route::get('hello', function()
+|       Route::secure('GET', 'hello', function()
 |       {
 |           return 'Hello World!';
 |       });
 |
 | You can even respond to more than one URI:
 |
-|       Route::post(array('hello', 'world'), function()
+|       Route::secure('POST', array('hello', 'world'), function()
 |       {
 |           return 'Hello World!';
 |       });
 |
 | It's easy to allow URI wildcards using (:num) or (:any):
 |
-|       Route::put('hello/(:any)', function($name)
+|       Route::secure('PUT', 'hello/(:any)', function($name)
 |       {
 |           return "Welcome, $name.";
 |       });
@@ -34,13 +34,13 @@
 
 /* Public routes */
 
-Route::get('/welcome', array('as' => 'home', 'uses' => 'home@index', 'before' => 'front_redirect_if_authenticated'));
+Route::secure('GET', '/welcome', array('as' => 'home', 'uses' => 'home@index', 'before' => 'front_redirect_if_authenticated'));
 
 /* End public routes */
 
 /* Session routes */
-Route::get('login', array('as' => 'login', 'uses' => 'session@create'));
-Route::delete('logout', array('as' => 'logout', 'uses' => 'session@destroy'));
+Route::secure('GET', 'login', array('as' => 'login', 'uses' => 'session@create'));
+Route::secure('DELETE', 'logout', array('as' => 'logout', 'uses' => 'session@destroy'));
 Route::controller('session');
 /* End session routes */
 
@@ -48,47 +48,48 @@ Route::controller('session');
 Route::group(array('before' => 'auth'), function(){
 
     /* Site routes */
-    Route::get('site', array('as' => 'site_list', 'uses' => 'site@index'));
-    Route::get('site/check-max-tests', array('as' => 'site_check_max_tests', 'uses' => 'site@check_max_tests'));
-    Route::controller('site');
+    Route::secure('GET', 'site', array('as' => 'site_list', 'uses' => 'site@index'));
+    Route::secure('GET', 'site/check-max-tests', array('as' => 'site_check_max_tests', 'uses' => 'site@check_max_tests'));
+    Router::controller('site', 'index', true);
 
-    Route::get('account', array('as' => 'user_account', 'uses' => 'user@index'));
+    Route::secure('GET', 'account', array('as' => 'user_account', 'uses' => 'user@index'));
+    Route::secure('GET', 'account/subscription', array('as' => 'subscription', 'uses' => 'user@subscription'));
 
     /* Test routes */
-    Route::delete('test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
+    Route::secure('DELETE', 'test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));
 
-    Route::post('test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
-    Route::get('test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
+    Route::secure('POST', 'test/(:num)', array('as' => 'test_run', 'uses' => 'test@run'));
+    Route::secure('GET', 'test/(:num)', array('as' => 'test_detail', 'uses' => 'test@detail'));
 
-    Route::get('test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
-    Route::put('test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
+    Route::secure('GET', 'test/(:num)/edit', array('as' => 'test_edit', 'uses' => 'test@edit'));
+    Route::secure('PUT', 'test/(:num)/edit', array('as' => 'test_update', 'uses' => 'test@edit'));
 
-    Route::get('test/(all|passing|failing|never-run)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
-    Route::get('test/list', array('as' => 'ajax_test_list', 'uses' => 'test@ajax_list'));
-    Route::get('/', array('as' => 'test_list', 'uses' => 'test@list'));
-    Route::controller('test');
+    Route::secure('GET', 'test/(all|passing|failing|never-run)', array('as' => 'test_list_status_filter', 'uses' => 'test@list'));
+    Route::secure('GET', 'test/list', array('as' => 'ajax_test_list', 'uses' => 'test@ajax_list'));
+    Route::secure('GET', '/', array('as' => 'test_list', 'uses' => 'test@list'));
+    Router::controller('test', 'index', true);
     /* End test routes */
   
 });
 
 Route::group(array('before' => 'admin'), function(){
-    Route::get('admin', array('as' => 'admin', 'uses' => 'admin@index'));
-    Route::delete('user/delete/(:num)', array('as' => 'delete_user', 'uses' => 'user@delete'));
+    Route::secure('GET', 'admin', array('as' => 'admin', 'uses' => 'admin@index'));
+    Route::secure('DELETE', 'user/delete/(:num)', array('as' => 'delete_user', 'uses' => 'user@delete'));
 
-    Route::get('role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
-    Route::post('role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
-    Route::get('role/create', array('as' => 'create_role', 'uses' => 'role@create'));
-    Route::post('role/create', array('as' => 'create_role', 'uses' => 'role@create'));
+    Route::secure('GET', 'role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
+    Route::secure('POST', 'role/edit/(:num)', array('as' => 'edit_role', 'uses' => 'role@edit'));
+    Route::secure('GET', 'role/create', array('as' => 'create_role', 'uses' => 'role@create'));
+    Route::secure('POST', 'role/create', array('as' => 'create_role', 'uses' => 'role@create'));
 });
 
 /* User routes */
-Route::get('signup', array('as' => 'signup', 'uses' => 'user@signup'));
-Route::post('signup', array('as' => 'signup', 'uses' => 'user@signup'));
-Route::post('user/reset-password/(:any)', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
-Route::get('user/reset-password/(:any)', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
-Route::post('user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));
-Route::get('user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));
-Route::controller('user');
+Route::secure('GET', 'signup', array('as' => 'signup', 'uses' => 'user@signup'));
+Route::secure('POST', 'signup', array('as' => 'signup', 'uses' => 'user@signup'));
+Route::secure('POST', 'user/reset-password/(:any)', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
+Route::secure('GET', 'user/reset-password/(:any)', array('as' => 'user_forgot_password_reset', 'uses' => 'user@reset_password'));
+Route::secure('POST', 'user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));
+Route::secure('GET', 'user/forgot-password', array('as' => 'user_forgot_password', 'uses' => 'user@forgot_password'));
+Router::controller('user', 'index', true);
 /* End user routes */
 
 /*

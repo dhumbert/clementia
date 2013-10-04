@@ -24,6 +24,7 @@ class Role_Controller extends Base_Controller
             return Response::error(404);
         }
 
+        $role->name = Input::get('name');
         $role->allowed_sites = Input::get('allowed_sites');
         $role->tests_per_site = Input::get('tests_per_site');
         $role->price = number_format(Input::get('price'), 2, '.', '');

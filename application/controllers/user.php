@@ -137,4 +137,17 @@ class User_Controller extends Base_Controller
         return Redirect::to('admin')->with('success', 'User deleted');
     }
 
+    public function get_subscription()
+    {
+        $user = Auth::user();
+        if (!$user) {
+            return Response::error('404');
+        } else {
+            $this->layout->nest('content', 'user.subscription', array(
+                'user' => $user,
+                'roles' => Role::order_by('price', 'asc')->where('name', '!=', 'Administrator')->get(),
+            ));
+        }
+    }
+
 }

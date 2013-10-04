@@ -156,3 +156,65 @@ d
     padding-top: 1.5em;
   }
 }
+
+.subscription-comparison {
+  margin-top: 3em;
+
+  .subscription {
+    border-radius: 5px;
+    text-align: center;
+    background-color: #f3f3f3;
+    -moz-box-shadow: 0 0 6px 2px #b0b2ab;
+    -webkit-box-shadow: 0 0 6px 2px #b0b2ab;
+    box-shadow: 0 0 6px 2px #b0b2ab;
+
+
+    &:hover {
+      background-color: #fff;
+      -moz-box-shadow: 0 0 12px 3px #b0b2ab;
+      -webkit-box-shadow: 0 0 12px 3px #b0b2ab;
+      box-shadow: 0 0 12px 3px #b0b2ab;
+    }
+
+    .subscription-header {
+      padding: 20px;
+      color: #fff;
+      -moz-border-radius: 5px 5px 0 0;
+      -webkit-border-radius: 5px 5px 0 0;
+      border-radius: 5px 5px 0 0;
+
+      .price {
+        font-size: 2em;
+
+        span {
+          font-size: 0.5em;
+        }
+      }
+    }
+
+    &.subscription-free .subscription-header {
+      background-color: #999999;
+    }
+
+    &.subscription-basic .subscription-header  {
+      background-color: #669966;
+    }
+
+    &.subscription-premium .subscription-header  {
+      background-color: #006600;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      -moz-border-radius: 0 0 5px 5px;
+      -webkit-border-radius: 0 0 5px 5px;
+      border-radius: 0 0 5px 5px;
+
+      li {
+        padding: 15px 10px;
+        border-top: 1px solid #c5c8c0;
+      }
+    }
+  }
+}
