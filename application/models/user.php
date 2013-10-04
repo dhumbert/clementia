@@ -24,6 +24,24 @@ class User extends Aware
         return true;
     }
 
+    public function is_paying_customer()
+    {
+        return !is_null($this->payment_gateway_id);
+    }
+
+    public function create_payment_gateway_customer($subscription, $token)
+    {
+        Stripe::setApiKey(Config::get('stripe.secret_key'));
+        $customer = Stripe_Customer::create(array(
+            'email' => $this->email,
+            'plan' => $subscription,
+            'card' => $token,
+        ));
+
+        $this->payment_gateway_id = $customer->id;
+        $this->save();
+    }
+
     public function sites()
     {
         return $this->has_many('Site');

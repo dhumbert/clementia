@@ -1,36 +1,40 @@
 {
-    "hash": "2f04c1fdd74df67613a1c50e86e0f259",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "e08df41059556b3ae1f7476ffbdfb7c2",
     "packages": [
         {
             "name": "mockery/mockery",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git://github.com/padraic/mockery.git",
-                "reference": "b6adea3c241798c5afcbe2a2ac9294ce635a096f"
+                "url": "https://github.com/padraic/mockery.git",
+                "reference": "1e1e189dabda8bf47de0a64371987e7a80db581f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/padraic/mockery/archive/b6adea3c241798c5afcbe2a2ac9294ce635a096f.zip",
-                "reference": "b6adea3c241798c5afcbe2a2ac9294ce635a096f",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/1e1e189dabda8bf47de0a64371987e7a80db581f",
+                "reference": "1e1e189dabda8bf47de0a64371987e7a80db581f",
                 "shasum": ""
             },
             "require": {
+                "lib-pcre": ">=7.0",
                 "php": ">=5.3.2"
             },
-            "suggest": {
-                "Hamcrest": "1.0.0"
+            "require-dev": {
+                "hamcrest/hamcrest": "1.1.0"
             },
-            "time": "2012-09-24 11:57:42",
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Mockery": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "New BSD"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -42,17 +46,18 @@
             "description": "Mockery is a simple yet flexible PHP mock object framework for use in unit testing with PHPUnit, PHPSpec or any other testing framework. Its core goal is to offer a test double framework with a succint API capable of clearly defining all possible object operations and interactions using a human readable Domain Specific Language (DSL). Designed as a drop in alternative to PHPUnit's phpunit-mock-objects library, Mockery is easy to integrate with PHPUnit and can operate alongside phpunit-mock-objects without the World ending.",
             "homepage": "http://github.com/padraic/mockery",
             "keywords": [
-                "testing",
-                "library",
                 "BDD",
                 "TDD",
-                "test",
-                "mockery",
+                "library",
                 "mock",
+                "mock objects",
+                "mockery",
                 "stub",
+                "test",
                 "test double",
-                "mock objects"
-            ]
+                "testing"
+            ],
+            "time": "2013-10-02 19:52:52"
         },
         {
             "name": "rmccue/requests",
@@ -60,25 +65,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rmccue/Requests.git",
-                "reference": "eee30254c2ba314ad7fe3bc493095af421118c27"
+                "reference": "ca0f58b6523a6d11c815ae25c79cc810cea69be7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/rmccue/Requests/archive/eee30254c2ba314ad7fe3bc493095af421118c27.zip",
-                "reference": "eee30254c2ba314ad7fe3bc493095af421118c27",
+                "url": "https://api.github.com/repos/rmccue/Requests/zipball/ca0f58b6523a6d11c815ae25c79cc810cea69be7",
+                "reference": "ca0f58b6523a6d11c815ae25c79cc810cea69be7",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
             },
-            "time": "2012-10-25 07:01:26",
+            "require-dev": {
+                "satooshi/php-coveralls": "dev-master"
+            },
             "type": "library",
-            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "Requests": "library/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "ISC"
             ],
@@ -91,23 +98,81 @@
             "description": "A HTTP library written in PHP, for human beings.",
             "homepage": "http://github.com/rmccue/Requests",
             "keywords": [
-                "ipv6",
                 "curl",
+                "fsockopen",
                 "http",
                 "idna",
+                "ipv6",
                 "iri",
-                "sockets",
-                "fsockopen"
-            ]
+                "sockets"
+            ],
+            "time": "2013-09-30 16:21:05"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "2f8c717cd4217b693d19eabf3b65c21fd6c518b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/2f8c717cd4217b693d19eabf3b65c21fd6c518b2",
+                "reference": "2f8c717cd4217b693d19eabf3b65c21fd6c518b2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "vierbergenlars/simpletest": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/Stripe/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "time": "2013-09-19 22:30:21"
         }
     ],
-    "packages-dev": null,
+    "packages-dev": [
+
+    ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": {
         "rmccue/requests": 20,
-        "mockery/mockery": 20
-    }
+        "mockery/mockery": 20,
+        "stripe/stripe-php": 20
+    },
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
 }

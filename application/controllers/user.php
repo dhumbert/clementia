@@ -146,8 +146,22 @@ class User_Controller extends Base_Controller
             $this->layout->nest('content', 'user.subscription', array(
                 'user' => $user,
                 'roles' => Role::order_by('price', 'asc')->where('name', '!=', 'Administrator')->get(),
+                'stripe_key' => Config::get('stripe.publishable_key'),
             ));
         }
+    }
+
+    public function post_subscription()
+    {
+        $paymentToken = Input::get('stripeToken');
+        $subscription = Input::get('subscription');
+        $user = Auth::user();
+
+        if (!$paymentToken || !$user || !$subscription) {
+            return Response::error('500');
+        }
+
+        $user->create_payment_gateway_customer($subscription, $paymentToken);
     }
 
 }

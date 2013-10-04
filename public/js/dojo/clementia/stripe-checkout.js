@@ -1,0 +1,32 @@
+define([
+    'dojo/query',
+    'dojo/on',
+    'dojo/dom-attr',
+    'dojo/domReady!'
+], function(query, on, domAttr) {
+    return function(stripeKey) {
+        query('.btn-plan-select').forEach(function(node) {
+            on(node, 'click', function(e){
+                document.getElementById('subscription').value = domAttr.get(node, 'data-name').toLowerCase();
+
+                var token = function(res){
+                    document.getElementById('stripeToken').value = res.id;
+                    document.getElementById('subscribeForm').submit();
+                };
+
+                StripeCheckout.open({
+                    key: stripeKey,
+                    address:     true,
+                    amount:      domAttr.get(node, 'data-price').replace('.', ''),
+                    currency:    'usd',
+                    name:        'Clementia',
+                    description: domAttr.get(node, 'data-name') + ' Subscription',
+                    panelLabel:  'Subscribe for',
+                    token:       token
+                });
+
+                return false;
+            });
+        });
+    }
+});

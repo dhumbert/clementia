@@ -1,6 +1,7 @@
 {
     "require": {
         "rmccue/requests": "dev-master",
-        "mockery/mockery": "dev-master"
+        "mockery/mockery": "dev-master",
+        "stripe/stripe-php": "dev-master"
     }
 }

@@ -53,6 +53,7 @@ Route::group(array('before' => 'auth'), function(){
     Router::controller('site', 'index', true);
 
     Route::secure('GET', 'account', array('as' => 'user_account', 'uses' => 'user@index'));
+    Route::secure('POST', 'account/subscription', array('as' => 'subscription', 'uses' => 'user@subscription'));
     Route::secure('GET', 'account/subscription', array('as' => 'subscription', 'uses' => 'user@subscription'));
 
     /* Test routes */
@@ -173,4 +174,9 @@ Route::filter('admin', function()
 Route::filter('front_redirect_if_authenticated', function()
 {
     if (Auth::check()) return Redirect::to_route('test_list');
+});
+
+Event::listen('role.created', function($role)
+{
+    $role->create_subscription_in_payment_gateway();
 });

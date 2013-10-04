@@ -54,6 +54,7 @@ class Role_Controller extends Base_Controller
         $role->price = number_format(Input::get('price'), 2, '.', '');
 
         if ($role->save()) {
+            Event::fire('role.created', array($role));
             return Redirect::to_route('admin')
                 ->with('success', 'Role created');
         } else {
