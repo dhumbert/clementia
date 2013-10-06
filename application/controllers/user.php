@@ -155,6 +155,7 @@ class User_Controller extends Base_Controller
     {
         $paymentToken = Input::get('stripeToken');
         $subscription = Input::get('subscription');
+
         $user = Auth::user();
 
         if (!$paymentToken || !$user || !$subscription) {
@@ -162,6 +163,8 @@ class User_Controller extends Base_Controller
         }
 
         $user->create_payment_gateway_customer($subscription, $paymentToken);
+
+        return Redirect::to('account')->with('success', 'Your subscription has been changed effective immediately. <strong>Thanks!</strong>');
     }
 
 }

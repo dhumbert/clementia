@@ -28,7 +28,7 @@
                             <?php if ($user->role_id == $role->id): ?>
                                 <a href="javascript:void(0);" class="btn disabled"><i class="icon-ok"></i> Your Current Subscription Level</a>
                             <?php else: ?>
-                                <a href="javascript:void(0);" data-price="<?php echo $role->price; ?>" data-name="<?php echo $role->name; ?>" class="btn btn-primary btn-plan-select"><i class="icon-white icon-ok"></i> Select <?php echo $role->name; ?></a>
+                                <a href="javascript:void(0);" data-price="<?php echo $role->price; ?>" data-name="<?php echo $role->name; ?>" data-id="<?php echo $role->id; ?>" class="btn btn-primary btn-plan-select"><i class="icon-white icon-ok"></i> Select <?php echo $role->name; ?></a>
                             <?php endif; ?>
                         </li>
                     </ul>

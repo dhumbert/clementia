@@ -196,6 +196,10 @@ IoC::register('screenshot', function($url){
     return new Clementia\Screenshot($url);
 });
 
+IoC::register('paymentGateway', function(){
+    return new Clementia\PaymentGateway();
+});
+
 Auth::extend('clementia_auth', function()
 {
     return new Clementia\Auth;

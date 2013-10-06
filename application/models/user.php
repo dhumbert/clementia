@@ -31,14 +31,11 @@ class User extends Aware
 
     public function create_payment_gateway_customer($subscription, $token)
     {
-        Stripe::setApiKey(Config::get('stripe.secret_key'));
-        $customer = Stripe_Customer::create(array(
-            'email' => $this->email,
-            'plan' => $subscription,
-            'card' => $token,
-        ));
+        $role = Role::find($subscription);
+        $customer = IoC::resolve('paymentGateway')->create_customer($this->email, strtolower($role->name), $token);
 
         $this->payment_gateway_id = $customer->id;
+        $this->role_id = $role->id;
         $this->save();
     }
 
