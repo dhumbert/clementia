@@ -29,7 +29,7 @@ class User extends Aware
         return !is_null($this->payment_gateway_id);
     }
 
-    public function create_payment_gateway_customer($subscription, $token)
+    public function create_subscription($subscription, $token)
     {
         $role = Role::find($subscription);
         $customer = IoC::resolve('paymentGateway')->create_customer($this->email, strtolower($role->name), $token);
@@ -38,6 +38,20 @@ class User extends Aware
         $this->payment_gateway_id = $customer->id;
         $this->card_last_4 = $card->last4;
         $this->card_type = $card->type;
+        $this->role_id = $role->id;
+        $this->save();
+    }
+
+    public function change_subscription($subscription)
+    {
+        $role = Role::find($subscription);
+
+        if (Role::is_upgrade($this->role, $role)) {
+            IoC::resolve('paymentGateway')->upgrade($this->payment_gateway_id, strtolower($role->name));
+        } else {
+
+        }
+
         $this->role_id = $role->id;
         $this->save();
     }

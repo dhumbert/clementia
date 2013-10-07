@@ -7,8 +7,6 @@ define([
     return function(stripeKey) {
         query('.btn-plan-select').forEach(function(node) {
             on(node, 'click', function(e){
-                document.getElementById('subscription').value = domAttr.get(node, 'data-id');
-
                 var token = function(res){
                     document.getElementById('stripeToken').value = res.id;
                     document.getElementById('subscribeForm').submit();

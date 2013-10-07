@@ -4,6 +4,11 @@ class Role extends Aware
 {
     public static $timestamps = false;
 
+    public static function is_upgrade(Role $current_role, Role $check_role)
+    {
+        return $current_role->price < $check_role->price;
+    }
+
     public function users()
     {
         return $this->has_many('User');

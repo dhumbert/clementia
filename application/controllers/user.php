@@ -158,11 +158,15 @@ class User_Controller extends Base_Controller
 
         $user = Auth::user();
 
-        if (!$paymentToken || !$user || !$subscription) {
+        if (!$user || !$subscription) {
             return Response::error('500');
         }
 
-        $user->create_payment_gateway_customer($subscription, $paymentToken);
+        if (!empty($paymentToken)) {
+            $user->create_subscription($subscription, $paymentToken);
+        } else {
+            $user->change_subscription($subscription);
+        }
 
         return Redirect::to('account')->with('success', 'Your subscription has been changed effective immediately. <strong>Thanks!</strong>');
     }
