@@ -34,7 +34,10 @@ class User extends Aware
         $role = Role::find($subscription);
         $customer = IoC::resolve('paymentGateway')->create_customer($this->email, strtolower($role->name), $token);
 
+        $card = $customer->cards->data[0];
         $this->payment_gateway_id = $customer->id;
+        $this->card_last_4 = $card->last4;
+        $this->card_type = $card->type;
         $this->role_id = $role->id;
         $this->save();
     }

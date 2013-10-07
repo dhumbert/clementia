@@ -7,6 +7,8 @@
 
             <p>Account type: <strong><?php echo $user->role->name; ?></strong></p>
 
+            <p>$<?php echo $user->role->price; ?> per month on your <?php echo $user->card_type; ?> card ending in <?php echo $user->card_last_4; ?></p>
+
             <?php echo HTML::link_to_route('subscription', 'Change Subscription'); ?>
 
             <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>

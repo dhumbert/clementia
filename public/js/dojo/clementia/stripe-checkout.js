@@ -16,7 +16,7 @@ define([
 
                 StripeCheckout.open({
                     key: stripeKey,
-                    address:     true,
+                    address:     false,
                     amount:      domAttr.get(node, 'data-price').replace('.', ''),
                     currency:    'usd',
                     name:        'Clementia',
