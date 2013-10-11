@@ -56,16 +56,16 @@ class User extends Aware
             IoC::resolve('paymentGateway')->upgrade($this->payment_gateway_id, strtolower($role->name));
             $this->role_id = $role->id;
             $this->save();
-            return static::UPGRADED_MSG;
+            $msg = static::UPGRADED_MSG;
         } else {
             $downgrade_date = IoC::resolve('paymentGateway')->downgrade($this->payment_gateway_id, strtolower($role->name));
-            $downgrade = new Downgrade();
-            $downgrade->user_id = $this->id;
-            $downgrade->role_id = $role->id;
-            $downgrade->downgrade_date = date('Y-m-d', $downgrade_date);
-            $downgrade->save();
-            return static::DOWNGRADED_MSG;
+            $this->downgrade_role_id = $role->id;
+            $this->downgrade_date = date('Y-m-d', $downgrade_date);
+            $msg = static::DOWNGRADED_MSG;
         }
+
+        $this->save();
+        return $msg;
     }
 
     public function sites()
