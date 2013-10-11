@@ -1,6 +1,6 @@
 <?php
 
-class User_Controller extends Base_Controller 
+class User_Controller extends Base_Controller
 {
 
     public $restful = TRUE;
@@ -93,7 +93,7 @@ class User_Controller extends Base_Controller
     {
         $user = User::where_token($token)->first();
         if ($user) $expired = strtotime($user->token_generated) < strtotime("now - " . Config::get('auth.reset_token_expires_in_hours') . " hours");
-        
+
         if ($user && !$expired) {
             $this->layout->nest('content', 'user.forgot_password_reset');
         } else {
@@ -156,6 +156,7 @@ class User_Controller extends Base_Controller
         $paymentToken = Input::get('stripeToken');
         $subscription = Input::get('subscription');
 
+        /** @var User $user */
         $user = Auth::user();
 
         if (!$user || !$subscription) {
@@ -164,11 +165,12 @@ class User_Controller extends Base_Controller
 
         if (!empty($paymentToken)) {
             $user->create_subscription($subscription, $paymentToken);
+            $msg = User::UPGRADED_MSG;
         } else {
-            $user->change_subscription($subscription);
+            $msg = $user->change_subscription($subscription);
         }
 
-        return Redirect::to('account')->with('success', 'Your subscription has been changed effective immediately. <strong>Thanks!</strong>');
+        return Redirect::to('account')->with('success', $msg .' <strong>Thanks!</strong>');
     }
 
 }

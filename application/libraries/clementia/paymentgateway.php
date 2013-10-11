@@ -27,4 +27,12 @@ class PaymentGateway
             "customer" => $payment_gateway_id
         ))->pay();
     }
+
+    public function downgrade($payment_gateway_id, $subscription)
+    {
+        \Stripe::setApiKey(\Config::get('stripe.secret_key'));
+        $c = \Stripe_Customer::retrieve($payment_gateway_id);
+        $subscription = $c->updateSubscription(array("plan" => $subscription, "prorate" => false));
+        return $subscription->current_period_end;
+    }
 }

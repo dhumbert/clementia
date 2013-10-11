@@ -2,6 +2,9 @@
 
 class User extends Aware 
 {
+    const UPGRADED_MSG = 'Your subscription has been upgraded effective immediately.';
+    const DOWNGRADED_MSG = 'Your subscription will be downgraded at the end of the current billing period.';
+
     public static $timestamps = true;
 
     public static $rules = array(
@@ -46,14 +49,23 @@ class User extends Aware
     {
         $role = Role::find($subscription);
 
-        if (Role::is_upgrade($this->role, $role)) {
+        if ((int)$role->price == 0) {
+            IoC::resolve('paymentGateway')->cancel($this->payment_gateway_id);
+            return static::DOWNGRADED_MSG;
+        } else if (Role::is_upgrade($this->role, $role)) {
             IoC::resolve('paymentGateway')->upgrade($this->payment_gateway_id, strtolower($role->name));
+            $this->role_id = $role->id;
+            $this->save();
+            return static::UPGRADED_MSG;
         } else {
-
+            $downgrade_date = IoC::resolve('paymentGateway')->downgrade($this->payment_gateway_id, strtolower($role->name));
+            $downgrade = new Downgrade();
+            $downgrade->user_id = $this->id;
+            $downgrade->role_id = $role->id;
+            $downgrade->downgrade_date = date('Y-m-d', $downgrade_date);
+            $downgrade->save();
+            return static::DOWNGRADED_MSG;
         }
-
-        $this->role_id = $role->id;
-        $this->save();
     }
 
     public function sites()

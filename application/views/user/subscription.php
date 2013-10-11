@@ -51,7 +51,11 @@
                 <h3>Downgrade Your Subscription</h3>
             </div>
             <div class="modal-body">
-                asdf
+                Your subscription will be downgraded at the end of the current billing cycle.
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0);" class="btn" data-dismiss="modal">Cancel</a>
+                <button type="button" class="btn btn-primary" data-form-submit="subscribeForm">Downgrade</button>
             </div>
         </div>
 
