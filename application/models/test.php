@@ -285,7 +285,7 @@ class Test extends Aware
     */
     public function queue() 
     {
-        IoC::resolve('queue')->push_test($this->id);
+        IoC::resolve('queue')->push_test($this);
     }
 
     /**
