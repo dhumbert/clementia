@@ -25,6 +25,7 @@ class TestsFinished_Task
             ));
 
             IoC::resolve('queue')->remove_queued_test($test->id);
+            $test->notify();
         }
         exit(0);
     }    

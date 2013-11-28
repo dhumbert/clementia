@@ -3,3 +3,5 @@ vendor/*
 public/css/*.css
 .idea/*
 public/user/screenshots/*
+*.crt
+*.key

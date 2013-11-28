@@ -49,35 +49,20 @@ class Queue
         \Redis::db()->srem('tests_in_queue', $id);
     }
 
-    public function pop_test()
+    public function there_are_pending_tests()
     {
-        return \Redis::db()->spop(\Config::get('tests.queue.key'));
-    }
-
-    public function there_are_scheduled_tests()
-    {
-        $count = (int)\Redis::db()->scard(\Config::get('tests.queue.scheduled.key'));
+        $count = (int)\Redis::db()->scard('tests_in_queue');
         return $count > 0;
-    }
-
-    public function push_scheduled_test($id)
-    {
-        \Redis::db()->sadd(\Config::get('tests.queue.scheduled.key'), $id);
-    }
-
-    public function pop_scheduled_test()
-    {
-        return \Redis::db()->spop(\Config::get('tests.queue.scheduled.key'));
     }
 
     public function push_notification(\Test $test)
     {
         $key = \Config::get('tests.queue.notifications.key');
-        $existing_notifications = (array)json_decode(\Redis::db()->hget($key, $test->user->id));
+        $existing_notifications = (array)json_decode(\Redis::db()->hget($key, $test->site->user->id));
         
         array_push($existing_notifications, $test->id);
 
-        \Redis::db()->hset($key, $test->user->id, json_encode($existing_notifications));
+        \Redis::db()->hset($key, $test->site->user->id, json_encode($existing_notifications));
     }
 
     public function pop_notification()
