@@ -11,8 +11,10 @@ class User_Controller extends Base_Controller
         if (!$user) {
             return Response::error('404');
         } else {
+            $pending_downgrade = $user->get_pending_downgrade();
             $this->layout->nest('content', 'user.account', array(
                 'user' => $user,
+                'pending_downgrade' => $pending_downgrade,
             ));
         }
     }
@@ -171,6 +173,22 @@ class User_Controller extends Base_Controller
         }
 
         return Redirect::to('account')->with('success', $msg .' <strong>Thanks!</strong>');
+    }
+
+    public function delete_subscription()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (!$user) {
+            return Response::error('500');
+        }
+
+        $user->downgrade_date = null;
+        $user->downgrade_role_id = null;
+        $user->save();
+
+        return Redirect::to('account')->with('success', 'Pending downgrade cancelled.');
     }
 
 }

@@ -1,9 +1,19 @@
 <?php Section::start('content'); ?>
     <div class="row">
-        <div class="span4 offset4 login-form">
+        <div class="span6 offset3 login-form">
             <h1>Account</h1>
             <?php echo Form::open('user/index', 'PUT'); ?>
             <?php echo Form::token(); ?>
+
+            <?php if ($pending_downgrade): ?>
+                <div class="alert">
+                    Your account is pending downgrade to <strong><?php echo $pending_downgrade['role']->name; ?></strong>
+                    on <strong><?php echo date('M j, Y', strtotime($pending_downgrade['date'])); ?></strong>.
+                    <div>
+                        <a href="<?php echo URL::to_route('subscription'); ?>" data-method="DELETE" data-token="<?php echo Session::token(); ?>">Click here to cancel downgrade.</a>
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <p>Account type: <strong><?php echo $user->role->name; ?></strong></p>
 

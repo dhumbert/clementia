@@ -55,6 +55,7 @@ Route::group(array('before' => 'auth'), function(){
     Route::secure('GET', 'account', array('as' => 'user_account', 'uses' => 'user@index'));
     Route::secure('POST', 'account/subscription', array('as' => 'subscription', 'uses' => 'user@subscription'));
     Route::secure('GET', 'account/subscription', array('as' => 'subscription', 'uses' => 'user@subscription'));
+    Route::secure('DELETE', 'account/subscription', array('as' => 'subscription', 'uses' => 'user@subscription'));
 
     /* Test routes */
     Route::secure('DELETE', 'test/delete/(:num)', array('as' => 'test_delete', 'uses' => 'test@destroy'));

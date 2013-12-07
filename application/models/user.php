@@ -163,4 +163,16 @@ class User extends Aware
         $this->token_generated = NULL;
         $this->save();
     }
+
+    public function get_pending_downgrade()
+    {
+        if (!$this->downgrade_role_id) {
+            return null;
+        } else {
+            return array(
+                'date' => $this->downgrade_date,
+                'role' => Role::find($this->downgrade_role_id),
+            );
+        }
+    }
 }
