@@ -80,7 +80,7 @@ class Test extends Aware
         }
 
         $response->tests = $final_tests;
-        $response->pagination = $tests->appends(array($status))->links();
+        $response->pagination = $tests->appends(array($site, $status))->links();
 
         return $response;
     }

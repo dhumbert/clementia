@@ -42,18 +42,20 @@ class GenerateFakeTests_Task
 
     public function run($arguments)
     {
-        $number_tests = 25;
+        $site = Site::where('domain', '=', 'dhwebco.com')->first();
+
+        $number_tests = 50;
         $test_types = array_keys(IoC::resolve('tester')->get_types());
         $lorem_url = 'https://baconipsum.com/api/?type=meat-and-filler&sentences=1&start-with-lorem=0';
 
         for ($i = 0; $i < $number_tests; $i++) {
             $test = new Test();
+            $test->site_id = $site->id;
             $test->skip_limit_check = TRUE;
             $test->description = json_decode(file_get_contents($lorem_url))[0];
 
             $test->type = $test_types[array_rand($test_types)];
-            $test->user_id = 2;
-            $test->url = 'http://dhwebco.com';
+            $test->url = '';
 
             $valid_or_invalid_sample_tests = $this->sample_tests[array_rand($this->sample_tests)][$test->type];
 

@@ -13,7 +13,7 @@ class Queue
         return $is_member;
     }
 
-    public function push_test(\Test $test)
+    public function push_test(\Test $test, $scheduled = FALSE)
     {
         // i was originally using a set, which would not require this check.
         // however, i wanted to use brpop in pythropod so i have converted the set to a list
@@ -26,11 +26,19 @@ class Queue
             'type' => $test->type,
         );
 
+        if ($scheduled) $fields['scheduled'] = TRUE;
+
         $fields['text'] = $test->option('text');
 
         \Redis::db()->sadd('tests_in_queue', $test->id);
 
         \Redis::db()->lpush(\Config::get('tests.queue.key'), json_encode($fields));
+    }
+
+    public function push_scheduled_test(\Test $test)
+    {
+        \Redis::db()->sadd('scheduled_tests', $test->id);
+        $this->push_test($test, TRUE);
     }
 
     public function get_test_results()
@@ -52,6 +60,12 @@ class Queue
     public function there_are_pending_tests()
     {
         $count = (int)\Redis::db()->scard('tests_in_queue');
+        return $count > 0;
+    }
+
+    public function there_are_scheduled_tests()
+    {
+        $count = (int)\Redis::db()->scard('scheduled_tests');
         return $count > 0;
     }
 
