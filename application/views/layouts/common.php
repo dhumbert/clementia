@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>clementia</title>
+  <title>ZafBox</title>
   <meta name="viewport" content="width=device-width">
   <?php echo Asset::styles(); ?>
   <?php echo Asset::container('header')->scripts(); ?>
@@ -12,7 +12,7 @@
   <div class="navbar navbar-static-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="<?php echo URL::to_route('home'); ?>">clementia</a>
+        <a class="brand" href="<?php echo URL::to_route('home'); ?>">ZafBox</a>
         <ul class="nav">
         </ul>
 
@@ -88,7 +88,7 @@
           baseUrl: "<?php echo URL::to_asset('js/dojo'); ?>",
           packages: [
               { name: "bootstrap", location: "Dojo-Bootstrap" },
-              { name: "clementia", location: "clementia" },
+              { name: "zafbox", location: "zafbox" },
               { name: "validatejs", location: "validatejs" },
               { name: "mustache", location: "mustache" },
           ]

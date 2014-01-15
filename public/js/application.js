@@ -3,6 +3,6 @@ require([
     "bootstrap/Alert",
     "bootstrap/Dropdown",
     "bootstrap/Modal",
-    "clementia/fake-http-method",
-    "clementia/clickable-element"
+    "zafbox/fake-http-method",
+    "zafbox/clickable-element"
 ]);

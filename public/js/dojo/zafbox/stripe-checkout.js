@@ -17,7 +17,7 @@ define([
                     address:     false,
                     amount:      domAttr.get(node, 'data-price').replace('.', ''),
                     currency:    'usd',
-                    name:        'Clementia',
+                    name:        'ZafBox',
                     description: domAttr.get(node, 'data-name') + ' Subscription',
                     panelLabel:  'Subscribe for',
                     token:       token

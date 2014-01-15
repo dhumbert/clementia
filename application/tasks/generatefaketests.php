@@ -4,7 +4,7 @@ class GenerateFakeTests_Task
 {
     private $sample_tests = array(
         'valid' => array(
-            Clementia\Tester::TYPE_TEXT => array(
+            ZafBox\Tester::TYPE_TEXT => array(
                 'freelance',
                 'marketing, and web development firms',
                 'I have experience with PHP',
@@ -12,14 +12,14 @@ class GenerateFakeTests_Task
                 'questions about the services',
                 'Coding is my passion',
             ),
-            Clementia\Tester::TYPE_ELEMENT => array(
+            ZafBox\Tester::TYPE_ELEMENT => array(
                 'content-header',
                 'lightboxOverlay',
                 'footer',
             ),
         ),
         'invalid' => array(
-            Clementia\Tester::TYPE_TEXT => array(
+            ZafBox\Tester::TYPE_TEXT => array(
                 'asdf',
                 'lorem',
                 'warrgarble',
@@ -27,7 +27,7 @@ class GenerateFakeTests_Task
                 'dolorsitamet',
                 'aint nobody got time fo dat',
             ),
-            Clementia\Tester::TYPE_ELEMENT => array(
+            ZafBox\Tester::TYPE_ELEMENT => array(
                 'nonexistent-id',
                 'superduperheader',
                 'notanid',
@@ -61,9 +61,9 @@ class GenerateFakeTests_Task
 
             $value = $valid_or_invalid_sample_tests[array_rand($valid_or_invalid_sample_tests)];
 
-            if ($test->type == Clementia\Tester::TYPE_TEXT) {
+            if ($test->type == ZafBox\Tester::TYPE_TEXT) {
                 $options = array('text' => $value);
-            } elseif ($test->type == Clementia\Tester::TYPE_ELEMENT) {
+            } elseif ($test->type == ZafBox\Tester::TYPE_ELEMENT) {
                 $options = array('id' => $value);
             }
             

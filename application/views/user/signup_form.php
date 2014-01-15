@@ -32,7 +32,7 @@
 
 <?php Section::start('additional_footer_content'); ?>
     <script>require([
-            'clementia/validation'],
+            'zafbox/validation'],
             function(validation){
                 validation.validate('signupForm', [
                     {

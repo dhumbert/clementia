@@ -9,7 +9,7 @@ if ($statistics['pass_rate'] == 100) {
 }
 ?>
 
-<h1>Clementia Test Run</h1>
+<h1>ZafBox Test Run</h1>
 
 <p>Below is a summary of the most recent run of your scheduled tests.</p>
 

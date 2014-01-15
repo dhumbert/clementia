@@ -97,8 +97,8 @@
 
 <?php Section::start('additional_footer_content'); ?>
     <script>require([
-        'clementia/validation', 
-        'clementia/test-types'],
+        'zafbox/validation',
+        'zafbox/test-types'],
         function(validation){
             validation.validate('test-form', [{
                     name: 'description',

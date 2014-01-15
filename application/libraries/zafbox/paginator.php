@@ -1,6 +1,6 @@
 <?php
 
-namespace Clementia;
+namespace ZafBox;
 use Laravel\HTML;
 use Laravel\URI;
 use Laravel\Request;

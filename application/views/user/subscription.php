@@ -86,7 +86,7 @@
 <?php Section::start('additional_footer_content'); ?>
     <script>
         require([
-            'clementia/form-submit',
+            'zafbox/form-submit',
             'dojo/query',
             'dojo/on',
             'dojo/dom-attr',
@@ -102,7 +102,7 @@
     <?php if (!$user->is_paying_customer()): ?>
         <script src="https://checkout.stripe.com/v2/checkout.js"></script>
         <script>
-            require(['clementia/stripe-checkout'], function(stripe) {
+            require(['zafbox/stripe-checkout'], function(stripe) {
                 stripe('<?php echo $stripe_key; ?>');
             });
         </script>

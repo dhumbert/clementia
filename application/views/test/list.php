@@ -35,7 +35,7 @@
 
 <?php Section::start('additional_footer_content'); ?>
     <script>
-    require(["clementia/test-list"], function(testList){
+    require(["zafbox/test-list"], function(testList){
         testList.build();
     });
     </script>

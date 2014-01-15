@@ -3,7 +3,7 @@
 return array(
     'from' => array(
         'email' => 'revdev@gmail.com',
-        'name' => 'Clementia',
+        'name' => 'ZafBox',
     ),
     /*
     |--------------------------------------------------------------------------

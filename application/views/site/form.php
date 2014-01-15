@@ -2,7 +2,7 @@
 <?php echo Form::text('domain', Input::old('domain', $domain), array('class' => 'span6')); ?>
 
 <?php Section::start('additional_footer_content'); ?>
-    <script>require(['dojo/on', 'clementia/validation'],
+    <script>require(['dojo/on', 'zafbox/validation'],
             function(on, validation){
 
                 on(document.getElementById('domain'), 'blur', function(evt){

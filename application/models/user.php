@@ -149,7 +149,7 @@ class User extends Aware
         $this->save();
 
         $message = Message::to($this->email)
-        ->from('revdev@gmail.com', 'Clementia')
+        ->from('revdev@gmail.com', 'ZafBox')
         ->subject('Password Reset Request')
         ->body(render('email.password_reset', array('token' => $token)))
         ->html(true)

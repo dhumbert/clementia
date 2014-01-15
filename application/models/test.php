@@ -190,7 +190,7 @@ class Test extends Aware
         $details = array();
 
         switch ($this->type) {
-            case Clementia\Tester::TYPE_ELEMENT:
+            case ZafBox\Tester::TYPE_ELEMENT:
                 $description = sprintf('Test for presence of tag <code>%s</code>', $this->option('tag'));
                 if ($this->option('id') != '') {
                     $details[] = sprintf('With ID <code>%s</code>', $this->option('id'));
@@ -206,7 +206,7 @@ class Test extends Aware
                     $details[] = sprintf('With text <code>%s</code>', $this->option('inner_text'));
                 }
                 break;
-            case Clementia\Tester::TYPE_TEXT:
+            case ZafBox\Tester::TYPE_TEXT:
                 $description = sprintf('Test for presence of text <code>%s</code>', $this->option('text'));
                 if ($this->option('case_sensitive') != '' && (bool)$this->option('case_sensitive') == TRUE) {
                     $details[] = 'Case sensitive';
@@ -322,12 +322,12 @@ class Test extends Aware
     {
         // verify that the appropriate options are set for each test type
         switch ($this->type) {
-            case Clementia\Tester::TYPE_TEXT:
+            case ZafBox\Tester::TYPE_TEXT:
                 if (!array_key_exists('text', $this->options) || trim($this->options['text']) === '') {
                     throw new Invalid_Options_Exception("You must set the text to be searched for");
                 }
                 break;
-            case Clementia\Tester::TYPE_ELEMENT:
+            case ZafBox\Tester::TYPE_ELEMENT:
                 if (
                     (!array_key_exists('tag', $this->options) || trim($this->options['tag']) === '')
                     && (!array_key_exists('id', $this->options) || trim($this->options['id']) === '')

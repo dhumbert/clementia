@@ -177,36 +177,36 @@ if ( ! Request::cli() and Config::get('session.driver') !== '')
 
 /* IoC registration */
 IoC::register('tester', function() {
-    return new Clementia\Tester;
+    return new ZafBox\Tester;
 });
 
 IoC::register('requests', function() {
-    return new Clementia\Request;
+    return new ZafBox\Request;
 });
 
 IoC::register('htmlparser', function() {
-    return new Clementia\HtmlParser;
+    return new ZafBox\HtmlParser;
 });
 
 IoC::register('queue', function() {
-    return new Clementia\Queue;
+    return new ZafBox\Queue;
 });
 
 IoC::register('screenshot', function($url){
-    return new Clementia\Screenshot($url);
+    return new ZafBox\Screenshot($url);
 });
 
 IoC::register('paymentGateway', function(){
-    return new Clementia\PaymentGateway();
+    return new ZafBox\PaymentGateway();
 });
 
-Auth::extend('clementia_auth', function()
+Auth::extend('zafbox_auth', function()
 {
-    return new Clementia\Auth;
+    return new ZafBox\Auth;
 });
 
 Autoloader::map(array(
-    'Clementia\\Paginator' => path('app').'libraries/clementia/paginator.php',
+    'ZafBox\\Paginator' => path('app').'libraries/zafbox/paginator.php',
 ));
 
 /* utility functions */

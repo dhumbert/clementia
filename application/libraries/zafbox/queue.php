@@ -1,6 +1,6 @@
 <?php
 
-namespace Clementia;
+namespace ZafBox;
 
 class Queue
 {
@@ -90,7 +90,7 @@ class Queue
             $user = array_shift($users);
             if ($user) {
                 $tests = (array)json_decode(\Redis::db()->hget($key, $user));
-                $notification = new \Clementia\Notification($user, $tests);
+                $notification = new \ZafBox\Notification($user, $tests);
                 \Redis::db()->hdel($key, $user);
             }
         }

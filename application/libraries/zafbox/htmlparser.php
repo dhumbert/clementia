@@ -1,6 +1,6 @@
 <?php
 
-namespace Clementia;
+namespace ZafBox;
 
 class HtmlParser 
 {

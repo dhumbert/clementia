@@ -20,7 +20,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testWhatHappensWhenRequestBreaks() 
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 404;
@@ -40,7 +40,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithNoText() 
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -62,7 +62,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithNoText() 
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -84,7 +84,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithText() 
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -107,7 +107,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithText() 
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -130,7 +130,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -152,7 +152,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -174,7 +174,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithTagAndID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -197,7 +197,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithTagAndID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -220,7 +220,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithTextAndID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -243,7 +243,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithTextAndID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -266,7 +266,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithTextTagAndID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -290,7 +290,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithTextTagAndID()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -314,7 +314,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithTagAndAttribute()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -339,7 +339,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithTagAndAttribute()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -364,7 +364,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithTagAndMultipleAttributes()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -390,7 +390,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithTagAndMultipleAttributes()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -416,7 +416,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidElementMatchingWithMultipleClasses()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -441,7 +441,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testElementMatchingWithMultipleClasses()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -466,7 +466,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidTextMatchingCaseInsensitive()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -488,7 +488,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testTextMatchingCaseInsensitive()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -510,7 +510,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testInvalidTextMatchingCaseSensitive()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;
@@ -533,7 +533,7 @@ class TestTester extends PHPUnit_Framework_TestCase
     public function testTextMatchingCaseSensitive()
     {
         // stub out the request class
-        $mock = Mockery::mock('ClementiaRequest');
+        $mock = Mockery::mock('ZafBoxRequest');
 
         $test_result = new stdClass;
         $test_result->status_code = 200;

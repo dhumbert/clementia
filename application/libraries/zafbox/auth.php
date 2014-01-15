@@ -1,6 +1,6 @@
 <?php
 
-namespace Clementia;
+namespace ZafBox;
 
 class Auth extends \Laravel\Auth\Drivers\Eloquent
 {
