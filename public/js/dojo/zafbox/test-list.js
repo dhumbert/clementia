@@ -10,7 +10,7 @@ define([
     "dojo/dom-class",
     "zafbox/equal-heights"
     ], function (query, router, domStyle, domAttr, request, mustache, domConstruct, behavior, domClass, eqHeights){
-        var template = '{{#tests}}<div class="span4 test-list-item test-{{status}} clickable-element" data-link="{{link}}"><div class="test-list-item-inner"><h4>{{description}}</h4><div class="last-run"><small>{{site_domain}} &bull; {{lastruntext}} {{lastruntime}}</small></div></div></div>{{#new_row}}</div><div class="row">{{/new_row}}{{/tests}}{{{pagination}}}';
+        var template = '{{#tests}}<div class="span4 test-list-item test-{{status}} clickable-element" data-link="{{link}}"><div class="test-list-item-inner"><h4>{{description}}</h4><div class="last-run"><small>{{site_domain}} <br> {{lastruntext}} {{lastruntime}}</small></div></div></div>{{#new_row}}</div><div class="row">{{/new_row}}{{/tests}}{{{pagination}}}';
 
         var testList = {};
 

@@ -2,7 +2,9 @@
 // thus requiring only one css file instead of 3. this helps performance by
 // reducing the number of HTTP requests
 @import "bootstrap.min.scss";
-@import "bootstrap-responsive.min.scss";
+
+$blue_light: rgba(16,7,119,1);
+$blue_dark: rgba(13,0,63,1);
 
 @mixin carbonfiber {
     background:
@@ -39,19 +41,32 @@
     margin-bottom: 1em;
 
     .navbar-inner {
-        @include carbonfiber;
+        background: rgb(16,7,119); /* Old browsers */
+        background: -moz-linear-gradient(top,  $blue_light 0%, $blue_dark 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$blue_light), color-stop(100%,$blue_dark)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  $blue_light 0%,$blue_dark 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  $blue_light 0%,$blue_dark 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  $blue_light 0%,$blue_dark 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  $blue_light 0%,$blue_dark 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#100777', endColorstr='#0d003f',GradientType=0 ); /* IE6-9 */
+
         -webkit-border-radius: 0;
         -moz-border-radius: 0;
         border-radius: 0;
 
         .brand {
-            padding-top: 0.75em;
+            padding-top: 0.5em;
+            font-size: 3em;
         }
         .nav {
             li {
                 a {   
-                    padding-top: 1em;
-                    padding-bottom: 1em;
+                    padding-top: 1.5em;
+                    padding-bottom: 1.5em;
+
+                    &:hover {
+                        background: #195f91;
+                    }
                 }
             }
         }

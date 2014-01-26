@@ -12,7 +12,7 @@
   <div class="navbar navbar-static-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="<?php echo URL::to_route('home'); ?>">ZafBox</a>
+        <a class="brand" href="<?php echo URL::to_route('home'); ?>"><strong>Zaf</strong>Box</a>
         <ul class="nav">
         </ul>
 
