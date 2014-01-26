@@ -7,6 +7,7 @@ class Session_Controller extends Base_Controller
 
     public function get_create()
     {
+        $this->switch_layout('layouts.fullpage');
         $this->layout->nest('content', 'session.login');
     }
 

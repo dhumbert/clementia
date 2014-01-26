@@ -17,6 +17,12 @@ class Base_Controller extends Controller
         parent::__construct();
     }
 
+    protected function switch_layout($layout)
+    {
+        $this->layout = $layout;
+        $this->layout = $this->layout();
+    }
+
     /**
      * Catch-all method for requests that can't be matched.
      *

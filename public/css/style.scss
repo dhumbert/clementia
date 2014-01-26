@@ -5,6 +5,7 @@
 
 $blue_light: rgba(16,7,119,1);
 $blue_dark: rgba(13,0,63,1);
+$blue_lighter: #195f91;
 
 @mixin carbonfiber {
     background:
@@ -65,9 +66,32 @@ $blue_dark: rgba(13,0,63,1);
                     padding-bottom: 1.5em;
 
                     &:hover {
-                        background: #195f91;
+                        background: $blue_lighter;
                     }
                 }
+            }
+        }
+    }
+}
+
+body.fullpage {
+    .brand-container {
+        margin-top: 5em;
+        text-align: center;
+
+        a {
+            font-size: 6em;
+            padding-top: 3em;
+            color: $blue_lighter;
+
+            strong {
+                color: $blue_dark;
+            }
+
+            &:hover {
+                color: $blue_lighter;
+                text-decoration: none;
+
             }
         }
     }
