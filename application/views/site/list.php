@@ -16,37 +16,20 @@
         <?php endif; ?>
     </div>
 
-    <div class="row">
-        <div class="span12">
-            <?php if (count($sites) > 0): ?>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Domain</th>
-                            <th>Tests</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <?php foreach ($sites as $site): ?>
-                        <tr>
-                            <td><?php echo $site->domain; ?></td>
-                            <td>
-                                <?php echo count($site->tests); ?>
-                                / <?php echo $allowed_tests; ?>
-                            </td>
-                            <td>
-                                <?php echo HTML::link('site/edit/'.$site->id, 'Edit', array('class' => 'btn')); ?>
-                                <?php echo HTML::link('site/delete/'.$site->id, 'Delete', array('class' => 'btn btn-danger', 'data-method' => 'DELETE', 'data-confirm' => 'Are you sure you to delete this site? This will also delete all tests associated with the site.')); ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </table>
+    <div class="row bubble-list">
+        <?php if (count($sites) > 0): ?>
+                <?php foreach ($sites as $site): ?>
+                    <div class="span4 bubble-list-item clickable-element" data-link="site/edit/<?php echo $site->id; ?>">
+                        <div class="bubble-list-item-inner">
+                            <h4><?php echo $site->domain; ?></h4>
+                            Used <?php echo count($site->tests); ?> of <?php echo $allowed_tests; ?> tests
+                        </div>
+                    </div>
+                <?php endforeach; ?>
 
-            <?php else: ?>
-                <p>No sites found.</p>
-            <?php endif; ?>
-        </div>
+        <?php else: ?>
+            <p>No sites found.</p>
+        <?php endif; ?>
     </div>
-
 
 <?php Section::stop(); ?>

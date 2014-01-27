@@ -43,7 +43,7 @@
       <i class="icon-edit icon-white"></i> Edit Test
     </a>
 
-    <a href="<?php echo URL::to_route('test_delete', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="DELETE" class="btn btn-danger">
+    <a href="<?php echo URL::to_route('test_delete', array($test->id)); ?>" data-token="<?php echo Session::token(); ?>" data-method="DELETE" class="btn btn-danger" data-confirm="Are you sure you to delete this site? This action is irreversible.">
       <i class="icon-remove icon-white"></i> Delete Test
     </a>
   </p>

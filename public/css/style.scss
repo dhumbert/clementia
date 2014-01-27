@@ -129,23 +129,23 @@ body.fullpage {
     padding-right: 0;
 }
 
-.test-list {
-    .test-list-item {
+.bubble-list {
+    .bubble-list-item {
         margin-bottom: 1.5em;
 
         &.test-failing {
-            .test-list-item-inner {
+            .bubble-list-item-inner {
                 @extend .btn-danger;
             }
         }
 
         &.test-passing {
-            .test-list-item-inner {
+            .bubble-list-item-inner {
                 @extend .btn-success;
             }
         }
 
-        .test-list-item-inner {
+        .bubble-list-item-inner {
             @extend .btn;
             display: block;
             text-align: left;

@@ -29,7 +29,7 @@
         <img src="<?php echo URL::to_asset('img/ajax-loader.gif'); ?>" />
     </div>
 
-    <div class="test-list" id="test-list"></div>
+    <div class="bubble-list" id="test-list"></div>
 
 <?php Section::stop(); ?>
 
