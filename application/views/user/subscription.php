@@ -1,13 +1,12 @@
 <?php Section::start('content'); ?>
-    <div class="row">
-        <h1 class="span7 offset3">Choose Your Subscription Level</h1>
-    </div>
     <form method="post" id="subscribeForm">
         <?php echo Form::token(); ?>
         <input type="hidden" name="stripeToken" id="stripeToken">
         <input type="hidden" name="subscription" id="subscription">
 
         <div class="row subscription-comparison">
+            <h1>Choose Your Subscription Level</h1>
+            
             <?php foreach ($roles as $role): ?>
                 <div class="subscription span4 subscription-<?php echo strtolower($role->name); ?>">
                     <div class="subscription-header">

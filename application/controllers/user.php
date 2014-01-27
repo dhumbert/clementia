@@ -77,6 +77,7 @@ class User_Controller extends Base_Controller
 
     public function get_forgot_password()
     {
+        $this->switch_layout('layouts.fullpage');
         $this->layout->nest('content', 'user.forgot_password');
     }
 

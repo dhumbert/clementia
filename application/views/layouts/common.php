@@ -82,6 +82,16 @@
     <?php echo Section::yield('content'); ?>
   </div>
 
+  <div class="container" id="footer">
+      <ul class="inline">
+          <li class="muted">Copyright &copy; 2014</li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Contact Us</a></li>
+      </ul>
+  </div>
+
   <script>
       var dojoConfig = {
           async: 1,
