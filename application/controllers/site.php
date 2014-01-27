@@ -10,11 +10,13 @@ class Site_Controller extends Base_Controller
         $sites = Auth::user()->sites()->get();
 
         $allowed_tests = Auth::user()->allowed_tests() ?: '&infin;';
+        $allowed_sites = Auth::user()->allowed_sites() ?: NULL;
 
         $this->layout->nest('content', 'site.list', array(
             'user_can_create_more_sites' => !Auth::user()->has_reached_site_limit(),
             'sites' => $sites,
             'allowed_tests' => $allowed_tests,
+            'allowed_sites' => $allowed_sites,
         ));
     }
 

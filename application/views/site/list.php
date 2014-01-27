@@ -6,11 +6,19 @@
                 <a class="btn btn-info" href="<?php echo URL::to('site/create'); ?>">
                     <i class="icon-plus icon-white"></i> New Site</a>
             </div>
+            <?php if ($allowed_sites): ?>
+                <div class="span8 pull-right text-right">
+                    You have created <strong><?php echo count($sites); ?></strong>
+                    of your <strong><?php echo $allowed_sites; ?></strong> allowed sites.
+
+                    Need more? <?php echo HTML::link_to_route('subscription', 'Upgrade your account'); ?>.
+                </div>
+            <?php endif; ?>
         <?php else: ?>
             <div class="span12">
                 <div class="alert alert-warning">
                     You have reached the maximum amount of sites you are allowed. If you'd like to add more,
-                    you will need to delete some of the ones below, or upgrade. <!-- todo: upgrade link -->
+                    you will need to delete some of the ones below, or <?php echo HTML::link_to_route('subscription', 'upgrade your account'); ?>.
                 </div>
             </div>
         <?php endif; ?>
