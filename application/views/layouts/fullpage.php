@@ -12,6 +12,7 @@
 
 <div class="container brand-container">
     <a href="<?php echo URL::to_route('home'); ?>"><strong>Zaf</strong>Box</a>
+    <div class="slogan">Automated testing, decoded.</div>
 </div>
 
 <div class="container" id="content">

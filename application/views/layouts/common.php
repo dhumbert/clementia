@@ -12,11 +12,7 @@
   <div class="navbar navbar-static-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container">
-        <a class="brand" href="<?php echo URL::to_route('home'); ?>"><strong>Zaf</strong>Box</a>
-        <ul class="nav">
-        </ul>
 
-        
         <ul class="nav pull-right">
           <?php if (Auth::check()): ?>
             <?php if (Auth::check('Administrator')): ?>
@@ -31,6 +27,10 @@
             <li><?php echo HTML::link_to_route('login', 'Log In'); ?></li>
           <?php endif; ?>
         </ul>
+
+        <a class="brand" href="<?php echo URL::to_route('home'); ?>"><strong>Zaf</strong>Box</a>
+        <div class="slogan span3 pull-left">Automated testing, decoded.</div>
+
       </div>
     </div>
   </div>

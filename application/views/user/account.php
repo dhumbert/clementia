@@ -24,9 +24,9 @@
             <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>
             <?php echo Form::email('email', Input::old('email', Auth::user()->email), array('class' => 'span4')); ?>
             <?php echo Form::label('password', 'Password', array('class' => 'control-label')); ?>
-            <?php echo Form::password('password', array('class' => 'span4')); ?>
+            <?php echo Form::password('password', array('class' => 'span4', 'autocomplete' => 'off')); ?>
             <?php echo Form::label('password_confirmation', 'Confirm Password', array('class' => 'control-label')); ?>
-            <?php echo Form::password('password_confirmation', array('class' => 'span4')); ?>
+            <?php echo Form::password('password_confirmation', array('class' => 'span4', 'autocomplete' => 'off')); ?>
             <span class="help-block">Leave the password fields blank to keep your current password.</span>
 
             <button type="submit" class="btn btn-primary">Save</button>

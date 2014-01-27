@@ -65,11 +65,16 @@ $blue_lighter: #195f91;
             padding-top: 0.5em;
             font-size: 3em;
         }
+        .slogan {
+            color: #fff;
+            clear: left;
+            margin-left: 0;
+        }
         .nav {
             li {
                 a {   
-                    padding-top: 1.5em;
-                    padding-bottom: 1.5em;
+                    padding-top: 2.5em;
+                    padding-bottom: 2.5em;
 
                     &:hover {
                         background: $blue_lighter;
@@ -99,6 +104,10 @@ body.fullpage {
                 text-decoration: none;
 
             }
+        }
+
+        .slogan {
+            color: $blue_light;
         }
     }
 }
