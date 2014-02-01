@@ -64,6 +64,10 @@ $blue_lighter: #195f91;
         .brand {
             padding-top: 0.5em;
             font-size: 3em;
+
+            strong {
+              font-weight: 800;
+            }
         }
         .slogan {
             color: #fff;
@@ -161,7 +165,7 @@ body.fullpage {
             border: 1px solid #ccc;
             padding: 1em 2.5em;
             border-radius: 0.5em;
-d
+
             h4 {
                 margin: 0;
             }

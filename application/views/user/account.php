@@ -1,7 +1,7 @@
 <?php Section::start('content'); ?>
     <div class="row">
         <div class="span6 offset3 login-form">
-            <h1>Account</h1>
+            <h1>Your Account</h1>
             <?php echo Form::open('user/index', 'PUT'); ?>
             <?php echo Form::token(); ?>
 
@@ -15,11 +15,13 @@
                 </div>
             <?php endif; ?>
 
-            <p>Account type: <strong><?php echo $user->role->name; ?></strong></p>
+            <p>Account type: <strong><?php echo $user->role->name; ?></strong> <?php echo HTML::link_to_route('subscription', '[change]'); ?></p>
 
-            <p>$<?php echo $user->role->price; ?> per month on your <?php echo $user->card_type; ?> card ending in <?php echo $user->card_last_4; ?></p>
+            <?php if ($user->role->price > 0): ?>
+                <p>$<?php echo $user->role->price; ?> per month on your <?php echo $user->card_type; ?> card ending in <?php echo $user->card_last_4; ?></p>
+            <?php endif; ?>
 
-            <?php echo HTML::link_to_route('subscription', 'Change Subscription'); ?>
+            
 
             <?php echo Form::label('email', 'Email Address', array('class' => 'control-label')); ?>
             <?php echo Form::email('email', Input::old('email', Auth::user()->email), array('class' => 'span4')); ?>
