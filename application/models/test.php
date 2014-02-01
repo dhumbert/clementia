@@ -214,6 +214,9 @@ class Test extends Aware
                     $details[] = 'Case insensitive';
                 }
                 break;
+            case ZafBox\Tester::TYPE_RESPONDS:
+                $description = 'Test that the page is active and responds to requests';
+                break;
         }
 
         return array('description' => $description, 'details' => $details);
