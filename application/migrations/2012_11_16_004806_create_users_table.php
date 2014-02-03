@@ -10,6 +10,7 @@ class Create_Users_Table {
 	public function up()
 	{
 		Schema::create('users', function($table) {
+            $table->engine = 'InnoDB';
 			// auto incremental id (PK)
 			$table->increments('id');
 			$table->string('email', 320);
