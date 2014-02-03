@@ -24,6 +24,7 @@
 $environments = array(
 
 	'local' => array('http://localhost*', '*.dev', '*.local'),
+    'prod' => array('https://zafbox.com'),
 
 );
 
