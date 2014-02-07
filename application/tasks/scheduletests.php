@@ -12,7 +12,7 @@ class ScheduleTests_Task
         $tests = Test::get_scheduled_tests();
         foreach ($tests as $test) {
             IoC::resolve('queue')->push_scheduled_test($test);
-            print "Scheduling test " . $test->id . "\n";
+            print date("Y-m-d H:i:s") . " | Scheduling test " . $test->id . "\n";
         }
     }    
 }
