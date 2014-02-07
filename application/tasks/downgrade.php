@@ -9,6 +9,7 @@ class Downgrade_Task
 
     public function run($arguments)
     {
+        print date("Y-m-d H:i:s") . " | Running downgrade\n";
         $users = User::where('downgrade_date', '<=', date('Y-m-d'))->get();
         if ($users) {
             foreach ($users as $user) {
@@ -24,13 +25,13 @@ class Downgrade_Task
                     $user->downgrade_date = null;
                     $user->downgrade_role_id = null;
                     $user->save();
-                    printf("Downgraded user %d to %s", $user->id, $role->name);
+                    printf("%s | Downgraded user %d to %s\n", date("Y-m-d H:i:s"), $user->id, $role->name);
                 } catch (Exception $e) {
-                    printf("Error downgrading user %d: %s\n", $user->id, $e->getMessage());
+                    printf("%s | Error downgrading user %d: %s\n", date("Y-m-d H:i:s"), $user->id, $e->getMessage());
                 }
             }
         } else {
-            print "No users to downgrade";
+            print date("Y-m-d H:i:s") . " | No users to downgrade\n";
         }
     }    
 }
