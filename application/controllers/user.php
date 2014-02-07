@@ -40,7 +40,10 @@ class User_Controller extends Base_Controller
             return Redirect::to_route('user_account')->with('error', $validation->errors->all());
         } else {
             $user->email = Input::get('email');
-            if ($update_password) $user->password = Input::get('password');
+            if ($update_password) {
+                $user->password = Input::get('password');
+                $user->password_confirmation = Input::get('password_confirmation');
+            }
 
             if ($user->save()) {
                 return Redirect::to_route('user_account')->with('success', 'Account updated');
